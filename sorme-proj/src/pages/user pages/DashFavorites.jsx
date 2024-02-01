@@ -1,0 +1,56 @@
+import favpic1 from "../../images/favpic1.png";
+import dislike from "../../images/dislike.png";
+import view from "../../images/view.png";
+
+function DashFavorites() {
+  return (
+    <div className="grid grid-cols-2 gap-x-5 gap-y-5">
+      <div className="flex gap-5  items-center h-44 bg-pink-300 bg-opacity-20 rounded-3xl">
+        <img src={favpic1} className="rounded-3xl h-32 ml-6" />
+        <p className="w-32">
+          Estee Lauder double 
+          wear powder cream{" "}
+        </p>
+        <div className="flex flex-col mr-3 gap-14">
+          <img src={dislike} className="bg-white h-12 p-2 rounded-xl"/>
+          <img src={view} className="bg-white h-12 p-2 rounded-xl"/>
+        </div>
+      </div>
+      <div className="flex gap-5  items-center h-44 bg-pink-300 bg-opacity-20 rounded-3xl">
+        <img src={favpic1} className="rounded-3xl h-32 ml-6" />
+        <p className="w-32">
+          Estee Lauder double 
+          wear powder cream{" "}
+        </p>
+        <div className="flex flex-col mr-3 gap-14">
+          <img src={dislike} className="bg-white h-12 p-2 rounded-xl"/>
+          <img src={view} className="bg-white h-12 p-2 rounded-xl"/>
+        </div>
+      </div>
+      <div className="flex gap-5  items-center h-44 bg-pink-300 bg-opacity-20 rounded-3xl">
+        <img src={favpic1} className="rounded-3xl h-32 ml-6" />
+        <p className="w-32">
+          Estee Lauder double 
+          wear powder cream{" "}
+        </p>
+        <div className="flex flex-col mr-3 gap-14">
+          <img src={dislike} className="bg-white h-12 p-2 rounded-xl"/>
+          <img src={view} className="bg-white h-12 p-2 rounded-xl"/>
+        </div>
+      </div>
+      <div className="flex gap-5  items-center h-44 bg-pink-300 bg-opacity-20 rounded-3xl">
+        <img src={favpic1} className="rounded-3xl h-32 ml-6" />
+        <p className="w-32">
+          Estee Lauder double 
+          wear powder cream{" "}
+        </p>
+        <div className="flex flex-col mr-3 gap-14">
+          <img src={dislike} className="bg-white h-12 p-2 rounded-xl"/>
+          <img src={view} className="bg-white h-12 p-2 rounded-xl"/>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default DashFavorites;
