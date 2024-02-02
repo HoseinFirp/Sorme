@@ -11,6 +11,15 @@ import DashNavbar from "./pages/DashNavbar";
 import DashOrders from "./pages/user pages/DashOrders";
 import DashFavorites from "./pages/user pages/DashFavorites";
 import DashWallet from "./pages/user pages/DashWallet";
+import DashSupport from "./pages/user pages/DashSupport";
+import DashSettings from "./pages/user pages/DashSettings";
+import DashUser from "./pages/user pages/DashUser";
+import DashSeller from "./pages/user pages/DashSeller";
+import DashFinancial from "./pages/user pages/DashFinancial";
+import DashProduct from "./pages/user pages/DashProduct";
+import SignInComp from "./pages/SignIn & Login/SignInComp";
+import SignUpComp from "./pages/SignIn & Login/SignUpComp";
+import ForgotComp from "./pages/SignIn & Login/ForgotComp";
 
 function AppLayOut() {
   return (
@@ -47,7 +56,16 @@ function App() {
             <Route path="/dashboard-panel/orders" element={<DashOrders />} />
             <Route path="/dashboard-panel/favorites" element={<DashFavorites />} />
             <Route path="/dashboard-panel/wallet" element={<DashWallet />} />
+            <Route path="/dashboard-panel/support" element={<DashSupport />} />
+            <Route path="/dashboard-panel/settings" element={<DashSettings />} />
+            <Route path="/dashboard-panel/user" element={<DashUser />} />
+            <Route path="/dashboard-panel/seller" element={<DashSeller />} />
+            <Route path="/dashboard-panel/financial" element={<DashFinancial />} />
+            <Route path="/dashboard-panel/product" element={<DashProduct />} />
           </Route>
+          <Route path="/signin" element={<SignInComp/>}/>
+          <Route path="/signup" element={<SignUpComp/>}/>
+          <Route path="/forgotpassword" element={<ForgotComp/>}/>
       </Routes>
     </BrowserRouter>
   );

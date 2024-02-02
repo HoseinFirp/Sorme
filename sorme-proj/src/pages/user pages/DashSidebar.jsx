@@ -7,6 +7,7 @@ import wallet from "../../images/wallet.png";
 import support from "../../images/support.png";
 import settings from "../../images/setting.png";
 import pinkObj from "../../images/pinkObj.png";
+import userPic from "../../images/userPic.png";
 
 function DashSidebar() {
   return (
@@ -50,6 +51,16 @@ function DashSidebar() {
               <p className="text-pink-300 font-bold">Dashboard</p>
             </div>
           </li>
+          {/* for Manager */}
+          {/* <li className="w-58">
+            <div className="flex gap-5 ml-0 py-0 pl-0">
+              <div className="w-12">
+                <img src={pinkObj} className="h-12" />
+              </div>
+              <img src={userPic} className="w-8" />{" "}
+              <p className="text-gray-700 font-bold">User</p>
+            </div>
+          </li> */}
           <li className="w-58">
             <div className="flex gap-5 ml-0 pl-0">
               <div className="w-12">

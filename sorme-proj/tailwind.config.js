@@ -13,6 +13,7 @@ export default {
         "custom-bg-pink": "#F29AA7",
         "custom-bg-footer":"#F9D6DC",
         "custom-bg-icons":"#FFEFEF",
+        "custom-bg-signin":"#F5B1C1",
       },
       textColor: {
         "custom-white": "#F4F4F2",
