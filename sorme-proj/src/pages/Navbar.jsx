@@ -14,7 +14,7 @@ import { HiMiniMagnifyingGlass } from "react-icons/hi2";
 
 function Navbar() {
   return (
-    <div className="relative bg-white pb-1">
+    <div className="z-50 bg-white fixed pb-1">
       <img src={NavbarPic} className="h-10 z-0 w-full" />
       <div className="absolute flex   justify-between  w-full  top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <p className="text-custom-green text-lg ml-64 font-bold ">

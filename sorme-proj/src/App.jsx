@@ -20,7 +20,8 @@ import DashProduct from "./pages/user pages/DashProduct";
 import SignInComp from "./pages/SignIn & Login/SignInComp";
 import SignUpComp from "./pages/SignIn & Login/SignUpComp";
 import ForgotComp from "./pages/SignIn & Login/ForgotComp";
-import CodeInput from "./pages/SignIn & Login/EnterCode";
+import EnterCode from "./pages/SignIn & Login/EnterCode";
+import NewPassComp from "./pages/SignIn & Login/NewPassComp";
 
 function AppLayOut() {
   return (
@@ -67,7 +68,8 @@ function App() {
           <Route path="/signin" element={<SignInComp/>}/>
           <Route path="/signup" element={<SignUpComp/>}/>
           <Route path="/forgotpassword" element={<ForgotComp/>}/>
-          <Route path="/entercode" element={<CodeInput/>}/>
+          <Route path="/forgotpassword/newpassword" element={<NewPassComp/>}/>
+          <Route path="/forgotpassword/entercode" element={<EnterCode/>}/>
       </Routes>
     </BrowserRouter>
   );

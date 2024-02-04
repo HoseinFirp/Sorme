@@ -3,7 +3,7 @@ import sormenew from "../../images/sormenew.png";
 
 function ForgotComp() {
   return (
-    <div className="h-screen flex items-center justify-center bg-white">
+    <div className="h-screen flex items-center justify-center bg-pink-100">
       <form>
         <div className="flex glass flex-col rounded-2xl bg-pink-500 gap-3 items-center ">
           <div className="flex items-center mt-5 gap-10 justify-between">

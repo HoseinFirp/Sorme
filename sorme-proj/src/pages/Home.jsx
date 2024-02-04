@@ -94,7 +94,7 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="mt-16 flex justify-between">
+      <div className="mt-16 flex gap-5 justify-between">
         <div className="flex gap-3">
           <div className="border border-gray-400 rounded-3xl flex items-center justify-center w-18 h-18">
             <img src={refund1} className="w-16 p-2" />
@@ -132,7 +132,7 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="flex mt-20 gap-5">
+      <div className="flex mt-20 gap-20 items-center">
         <div id="1" className="flex basis-1/2 flex-col gap-5">
           <div className="flex flex-col gap-3">
             <p className="text-black font-bold text-3xl">Contact support</p>
