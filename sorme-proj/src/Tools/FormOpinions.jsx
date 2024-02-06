@@ -44,7 +44,7 @@ function FormOpinions() {
                 </label>
               </div>
 
-              <button className="bg-custom-bg-pink justify-self-center font-bold text-xl col-span-2 text-custom-white w-28 p-7 pt-0 pb-1 rounded-xl">
+              <button className="bg-custom-bg-pink hover:bg-pink-500 transition duration-300 justify-self-center font-bold text-xl col-span-2 text-custom-white w-28 p-7 pt-0 pb-1 rounded-xl">
                 Send
               </button>
             </form>

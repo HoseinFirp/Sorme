@@ -17,7 +17,7 @@ function TableWallet() {
             <th className="font-bold text-pink-300">1</th>
             <td className="text-gray-500 font-bold">Cy Ganderton</td>
             <td className="text-gray-500 font-bold">
-              Quality Control Specialist
+              2024/02/05
             </td>
 
             <td className="text-gray-700 font-extrabold">60 $</td>
@@ -27,7 +27,7 @@ function TableWallet() {
             <th className="font-bold text-pink-300">2</th>
             <td className="text-gray-500 font-bold">Hart Hagerty</td>
             <td className="text-gray-500 font-bold">
-              Desktop Support Technician
+              2022/04/02
             </td>
             <td className="text-gray-700 font-extrabold">60 $</td>
           </tr>
@@ -35,7 +35,9 @@ function TableWallet() {
           <tr>
             <th className="font-bold text-pink-300">3</th>
             <td className="text-gray-500 font-bold">Brice Swyre</td>
-            <td className="text-gray-500 font-bold">Tax Accountant</td>
+            <td className="text-gray-500 font-bold">
+              2020/09/02
+            </td>
             <td className="text-gray-700 font-extrabold">60 $</td>
           </tr>
         </tbody>

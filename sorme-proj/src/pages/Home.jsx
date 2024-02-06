@@ -27,7 +27,7 @@ function Home() {
   return (
     <div className="bg-white  pt-5 pl-16 pr-16 pb-20">
       <Slider />
-      <div className="flex pt-10 justify-between">
+      <div className="grid sm:grid-cols-2 gap-y-10 md:grid-cols-2 lg:grid-cols-4 pt-10  justify-items-center">
         <img src={rimmel1} className="w-48" />
         <img src={rimmel2} className="w-48" />
         <img src={rimmel3} className="w-48" />
@@ -45,7 +45,7 @@ function Home() {
         <img src={topBrands} className="w-10" />
         <p className="text-black text-xl">Top Brands</p>
       </div>
-      <div className="flex justify-between mt-7">
+      <div className="grid sm:grid-cols-2 gap-x-2 gap-y-10 md:grid-cols-3 lg:grid-cols-7 pt-10  justify-items-center mt-7">
         <img src={brand1} className="w-36" />
         <img src={brand2} className="w-36" />
         <img src={brand3} className="w-36" />
@@ -54,8 +54,8 @@ function Home() {
         <img src={brand6} className="w-36" />
         <img src={brand7} className="w-36" />
       </div>
-      <div className="flex justify-between mt-5">
-        <div className="flex flex-col w-96 ">
+      <div className="grid md:grid-cols-2 gap-x-5 gap-y-10  lg:grid-cols-3 pt-10  justify-items-center mt-5">
+        <div className="flex flex-col w-full ">
           <img src={proddiv1} className=" mt-5 max-h mr-auto ml-auto" />
           <div className="flex flex-col border rounded-b-3xl p-5 gap-2">
             <p className="text-black font-medium">
@@ -68,7 +68,7 @@ function Home() {
           </div>
         </div>
 
-        <div className="flex flex-col w-96 ">
+        <div className="flex flex-col w-full ">
           <img src={proddiv2} className=" mt-5 max-h mr-auto ml-auto" />
           <div className="flex flex-col border rounded-b-3xl p-5 gap-2">
             <p className="text-black font-medium">
@@ -81,7 +81,7 @@ function Home() {
           </div>
         </div>
 
-        <div className="flex flex-col w-96">
+        <div className="flex flex-col w-full">
           <img src={proddiv3} className=" mt-5 max-h mr-auto ml-auto" />
           <div className="flex flex-col border rounded-b-3xl p-5 gap-2">
             <p className="text-black font-medium">
@@ -94,7 +94,7 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="mt-16 flex gap-5 justify-between">
+      <div className="mt-16 grid md:grid-cols-2 gap-x-5 gap-y-10  lg:grid-cols-4 pt-10  justify-items-start">
         <div className="flex gap-3">
           <div className="border border-gray-400 rounded-3xl flex items-center justify-center w-18 h-18">
             <img src={refund1} className="w-16 p-2" />
@@ -132,7 +132,7 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="flex mt-20 gap-20 items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 mt-20 gap-20 items-center">
         <div id="1" className="flex basis-1/2 flex-col gap-5">
           <div className="flex flex-col gap-3">
             <p className="text-black font-bold text-3xl">Contact support</p>

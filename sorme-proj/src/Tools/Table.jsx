@@ -1,6 +1,6 @@
 function Table() {
     return (
-        <div className="overflow-x-auto bg-pink-300 bg-opacity-20 scale-110 p-5 rounded-lg">
+        <div className="overflow-x-auto lg:scale-110 md:scale-75 scale-50 bg-pink-300 bg-opacity-20  p-5 rounded-lg">
   <table className="table">
     {/* head */}
     <thead>

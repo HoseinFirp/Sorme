@@ -7,22 +7,22 @@ import wallet from "../../images/wallet.png";
 import support from "../../images/support.png";
 import settings from "../../images/setting.png";
 import pinkObj from "../../images/pinkObj.png";
-import userPic from "../../images/userPic.png";
+// import userPic from "../../images/userPic.png";
 
 function DashSidebar() {
   return (
     <div className="drawer shadow-slate-300 shadow-inner bg-white lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col  items-center justify-center">
-        <label
+        {/* <label
           htmlFor="my-drawer-2"
           className="btn btn-primary drawer-button lg:hidden"
         >
           Open drawer
-        </label>
+        </label> */}
         <Outlet />
       </div>
-      <div className="drawer-side shadow-inner shadow-gray-300">
+      <div className="  shadow-inner shadow-gray-300">
         <label
           htmlFor="my-drawer-2"
           aria-label="close sidebar"

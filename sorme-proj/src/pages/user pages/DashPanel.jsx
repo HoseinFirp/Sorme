@@ -7,7 +7,7 @@ import support from "../../images/support.png";
 function DashPanel() {
 
   return (
-    <div className="grid  gap-x-20 gap-y-24 grid-cols-2">
+    <div className="grid  gap-x-20 gap-y-24 md:grid-cols-1 md:gap-y-16   md:my-20 lg:grid-cols-2">
       <div className="flex shadow-lg shadow-pink-300 justify-end border-2 border-pink-200 w-48 h-20 border-b-4 relative rounded-xl">
         <img  src={orders} className="absolute  -translate-x-40 -translate-y-1/2 -rotate-12"/>
         <div className="flex mr-4 gap-1 justify-center items-end flex-col">
