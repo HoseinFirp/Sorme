@@ -25,7 +25,7 @@ import FormOpinions from "../Tools/FormOpinions";
 
 function Home() {
   return (
-    <div className="bg-white  pt-5 pl-16 pr-16 pb-20">
+    <div className="bg-white pt-20 lg:pt-5 pl-16 pr-16 pb-20">
       <Slider />
       <div className="grid sm:grid-cols-2 gap-y-10 md:grid-cols-2 lg:grid-cols-4 pt-10  justify-items-center">
         <img src={rimmel1} className="w-48" />

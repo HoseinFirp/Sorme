@@ -1,15 +1,15 @@
 function DashProduct() {
   return (
-    <div className="flex gap-5 flex-col">
+    <div className="flex gap-8 mx-10 flex-col">
       <div className="flex items-center">
-        <p className="text-gray-600 px-3 w-44">Product Photo : </p>
+        <p className="text-gray-600 px-3 min-w-44">Product Photo  </p>
         <input
           type="file"
           className="file-input file-input-bordered file-input-secondary w-full max-w-xs bg-pink-100"
         />
       </div>
       <div className="flex items-center">
-        <p className="text-gray-600 px-3 w-56">Product Name : </p>
+        <p className="text-gray-600 px-3 min-w-40">Product Name  </p>
         <input
           type="text"
           id="floating_outlined"
@@ -18,7 +18,7 @@ function DashProduct() {
         />
       </div>
       <div className="flex items-center">
-        <p className="text-gray-600 px-3 w-56">About Product : </p>
+        <p className="text-gray-600 px-3 min-w-40">About Product  </p>
         <input
           type="text"
           id="floating_outlined"
@@ -27,7 +27,7 @@ function DashProduct() {
         />
       </div>
       <div className="flex items-center">
-        <p className="text-gray-600 px-3 w-56">Price Product : </p>
+        <p className="text-gray-600 px-3 min-w-40">Price Product  </p>
         <input
           type="text"
           id="floating_outlined"
@@ -36,7 +36,7 @@ function DashProduct() {
         />
       </div>
       <div className="flex items-center">
-        <p className="text-gray-600 px-3 w-56">Product Discount : </p>
+        <p className="text-gray-600 px-3 min-w-40">Product Discount  </p>
         <input
           type="text"
           id="floating_outlined"
@@ -45,7 +45,7 @@ function DashProduct() {
         />
       </div>
       <div className="flex items-center">
-        <p className="text-gray-600 px-3 w-56">Product Brand : </p>
+        <p className="text-gray-600 px-3 min-w-40">Product Brand  </p>
         <input
           type="text"
           id="floating_outlined"

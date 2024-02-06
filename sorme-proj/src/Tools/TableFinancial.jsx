@@ -1,6 +1,6 @@
 function TableFinancial() {
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col scale-75 lg:scale-110 xl:scale-125">
       <div className="overflow-x-auto">
         <div className="p-1.5 w-full inline-block  align-middle">
           <div className="overflow-hidden border bg-pink-100 bg-opacity-70 rounded-lg">
@@ -15,7 +15,7 @@ function TableFinancial() {
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                    className="px-6 py-3 min-w-32 text-xs font-bold text-left text-gray-500 uppercase "
                   >
                     User Name
                   </th>
