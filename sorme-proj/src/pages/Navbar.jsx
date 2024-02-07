@@ -20,7 +20,7 @@ function Navbar() {
         <p className="text-custom-green min-w-32 text-lg ml-32 sm:ml-36 md:ml-52 lg:ml-56 xl:ml-64 font-bold ">
           70$ Off + Gift{" "}
         </p>
-        <button className="bg-custom-cream min-w-40 mr-36 sm:mr-48 md:mr-60 lg:mr-64 xl:mr-80 hover:bg-amber-700 transition duration-300  text-custom-white rounded-md text-lg p-4 font-bold  pt-0 pb-0">
+        <button className="bg-custom-cream min-w-40 mr-36 sm:mr-48 md:mr-60 lg:mr-64 xl:mr-80 hover:bg-amber-700 active:bg-amber-800 transition duration-300  text-custom-white rounded-md text-lg p-4 font-bold  pt-0 pb-0">
           Register Now
         </button>
       </div>
@@ -54,7 +54,7 @@ function Navbar() {
             <span className="indicator-item badge badge-secondary w-1 font-bold text-white">
               0
             </span>
-            <button className="flex gap-1 text-xs min-w-7 bg-custom-bg-1 transition duration-300 hover:bg-gray-300 rounded-md border-black p-1  font-bold items-center">
+            <button className="flex gap-1 text-xs min-w-7 bg-custom-bg-1 transition duration-300 hover:bg-gray-300 active:bg-gray-400 rounded-md border-black p-1  font-bold items-center">
               <img src={iconCart} className="w-5" />
             </button>
           </div>

@@ -69,7 +69,7 @@ function App() {
           <Route path="/signup" element={<SignUpComp/>}/>
           <Route path="/forgotpassword" element={<ForgotComp/>}/>
           <Route path="/forgotpassword/newpassword" element={<NewPassComp/>}/>
-          <Route path="/forgotpassword/entercode" element={<EnterCode/>}/>
+          <Route path="/entercode" element={<EnterCode/>}/>
       </Routes>
     </BrowserRouter>
   );
