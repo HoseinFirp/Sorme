@@ -7,6 +7,11 @@ import { useSelector } from "react-redux";
 const initialState = {
   username: "",
   token: "",
+  email: "",
+  position: "",
+  _id: "",
+  avatar: [],
+  support: [],
   data: {},
 };
 
@@ -44,7 +49,19 @@ const userSlice = createSlice({
     updateToken(state, action) {
       state.token = action.payload;
     },
+    updateEmail(state, action) {
+      state.token = action.payload;
+    },
     updateData(state, action) {
+      state.data = action.payload;
+    },
+    updateSupport(state, action) {
+      state.data = action.payload;
+    },
+    updatePosition(state, action) {
+      state.data = action.payload;
+    },
+    updateId(state, action) {
       state.data = action.payload;
     },
     // deleteItem(state, action) {
@@ -53,10 +70,17 @@ const userSlice = createSlice({
   },
 });
 
-export const { updateName, updateToken, updateData, deleteItem } =
-  userSlice.actions;
-  export const useUser = () => useSelector((state) => state.user);
-  
-  export default userSlice.reducer;
-  
-  // export { fetchDeleteItem };
+export const {
+  updateName,
+  updateToken,
+  updateSupport,
+  updateData,
+  updateEmail,
+  updatePosition,
+  updateId,
+} = userSlice.actions;
+export const useUser = () => useSelector((state) => state.user);
+
+export default userSlice.reducer;
+
+// export { fetchDeleteItem };

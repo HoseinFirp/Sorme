@@ -11,8 +11,10 @@ import rightArrow from "../images/rightArrow.png";
 import iconCart from "../images/iconCart.png";
 import signInPic from "../images/signInPic.png";
 import { HiMiniMagnifyingGlass } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
+  const navigate = useNavigate();
   return (
     <div className="z-50 w-full bg-white fixed pb-1">
       <img src={NavbarPic} className="h-10 z-0 w-full" />
@@ -44,8 +46,11 @@ function Navbar() {
             <img src={seller} className="w-5" />
           </button>
           <p className="text-2xl -mt-2">|</p>
-          <button className="flex min-w-32 gap-1 text-xs hover:text-pink-700  active:bg-pink-100 text-black border rounded-md border-black p-1 font-bold  items-center">
-            Sign In / SingUp
+          <button
+            onClick={() => navigate("/signup")}
+            className="flex min-w-32 gap-1 text-xs hover:text-pink-700  active:bg-pink-100 text-black border rounded-md border-black p-1 font-bold  items-center"
+          >
+            SignIn / SingUp
             <img src={signInPic} className="w-5" />
           </button>
           <p className="text-2xl -mt-2">|</p>
@@ -61,9 +66,8 @@ function Navbar() {
         </div>
       </div>
       <div className="flex gap-5  justify-between items-center mr-16 ml-12  mb-5">
-        
-        <div  className=" mt-3 ml-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 justify-items-center md:justify-items-center auto-cols-max items-center  gap-3">
-        <div className="dropdown md:hidden dropdown-bottom">
+        <div className=" mt-3 ml-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 justify-items-center md:justify-items-center auto-cols-max items-center  gap-3">
+          <div className="dropdown md:hidden dropdown-bottom">
             <div tabIndex={0} role="button" className=" m-1 min-w-52">
               <button className="flex items-center min-w-52 text-sm   transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1  font-bold ">
                 Categories
@@ -75,36 +79,35 @@ function Navbar() {
               className=" dropdown-content  z-[1] menu p-2 shadow backdrop-blur-md bg-opacity-30 bg-pink-300 text-custom-gray rounded-box w-52 "
             >
               <li>
-              <button className="flex  w-fit  items-center text-sm hover:bg-pink-100 hover:border ml-2 hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap31">
-            <img src={flower} className="w-5" />
-            Brands
-          </button>
+                <button className="flex  w-fit  items-center text-sm hover:bg-pink-100 hover:border ml-2 hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap31">
+                  <img src={flower} className="w-5" />
+                  Brands
+                </button>
               </li>
               <li>
-              <button className="flex  w-fit items-center text-sm hover:bg-pink-100 hover:border ml-2 hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-3">
-            <img src={organization} className="w-5 " />
-            Organizational
-          </button>
+                <button className="flex  w-fit items-center text-sm hover:bg-pink-100 hover:border ml-2 hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-3">
+                  <img src={organization} className="w-5 " />
+                  Organizational
+                </button>
               </li>
               <li>
-              <button className="flex  w-fit items-center text-sm hover:bg-pink-100 hover:border ml-2 hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-3">
-            <img src={chatIcon} className="w-5 " />
-            Counseling
-          </button>
+                <button className="flex  w-fit items-center text-sm hover:bg-pink-100 hover:border ml-2 hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-3">
+                  <img src={chatIcon} className="w-5 " />
+                  Counseling
+                </button>
               </li>
               <li>
-              <button className="flex  w-fit items-center text-sm hover:bg-pink-100 hover:border ml-2 hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-3">
-            <img src={gift} className="w-5 " />
-            Gift Card
-          </button>
+                <button className="flex  w-fit items-center text-sm hover:bg-pink-100 hover:border ml-2 hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-3">
+                  <img src={gift} className="w-5 " />
+                  Gift Card
+                </button>
               </li>
               <li>
-              <button className="flex  w-fit items-center text-sm hover:bg-pink-100 hover:border ml-2 hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-3">
-            <img src={weblog} className="w-5 " />
-            Weblog
-          </button>
+                <button className="flex  w-fit items-center text-sm hover:bg-pink-100 hover:border ml-2 hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-3">
+                  <img src={weblog} className="w-5 " />
+                  Weblog
+                </button>
               </li>
-             
             </ul>
           </div>
           <div className="dropdown  dropdown-bottom">

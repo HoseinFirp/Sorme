@@ -22,6 +22,8 @@ import refund4 from "../images/refund4.png";
 import supportPic from "../images/supportPic.png";
 import MiniSlider from "../Tools/MiniSlider";
 import FormOpinions from "../Tools/FormOpinions";
+// import ErrorAlert from "../Tools/alerts/ErrorAlert";
+// import SuccessAlert from "../Tools/alerts/SuccessAlert";
 
 function Home() {
   return (
@@ -139,14 +141,13 @@ function Home() {
             <p className="text-black  ">Answer as soon as possible</p>
           </div>
           <div>
-            <FormOpinions/>
+            <FormOpinions />
           </div>
         </div>
         <div id="2" className="basis-1/2">
           <img src={supportPic} className="w-full" />
         </div>
       </div>
-      
     </div>
   );
 }

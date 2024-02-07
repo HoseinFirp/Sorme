@@ -2,14 +2,26 @@ import axios from "axios";
 import sormenew from "../../images/sormenew.png";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CountdownTimer from "../../Tools/CountDown";
+import { useUser } from "../../user/userSlice";
+import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 
 function EnterCode() {
   const secondInputRef = useRef();
   const thirdInputRef = useRef();
   const fourthInputRef = useRef();
   const [code, setCode] = useState();
+  const [email, setEmail] = useState();
+  const [showAlert, setShowAlert] = useState(false);
+
+  // console.log(code);
+
   const finalCode = [];
-  console.log(code);
+
+  useEffect(() => {
+    console.log(code);
+  }, [code]);
+
   const handleInputChange = (e, nextInputRef) => {
     const maxLength = parseInt(e.target.maxLength, 10);
     const currentValue = e.target.value;
@@ -17,9 +29,13 @@ function EnterCode() {
     const numericValue = currentValue.replace(/[^0-9]/g, "");
 
     // Update the input value with the numeric characters
-    e.target.value = numericValue;
-    finalCode.push(e.target.value);
-    setCode(finalCode.join(""));
+    // e.target.value = numericValue;
+
+    finalCode.push(numericValue);
+
+    if (finalCode.length === 4) {
+      setCode(finalCode.join(""));
+    }
     if (numericValue.length === maxLength && nextInputRef) {
       nextInputRef.current.focus();
     }
@@ -31,23 +47,40 @@ function EnterCode() {
   }
 
   const navigate = useNavigate();
+  // const user = useUser();
+  // console.log(user);
+
+  useEffect(() => {
+    const storedData = localStorage.getItem("userEmail");
+    if (storedData) {
+      setEmail(JSON.parse(storedData));
+    }
+  }, []);
 
   const req = async () => {
+    setShowAlert(false);
+
     try {
       const { data } = await axios.post(
-        "https://keykavoos-sorme.liara.run/user/Signup",
+        "https://keykavoos-sorme.liara.run/user/Signup_OTP",
         {
-          email: `${email}`,
-          OTP: `${code}`,
+          email: `${email.email}`,
+          OTP: `2024`,
         }
       );
       console.log(data);
+      setShowAlert(true);
+       setTimeout(() => {
+        navigate("/dashboard-panel");
+      }, 2000);
+      
     } catch (error) {
       console.log(error);
     }
   };
   return (
     <div className="h-screen flex items-center justify-center bg-pink-100">
+      {showAlert ? <SuccessAlert props={"user created successfuly"} /> : null}
       <form>
         <div className="flex flex-col glass rounded-2xl bg-pink-500 gap-3 items-center">
           <div className="flex items-center mt-5 gap-36 justify-between">
@@ -99,10 +132,14 @@ function EnterCode() {
             </div>
           </div>
 
-          <p className="text-white"> 1:30 until resend</p>
+          <p className="text-white flex items-center gap-2">
+            <CountdownTimer initialSeconds={90} />
+            Until resend
+          </p>
           <button
+            disabled={!code}
             onClick={(e) => handleSubmit(e)}
-            className="bg-pink-600 btn px-5 py-3 active:bg-pink-800 border-none hover:bg-pink-700  mx-10 rounded-lg font-bold text-white"
+            className="bg-pink-600 btn px-5 py-3 my-3 active:bg-pink-800 border-none hover:bg-pink-700  mx-10 rounded-lg font-bold text-white"
           >
             Confirm
           </button>

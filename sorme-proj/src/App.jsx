@@ -65,7 +65,7 @@ function App() {
             <Route path="/dashboard-panel/financial" element={<DashFinancial />} />
             <Route path="/dashboard-panel/product" element={<DashProduct />} />
           </Route>
-          <Route path="/signin" element={<SignInComp/>}/>
+          <Route path="/login" element={<SignInComp/>}/>
           <Route path="/signup" element={<SignUpComp/>}/>
           <Route path="/forgotpassword" element={<ForgotComp/>}/>
           <Route path="/forgotpassword/newpassword" element={<NewPassComp/>}/>
