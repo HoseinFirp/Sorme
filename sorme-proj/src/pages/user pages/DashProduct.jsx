@@ -12,7 +12,7 @@ function DashProduct() {
         <p className="text-gray-600 px-3 min-w-40">Product Name  </p>
         <input
           type="text"
-          id="floating_outlined"
+          id="floating_outlined1"
           className="block px-2.5 py-2  w-full text-sm border-2  text-pink-700 bg-pink-100 rounded-lg border-1 border-pink-200 appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
           placeholder=" "
         />
@@ -21,7 +21,7 @@ function DashProduct() {
         <p className="text-gray-600 px-3 min-w-40">About Product  </p>
         <input
           type="text"
-          id="floating_outlined"
+          id="floating_outlined1"
           className="block px-2.5 py-2  w-full text-sm border-2  text-pink-700 bg-pink-100 rounded-lg border-1 border-pink-200 appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
           placeholder=" "
         />
@@ -30,7 +30,7 @@ function DashProduct() {
         <p className="text-gray-600 px-3 min-w-40">Price Product  </p>
         <input
           type="text"
-          id="floating_outlined"
+          id="floating_outlined2"
           className="block px-2.5 py-2  w-full text-sm border-2  text-pink-700 bg-pink-100 rounded-lg border-1 border-pink-200 appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
           placeholder=" "
         />
@@ -39,7 +39,7 @@ function DashProduct() {
         <p className="text-gray-600 px-3 min-w-40">Product Discount  </p>
         <input
           type="text"
-          id="floating_outlined"
+          id="floating_outlined2"
           className="block px-2.5 py-2  w-full text-sm border-2  text-pink-700 bg-pink-100 rounded-lg border-1 border-pink-200 appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
           placeholder=" "
         />
@@ -48,7 +48,7 @@ function DashProduct() {
         <p className="text-gray-600 px-3 min-w-40">Product Brand  </p>
         <input
           type="text"
-          id="floating_outlined"
+          id="floating_outlined3"
           className="block px-2.5 py-2  w-full text-sm border-2  text-pink-700 bg-pink-100 rounded-lg border-1 border-pink-200 appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
           placeholder=" "
         />

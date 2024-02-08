@@ -3,19 +3,20 @@ import userWhitenew from "../../images/userWhitenew.png";
 import hidenew from "../../images/hidenew.png";
 import viewnew from "../../images/viewnew.png";
 import mail from "../../images/mail.png";
+import sellerWhite from "../../images/sellerWhite.png";
 import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import SuccessAlert from "../../Tools/alerts/SuccessAlert";
+import { useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+// import { useDispatch } from "react-redux";
+// import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 import ErrorAlert from "../../Tools/alerts/ErrorAlert";
-import { updateEmail } from "../../user/userSlice";
+import { UserContext } from "../../App";
 function SignInComp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [showPass, setShowPass] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
+  // const [showAlert, setShowAlert] = useState(false);
   const [showError, setShowError] = useState(false);
 
   const navigate = useNavigate();
@@ -27,16 +28,23 @@ function SignInComp() {
 
   function handleLogin(e) {
     e.preventDefault();
-    navigate("/login");
+    if (path === "user") {
+      navigate("/login");
+    }
+    if (path === "seller") {
+      navigate("/login-seller");
+    }
   }
   // const dispatch =useDispatch()
 
   const req = async () => {
     setShowError(false);
-    setShowAlert(false);
+    // setShowAlert(false);
     try {
       const { data } = await axios.post(
-        "https://keykavoos-sorme.liara.run/user/Signup",
+        `https://keykavoos-sorme.liara.run/${
+          path === "seller" ? "Seller" : "user"
+        }/Signup${path === "seller" ? "Seller" : ""}`,
         {
           username: `${username}`,
           password: `${password}`,
@@ -44,7 +52,7 @@ function SignInComp() {
         }
       );
       console.log(data);
-      setShowAlert(true);
+      // setShowAlert(true);
       const newEmail = { email: `${email}` };
       localStorage.setItem("userEmail", JSON.stringify(newEmail));
 
@@ -54,14 +62,34 @@ function SignInComp() {
       setShowError(error.response.data.messages);
     }
   };
+  const { path, setPath } = useContext(UserContext);
+
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname === "/signup-seller") {
+      setPath("seller");
+      localStorage.setItem("userPath", JSON.stringify("seller"));
+    } else if (location.pathname === "/Signup") {
+      setPath("user");
+      localStorage.setItem("userPath", JSON.stringify("user"));
+    }
+  }, [location.pathname, path, setPath]);
 
   return (
     <div className="h-screen flex items-center justify-center bg-pink-100">
       {showError ? <ErrorAlert props={`${showError}`} /> : null}
       <form>
         <div className="flex glass flex-col rounded-2xl bg-pink-500  gap-3 items-center ">
-          <div className="flex items-center mt-5 gap-36 justify-between">
-            <p className="text-white text-xl font-bold">Login</p>
+          {path === "seller" ? (
+            <div className="flex gap-2 mt-5 mr-9 self-end items-center">
+              <p className="text-white">Seller</p>
+              <img src={sellerWhite} className="h-7" />
+            </div>
+          ) : (
+            <div className="mt-5"></div>
+          )}
+          <div className="flex items-center gap-36 justify-between">
+            <p className="text-white text-xl font-bold">Signup</p>
             <img
               src={sormenew}
               onClick={() => navigate("/")}

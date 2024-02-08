@@ -12,9 +12,21 @@ import iconCart from "../images/iconCart.png";
 import signInPic from "../images/signInPic.png";
 import { HiMiniMagnifyingGlass } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../App";
 
 function Navbar() {
   const navigate = useNavigate();
+  const { setPath } = useContext(UserContext);
+  // useEffect(() => {
+  //   // Retrieve data from localStorage when component mounts
+  //   localStorage.setItem('userPath', JSON.stringify(path));
+  //   const storedData = localStorage.getItem('userPath');
+  //   if (storedData) {
+  //     setPath(JSON.parse(storedData));
+  //   }
+  // }, [setPath,path]);
+
   return (
     <div className="z-50 w-full bg-white fixed pb-1">
       <img src={NavbarPic} className="h-10 z-0 w-full" />
@@ -28,26 +40,40 @@ function Navbar() {
       </div>
       <div className="ml-10 mr-16 mt-3 flex justify-between flex-col gap-5 md:flex-row  items-center">
         <div className="flex w-full md:justify-start items-center justify-between ">
-          <img src={SormeLogo} className="scale-75" />
+          <img
+            src={SormeLogo}
+            onClick={() => navigate("/")}
+            className="cursor-pointer scale-75"
+          />
 
-          <form className="flex items-center  scale-75">
+          <div className="flex items-center  scale-75">
             <button className=" bg-custom-bg-pink hover:bg-pink-500 transition duration-300 active:bg-pink-600  w-7 h-7 items-center text-black rounded-md scale-125 justify-center flex">
               <HiMiniMagnifyingGlass />
             </button>
             <input
+              type="text"
               placeholder=" Product search ..."
               className="w-52 h-9 lg:w-64 -ml-2 p-2 pl-6 text-pink-600 font-semibold rounded-md  outline-none focus:bg-gray-200 transition duration-300 bg-custom-bg-1"
             />
-          </form>
+          </div>
         </div>
         <div className="flex gap-2 md:px-0 px-10 justify-between w-full md:w-min items-center ">
-          <button className="flex gap-1 min-w-16 text-xs hover:text-pink-700  active:bg-pink-100 text-black border rounded-md border-black p-1 font-bold  items-center">
+          <button
+            onClick={() => {
+              navigate("/signup-seller");
+              setPath("seller");
+            }}
+            className="flex gap-1 min-w-16 text-xs hover:text-pink-700  active:bg-pink-100 text-black border rounded-md border-black p-1 font-bold  items-center"
+          >
             Seller
             <img src={seller} className="w-5" />
           </button>
           <p className="text-2xl -mt-2">|</p>
           <button
-            onClick={() => navigate("/signup")}
+            onClick={() => {
+              navigate("/signup");
+              setPath("user");
+            }}
             className="flex min-w-32 gap-1 text-xs hover:text-pink-700  active:bg-pink-100 text-black border rounded-md border-black p-1 font-bold  items-center"
           >
             SignIn / SingUp

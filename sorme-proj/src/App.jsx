@@ -22,6 +22,19 @@ import SignUpComp from "./pages/SignIn & Login/SignUpComp";
 import ForgotComp from "./pages/SignIn & Login/ForgotComp";
 import EnterCode from "./pages/SignIn & Login/EnterCode";
 import NewPassComp from "./pages/SignIn & Login/NewPassComp";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import {
+  updateAvatar,
+  updateEmail,
+  updateId,
+  updateName,
+  updatePosition,
+  updateSupport,
+  updateToken,
+  useUser,
+} from "./user/userSlice";
+import { useDispatch } from "react-redux";
 
 function AppLayOut() {
   return (
@@ -35,43 +48,97 @@ function AppLayOut() {
 
 function DashboardLayout() {
   return (
-    <div >
-      <DashNavbar/>
+    <div>
+      <DashNavbar />
       {/* {user.token? */}
       <DashSidebar />
     </div>
   );
 }
+export const UserContext = React.createContext();
 
 function App() {
+  const [path, setPath] = useState();
+  const value = { path, setPath };
+  const user = useUser();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (path) {
+      localStorage.setItem("userPath", JSON.stringify(path));
+    }
+    const storedData = localStorage.getItem("userPath");
+    if (storedData) {
+      setPath(JSON.parse(storedData));
+    }
+  }, [path]);
+
+  useEffect(() => {
+    const req = async () => {
+      try {
+        const data = await axios.get(
+          "https://keykavoos-sorme.liara.run/user/get_Profile",
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+        dispatch(updateName(data.data.username));
+        dispatch(updateEmail(data.data.email));
+        dispatch(updateToken(data.data.token));
+        dispatch(updateSupport(data.data.support));
+        dispatch(updatePosition(data.data.position));
+        dispatch(updateAvatar(data.data.avatar));
+        dispatch(updateId(data.data._id));
+      } catch (error) {
+        // setIsLogin(false);
+        console.log(error.response.data);
+      }
+    };
+    req();
+  }, [user.token]);
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<AppLayOut />}>
-          <Route index element={<Home />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/shop/product" element={<Product />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Route>
+    <UserContext.Provider value={value}>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<AppLayOut />}>
+            <Route index element={<Home />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/shop/product" element={<Product />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Route>
           <Route element={<DashboardLayout />}>
             <Route path="/dashboard-panel" element={<DashPanel />} />
             <Route path="/dashboard-panel/orders" element={<DashOrders />} />
-            <Route path="/dashboard-panel/favorites" element={<DashFavorites />} />
+            <Route
+              path="/dashboard-panel/favorites"
+              element={<DashFavorites />}
+            />
             <Route path="/dashboard-panel/wallet" element={<DashWallet />} />
             <Route path="/dashboard-panel/support" element={<DashSupport />} />
-            <Route path="/dashboard-panel/settings" element={<DashSettings />} />
+            <Route
+              path="/dashboard-panel/settings"
+              element={<DashSettings />}
+            />
             <Route path="/dashboard-panel/user" element={<DashUser />} />
             <Route path="/dashboard-panel/seller" element={<DashSeller />} />
-            <Route path="/dashboard-panel/financial" element={<DashFinancial />} />
+            <Route
+              path="/dashboard-panel/financial"
+              element={<DashFinancial />}
+            />
             <Route path="/dashboard-panel/product" element={<DashProduct />} />
           </Route>
-          <Route path="/login" element={<SignInComp/>}/>
-          <Route path="/signup" element={<SignUpComp/>}/>
-          <Route path="/forgotpassword" element={<ForgotComp/>}/>
-          <Route path="/forgotpassword/newpassword" element={<NewPassComp/>}/>
-          <Route path="/entercode" element={<EnterCode/>}/>
-      </Routes>
-    </BrowserRouter>
+          <Route path="/login" element={<SignInComp />} />
+          <Route path="/login-seller" element={<SignInComp />} />
+          <Route path="/signup" element={<SignUpComp />} />
+          <Route path="/signup-seller" element={<SignUpComp />} />
+          <Route path="/forgotpassword" element={<ForgotComp />} />
+          <Route path="/forgotpassword/newpassword" element={<NewPassComp />} />
+          <Route path="/entercode" element={<EnterCode />} />
+        </Routes>
+      </BrowserRouter>
+    </UserContext.Provider>
   );
 }
 

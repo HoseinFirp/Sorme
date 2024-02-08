@@ -1,6 +1,3 @@
-// import axios from "axios";
-// import { Ren, ren } from "../pages/Report";
-// import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 
@@ -12,36 +9,13 @@ const initialState = {
   _id: "",
   avatar: [],
   support: [],
-  data: {},
+  data:{},
 };
 
-// const fetchDeleteItem = createAsyncThunk(
-//   "user/fetchDeleteItem",
-//   async (payload, { getState }) => {
-//     try {
-//       const response = await axios.delete(
-//         `https://appback.liara.run/user/DeleteList/${payload}`,
-
-//         { headers: { authorization: `Bearer ${getState().user.token}` } }
-//       );
-//       console.log(response);
-//     } catch (error) {
-//       console.error("Error fetching events:", error);
-//     }
-//   }
-// );
 
 const userSlice = createSlice({
   name: "user",
   initialState,
-  //   extraReducers: (builder) => {
-  //     builder.addCase(fetchDeleteItem.fulfilled, (state, action) => {
-  //       console.log("action:", action);
-  //       console.log("state:", state);
-  //       // state.data = state.data.filter((item) => item._id !== action.payload)
-  //     });
-  //   }
-  //   ,
   reducers: {
     updateName(state, action) {
       state.username = action.payload;
@@ -50,19 +24,22 @@ const userSlice = createSlice({
       state.token = action.payload;
     },
     updateEmail(state, action) {
-      state.token = action.payload;
+      state.email = action.payload;
+    },
+    updateSupport(state, action) {
+      state.support = action.payload;
+    },
+    updatePosition(state, action) {
+      state.position = action.payload;
+    },
+    updateId(state, action) {
+      state._id = action.payload;
     },
     updateData(state, action) {
       state.data = action.payload;
     },
-    updateSupport(state, action) {
-      state.data = action.payload;
-    },
-    updatePosition(state, action) {
-      state.data = action.payload;
-    },
-    updateId(state, action) {
-      state.data = action.payload;
+    updateAvatar(state, action) {
+      state.avatar = action.payload;
     },
     // deleteItem(state, action) {
     //   state.data = state.data.filter((item) => item._id !== action.payload);
@@ -72,12 +49,13 @@ const userSlice = createSlice({
 
 export const {
   updateName,
+  updateAvatar,
   updateToken,
   updateSupport,
-  updateData,
   updateEmail,
   updatePosition,
   updateId,
+  updateData,
 } = userSlice.actions;
 export const useUser = () => useSelector((state) => state.user);
 

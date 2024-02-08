@@ -2,8 +2,9 @@ import sormenew from "../../images/sormenew.png";
 import userWhitenew from "../../images/userWhitenew.png";
 import hidenew from "../../images/hidenew.png";
 import viewnew from "../../images/viewnew.png";
+import sellerWhite from "../../images/sellerWhite.png";
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import SuccessAlert from "../../Tools/alerts/SuccessAlert";
@@ -14,15 +15,19 @@ import {
   updateName,
   updatePosition,
   updateToken,
+  useUser,
 } from "../../user/userSlice";
+import { UserContext } from "../../App";
 
 function SignInComp() {
   const [showAlert, setShowAlert] = useState(false);
   const [showError, setShowError] = useState(false);
   const [showPass, setShowPass] = useState(false);
-
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-
+  const user =useUser()
+  
   function handleGoCreate(e) {
     e.preventDefault();
     navigate("/signup");
@@ -43,19 +48,24 @@ function SignInComp() {
     setShowAlert(false);
     try {
       const { data } = await axios.post(
-        "https://keykavoos-sorme.liara.run/user/login",
+        `https://keykavoos-sorme.liara.run/${
+          path === "seller" ? "Seller" : "user"
+        }/login${
+          path === "seller" ? "Seller" : ""
+        }`,
         {
-          username: `ahmad1`,
-          password: `Mm123456`,
+          username: `${username}`,
+          password: `${password}`,
         }
       );
+
       console.log(data);
       setShowAlert(true);
-      dispatch(updateName(data.username));
+      // dispatch(updateName(data.username));
       dispatch(updateToken(data.token));
-      dispatch(updateEmail(data.email));
-      dispatch(updatePosition(data.position));
-      dispatch(updateId(data._id));
+      // dispatch(updateEmail(data.email));
+      // dispatch(updatePosition(data.position));
+      // dispatch(updateId(data._id));
 
       setTimeout(() => {
         navigate("/dashboard-panel");
@@ -65,15 +75,29 @@ function SignInComp() {
       setShowError(error.response.data.messages);
     }
   };
+  const { path } = useContext(UserContext);
+
   return (
     <div className="h-screen  flex items-center justify-center bg-pink-100">
       {showAlert ? <SuccessAlert props={"Welcome to SORME !"} /> : null}
       {showError ? <ErrorAlert props={`${showError}`} /> : null}
       <form>
         <div className="flex glass flex-col rounded-2xl bg-pink-500 gap-3 items-center">
-          <div className="flex items-center mt-5 gap-36 justify-between">
+          {path === "seller" ? (
+            <div className="flex gap-2 mt-5 mr-9 self-end items-center">
+              <p className="text-white">Seller</p>
+              <img src={sellerWhite} className="h-7" />
+            </div>
+          ) : (
+            <div className="mt-5"></div>
+          )}
+          <div className="flex items-center  gap-36 justify-between">
             <p className="text-white text-xl font-bold">Login</p>
-            <img src={sormenew} className="w-24 " />
+            <img
+              src={sormenew}
+              onClick={() => navigate("/")}
+              className="w-24 cursor-pointer"
+            />
           </div>
           <p className="text-white my-3">Enter username and password</p>
           <div className="flex gap-5 flex-col">
@@ -84,6 +108,8 @@ function SignInComp() {
                   id="floating_outlined1"
                   className="block  px-2.5 pb-2.5 pt-4 w-full text-sm border-2  text-pink-700 bg-transparent rounded-lg border-1 border-white  appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
                   placeholder=" "
+                  onChange={(e) => setUsername(e.target.value)}
+
                   autoFocus
                 />
                 <label
@@ -102,6 +128,7 @@ function SignInComp() {
                   id="floating_outlined2"
                   className="block  px-2.5 pb-2.5 pt-4 w-full text-sm border-2  text-pink-700 bg-transparent rounded-lg border-1 border-white  appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
                   placeholder=" "
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <label
                   htmlFor="floating_outlined"

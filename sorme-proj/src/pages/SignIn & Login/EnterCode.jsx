@@ -1,10 +1,11 @@
 import axios from "axios";
 import sormenew from "../../images/sormenew.png";
-import { useEffect, useRef, useState } from "react";
+import sellerWhite from "../../images/sellerWhite.png";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CountdownTimer from "../../Tools/CountDown";
-import { useUser } from "../../user/userSlice";
 import SuccessAlert from "../../Tools/alerts/SuccessAlert";
+import { UserContext } from "../../App";
 
 function EnterCode() {
   const secondInputRef = useRef();
@@ -14,7 +15,6 @@ function EnterCode() {
   const [email, setEmail] = useState();
   const [showAlert, setShowAlert] = useState(false);
 
-  // console.log(code);
 
   const finalCode = [];
 
@@ -25,11 +25,7 @@ function EnterCode() {
   const handleInputChange = (e, nextInputRef) => {
     const maxLength = parseInt(e.target.maxLength, 10);
     const currentValue = e.target.value;
-    // Validate input to allow only numeric characters
     const numericValue = currentValue.replace(/[^0-9]/g, "");
-
-    // Update the input value with the numeric characters
-    // e.target.value = numericValue;
 
     finalCode.push(numericValue);
 
@@ -47,8 +43,6 @@ function EnterCode() {
   }
 
   const navigate = useNavigate();
-  // const user = useUser();
-  // console.log(user);
 
   useEffect(() => {
     const storedData = localStorage.getItem("userEmail");
@@ -62,7 +56,9 @@ function EnterCode() {
 
     try {
       const { data } = await axios.post(
-        "https://keykavoos-sorme.liara.run/user/Signup_OTP",
+        `https://keykavoos-sorme.liara.run/${
+          path === "seller" ? "Seller" : "user"
+        }/Signup_OTP`,
         {
           email: `${email.email}`,
           OTP: `2024`,
@@ -78,12 +74,24 @@ function EnterCode() {
       console.log(error);
     }
   };
+
+  const { path } = useContext(UserContext);
+  
   return (
     <div className="h-screen flex items-center justify-center bg-pink-100">
       {showAlert ? <SuccessAlert props={"user created successfuly"} /> : null}
       <form>
         <div className="flex flex-col glass rounded-2xl bg-pink-500 gap-3 items-center">
-          <div className="flex items-center mt-5 gap-36 justify-between">
+        {path === "seller" ? (
+            <div className="flex gap-2 mt-5 mr-9 self-end items-center">
+              <p className="text-white">Seller</p>
+              <img src={sellerWhite} className="h-7" />
+            </div>
+          ) : (
+            <div className="mt-5"></div>
+          )}
+          
+          <div className="flex items-center gap-36 justify-between">
             <p className="text-white text-xl font-bold">Code Sent!</p>
             <img src={sormenew} className="w-24 " />
           </div>
@@ -153,51 +161,4 @@ function EnterCode() {
 
 export default EnterCode;
 
-// CodeInput.js
-// CodeInput.js
 
-// import { useRef} from 'react';
-
-// const CodeInput = () => {
-// const secondInputRef = useRef();
-// const thirdInputRef = useRef();
-// const forthInputRef = useRef();
-
-// const handleInputChange = (e, nextInputRef) => {
-//   const maxLength = parseInt(e.target.maxLength, 10);
-//   const currentValue = e.target.value;
-
-//   if (currentValue.length === maxLength) {
-//     nextInputRef.current.focus();
-//   }
-// };
-
-//   return (
-//     <form>
-//     <input
-//       type="text"
-//       maxLength="1"
-//       onInput={(e) => handleInputChange(e, secondInputRef)}
-//     />
-//     <input
-//       type="text"
-//       maxLength="1"
-//       ref={secondInputRef}
-//       onInput={(e) => handleInputChange(e, thirdInputRef)}
-//     />
-//     <input
-//       type="text"
-//       maxLength="1"
-//       ref={thirdInputRef}
-//       onInput={(e) => handleInputChange(e, forthInputRef)}
-
-//     /><input
-//     type="text"
-//     maxLength="1"
-//     ref={forthInputRef}
-//   />
-//   </form>
-//   );
-// };
-
-// export default CodeInput;

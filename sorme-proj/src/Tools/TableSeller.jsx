@@ -25,7 +25,6 @@ function TableSeller() {
                   >
                     Email
                   </th>
-
                   <th
                     scope="col"
                     className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
@@ -38,7 +37,7 @@ function TableSeller() {
                 <tr>
                   <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     Jone Doe
-                  </td>{" "}
+                  </td>
                   <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     2022/02/01
                   </td>
@@ -46,7 +45,10 @@ function TableSeller() {
                     jonne62@gmail.com
                   </td>
                   <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                    <a className="text-red-500 flex justify-center hover:text-red-700" href="#">
+                    <a
+                      className="text-red-500 flex justify-center hover:text-red-700"
+                      href="#"
+                    >
                       X
                     </a>
                   </td>
@@ -54,7 +56,7 @@ function TableSeller() {
                 <tr>
                   <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     Jone Doe
-                  </td>{" "}
+                  </td>
                   <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     2022/02/01
                   </td>
@@ -62,7 +64,10 @@ function TableSeller() {
                     jonne62@gmail.com
                   </td>
                   <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                    <a className="text-red-500 flex justify-center hover:text-red-700 " href="#">
+                    <a
+                      className="text-red-500 flex justify-center hover:text-red-700 "
+                      href="#"
+                    >
                       X
                     </a>
                   </td>
@@ -70,7 +75,7 @@ function TableSeller() {
                 <tr>
                   <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     Jone Doe
-                  </td>{" "}
+                  </td>
                   <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     2022/02/01
                   </td>
@@ -78,7 +83,10 @@ function TableSeller() {
                     jonne62@gmail.com
                   </td>
                   <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                    <a className="text-red-500 flex justify-center hover:text-red-700" href="#">
+                    <a
+                      className="text-red-500 flex justify-center hover:text-red-700"
+                      href="#"
+                    >
                       X
                     </a>
                   </td>
@@ -86,7 +94,7 @@ function TableSeller() {
                 <tr>
                   <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     Jone Doe
-                  </td>{" "}
+                  </td>
                   <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     2022/02/01
                   </td>
@@ -94,7 +102,10 @@ function TableSeller() {
                     jonne62@gmail.com
                   </td>
                   <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                    <a className="text-red-500 flex justify-center hover:text-red-700" href="#">
+                    <a
+                      className="text-red-500 flex justify-center hover:text-red-700"
+                      href="#"
+                    >
                       X
                     </a>
                   </td>
