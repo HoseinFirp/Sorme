@@ -42,7 +42,7 @@ function SignInComp() {
   const req = async () => {
     setShowError(false);
     setShowAlert(false);
-    console.log(path);
+
     try {
       const { data } = await axios.post(
         `https://keykavoos-sorme.liara.run/${

@@ -24,6 +24,7 @@ import EnterCode from "./pages/SignIn & Login/EnterCode";
 import NewPassComp from "./pages/SignIn & Login/NewPassComp";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import dayjs from "dayjs";
 import {
   updateAvatar,
   updateEmail,
@@ -58,10 +59,21 @@ function DashboardLayout() {
 export const UserContext = React.createContext();
 
 function App() {
-  const [path, setPath] = useState();
-  const [pathForgot, setPathForgot] = useState();
-  const value = { path, setPath ,pathForgot, setPathForgot};
   const user = useUser();
+  console.log(user);
+  const [path, setPath] = useState();
+  const [date, setDate] = useState(dayjs("2020/05/05"));
+  // `${(user.date?.$y, user.date?.$M + 1, user.date?.$D)}`
+
+  const [pathForgot, setPathForgot] = useState();
+  const value = {
+    path,
+    setPath,
+    pathForgot,
+    setPathForgot,
+    date,
+    setDate,
+  };
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -100,7 +112,7 @@ function App() {
       }
     };
     req();
-  }, [user.token,dispatch,path]);
+  }, [user.token, dispatch, path]);
   return (
     <UserContext.Provider value={value}>
       <BrowserRouter>
@@ -136,16 +148,22 @@ function App() {
           <Route path="/login-seller" element={<SignInComp />} />
           <Route path="/signup" element={<SignUpComp />} />
           <Route path="/signup-seller" element={<SignUpComp />} />
-         {(path||user.token)?
-         <>
-          <Route path="/forgotpassword" element={<ForgotComp />} />
-          <Route path="/forgotpassword-seller" element={<ForgotComp />} />
-          <Route path="/forgotpassword/newpassword" element={<NewPassComp />} />
-          <Route path="/forgotpassword/newpassword-seller" element={<NewPassComp />} />
-          <Route path="/entercode" element={<EnterCode />} />
-          <Route path="/entercode-seller" element={<EnterCode />} />
-         </>
-         :null} 
+          {path || user.token ? (
+            <>
+              <Route path="/forgotpassword" element={<ForgotComp />} />
+              <Route path="/forgotpassword-seller" element={<ForgotComp />} />
+              <Route
+                path="/forgotpassword/newpassword"
+                element={<NewPassComp />}
+              />
+              <Route
+                path="/forgotpassword/newpassword-seller"
+                element={<NewPassComp />}
+              />
+              <Route path="/entercode" element={<EnterCode />} />
+              <Route path="/entercode-seller" element={<EnterCode />} />
+            </>
+          ) : null}
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>

@@ -3,15 +3,15 @@ import { useSelector } from "react-redux";
 
 const initialState = {
   username: "",
+  birth: "",
   token: "",
   email: "",
   position: "",
   _id: "",
   avatar: [],
   support: [],
-  data:{},
+  data: {},
 };
-
 
 const userSlice = createSlice({
   name: "user",
@@ -22,6 +22,9 @@ const userSlice = createSlice({
     },
     updateToken(state, action) {
       state.token = action.payload;
+    },
+    updateBirth(state, action) {
+      state.birth = action.payload;
     },
     updateEmail(state, action) {
       state.email = action.payload;
@@ -55,6 +58,7 @@ export const {
   updateEmail,
   updatePosition,
   updateId,
+  updateBirth,
   updateData,
 } = userSlice.actions;
 export const useUser = () => useSelector((state) => state.user);

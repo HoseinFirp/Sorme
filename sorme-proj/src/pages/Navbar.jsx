@@ -1,7 +1,7 @@
 import NavbarPic from "../images/NavbarPic.png";
 import SormeLogo from "../images/SormeLogo.png";
 import seller from "../images/seller.png";
-import locImg from "../images/locImg.png";
+// import locImg from "../images/locImg.png";
 import weblog from "../images/weblog.png";
 import chatIcon from "../images/chatIcon.png";
 import organization from "../images/organization.png";
@@ -10,15 +10,18 @@ import gift from "../images/gift.png";
 import rightArrow from "../images/rightArrow.png";
 import iconCart from "../images/iconCart.png";
 import signInPic from "../images/signInPic.png";
-import { HiMiniMagnifyingGlass } from "react-icons/hi2";
+import { HiMiniMagnifyingGlass, HiUser } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../App";
 import LocationLoader from "../Tools/Loaders/LocationLoader";
+import { useUser } from "../user/userSlice";
 
 function Navbar() {
   const navigate = useNavigate();
-  const { setPath } = useContext(UserContext);
+  const { path, setPath } = useContext(UserContext);
+  const user = useUser();
+  console.log(user);
   // useEffect(() => {
   //   // Retrieve data from localStorage when component mounts
   //   localStorage.setItem('userPath', JSON.stringify(path));
@@ -27,9 +30,8 @@ function Navbar() {
   //     setPath(JSON.parse(storedData));
   //   }
   // }, [setPath,path]);
-
   return (
-    <div className="z-50 w-full bg-white fixed pb-1">
+    <div className="z-50 w-full bg-white glass bg-opacity-25 fixed pb-1">
       <img src={NavbarPic} className="h-10 z-0 w-full" />
       <div className="absolute flex   justify-between  w-full  top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <p className="text-custom-green min-w-32 text-lg ml-24 sm:ml-36 md:ml-52 lg:ml-56 xl:ml-64 font-bold ">
@@ -58,28 +60,39 @@ function Navbar() {
             />
           </div>
         </div>
-        <div className="flex gap-2 md:px-0 px-10 justify-between w-full md:w-min items-center ">
-          <button
-            onClick={() => {
-              navigate("/signup-seller");
-              setPath("seller");
-            }}
-            className="flex gap-1 min-w-16 text-xs hover:text-pink-700  active:bg-pink-100 text-black border rounded-md border-black p-1 font-bold  items-center"
-          >
-            Seller
-            <img src={seller} className="w-5" />
-          </button>
-          <p className="text-2xl -mt-2">|</p>
-          <button
-            onClick={() => {
-              navigate("/signup");
-              setPath("user");
-            }}
-            className="flex min-w-32 gap-1 text-xs hover:text-pink-700  active:bg-pink-100 text-black border rounded-md border-black p-1 font-bold  items-center"
-          >
-            Login / SingUp
-            <img src={signInPic} className="w-5" />
-          </button>
+        <div className="flex gap-3 md:px-0 px-10 justify-between w-full md:w-min items-center ">
+          {!user.token ? (
+            <div>
+              <button
+                onClick={() => {
+                  navigate("/signup-seller");
+                  setPath("seller");
+                }}
+                className="flex gap-1 min-w-16 text-xs hover:text-pink-700  active:bg-pink-100 text-black border rounded-md border-black p-1 font-bold  items-center"
+              >
+                Seller
+                <img src={seller} className="w-5" />
+              </button>
+              <p className="text-2xl -mt-2">|</p>
+              <button
+                onClick={() => {
+                  navigate("/signup");
+                  setPath("user");
+                }}
+                className="flex min-w-32 gap-1 text-xs hover:text-pink-700  active:bg-pink-100 text-black border rounded-md border-black p-1 font-bold  items-center"
+              >
+                Login / SingUp
+                <img src={signInPic} className="w-5" />
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => navigate("/dashboard-panel")}
+              className="scale-125 flex gap-1 text-md active:bg-gray-300 bg-custom-bg-1 transition duration-200 hover:bg-gray-200 rounded-full border-black p-1  font-bold items-center"
+            >
+              <HiUser />
+            </button>
+          )}
           <p className="text-2xl -mt-2">|</p>
 
           <div className="indicator">
@@ -103,41 +116,41 @@ function Navbar() {
             </div>
             <ul
               tabIndex={0}
-              className=" dropdown-content  z-[1] menu p-2 shadow backdrop-blur-md bg-opacity-30 bg-pink-300 text-custom-gray rounded-box w-52 "
+              className=" dropdown-content  z-[1] menu p-2 shadow backdrop-blur-md bg-opacity-80 bg-pink-300 text-black rounded-box w-52  "
             >
               <li>
-                <button className="flex  w-fit  items-center text-sm hover:bg-pink-100 hover:border ml-2 hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap31">
+                <button className="hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 flex  md:items-center md:text-sm md:hover:bg-pink-100 md:hover:border md:ml-2 md:hover:border-pink-200  md:transition md:hover:text-pink-700 md:duration-300 md:rounded-full md:px-2  md:text-black gap-3">
                   <img src={flower} className="w-5" />
                   Brands
                 </button>
               </li>
               <li>
-                <button className="flex  w-fit items-center text-sm hover:bg-pink-100 hover:border ml-2 hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-3">
+                <button className="hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 flex  md:items-center md:text-sm md:hover:bg-pink-100 md:hover:border md:ml-2 md:hover:border-pink-200  md:transition md:hover:text-pink-700 md:duration-300 md:rounded-full md:px-2  md:text-black gap-3">
                   <img src={organization} className="w-5 " />
                   Organizational
                 </button>
               </li>
               <li>
-                <button className="flex  w-fit items-center text-sm hover:bg-pink-100 hover:border ml-2 hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-3">
+                <button className="hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 flex  md:items-center md:text-sm md:hover:bg-pink-100 md:hover:border md:ml-2 md:hover:border-pink-200  md:transition md:hover:text-pink-700 md:duration-300 md:rounded-full md:px-2  md:text-black gap-3">
                   <img src={chatIcon} className="w-5 " />
                   Counseling
                 </button>
               </li>
               <li>
-                <button className="flex  w-fit items-center text-sm hover:bg-pink-100 hover:border ml-2 hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-3">
+                <button className="hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 flex  md:items-center md:text-sm md:hover:bg-pink-100 md:hover:border md:ml-2 md:hover:border-pink-200  md:transition md:hover:text-pink-700 md:duration-300 md:rounded-full md:px-2  md:text-black gap-3">
                   <img src={gift} className="w-5 " />
                   Gift Card
                 </button>
               </li>
               <li>
-                <button className="flex  w-fit items-center text-sm hover:bg-pink-100 hover:border ml-2 hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-3">
+                <button className="hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 flex  md:items-center md:text-sm md:hover:bg-pink-100 md:hover:border md:ml-2 md:hover:border-pink-200  md:transition md:hover:text-pink-700 md:duration-300 md:rounded-full md:px-2  md:text-black gap-3">
                   <img src={weblog} className="w-5 " />
                   Weblog
                 </button>
               </li>
             </ul>
           </div>
-          <div className="dropdown  dropdown-bottom">
+          <div className="dropdown   dropdown-bottom">
             <div tabIndex={0} role="button" className=" m-1 min-w-52">
               <button className="flex items-center min-w-52 text-sm justify-start  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1  font-bold ">
                 Products Categorization
@@ -146,47 +159,50 @@ function Navbar() {
             </div>
             <ul
               tabIndex={0}
-              className=" dropdown-content  z-[1] menu p-2 shadow backdrop-blur-md bg-opacity-30 bg-pink-300 text-custom-gray rounded-box w-52 "
+              className=" dropdown-content  z-[1] menu p-2 shadow backdrop-blur-md bg-opacity-80 bg-pink-300 text-black rounded-box w-52 "
             >
               <li>
-                <button className=" hover:bg-violet-300 hover:text-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
+                <button
+                  onClick={() => navigate("/shop")}
+                  className=" hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300"
+                >
+                  All Products
+                </button>
+              </li>
+              <li>
+                <button className=" hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
                   Cosmetic
                 </button>
               </li>
               <li>
-                <a className=" hover:bg-violet-300 hover:text-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
+                <a className=" hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
                   Skin products
                 </a>
               </li>
               <li>
-                <a className=" hover:bg-violet-300 hover:text-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
+                <a className=" hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
                   Hair products
                 </a>
               </li>
               <li>
-                <a className=" hover:bg-violet-300 hover:text-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
+                <a className=" hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
                   Bathroom products
                 </a>
               </li>
               <li>
-                <a className=" hover:bg-violet-300 hover:text-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
+                <a className=" hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
                   Health products
                 </a>
               </li>
               <li>
-                <a className=" hover:bg-violet-300 hover:text-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
+                <a className=" hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
                   Appliances
-                </a>
-              </li>
-              <li>
-                <a className=" hover:bg-violet-300 hover:text-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
-                  Cream
                 </a>
               </li>
             </ul>
           </div>
 
-          <button className="hidden w-fit lg:ml-7  md:flex items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
+          <button className="hidden lg:ml-7  md:flex items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
             <img src={flower} className="w-5" />
             Brands
           </button>
@@ -194,22 +210,22 @@ function Navbar() {
             <img src={organization} className="w-5 " />
             Organizational
           </button>
-          <button className="hidden md:flex w-fit py-1 items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
+          <button className="hidden md:flex py-1 items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
             <img src={chatIcon} className="w-5 " />
             Counseling
           </button>
-          <button className="hidden md:flex w-fit py-1 items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
+          <button className="hidden md:flex py-1 items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
             <img src={gift} className="w-5 " />
             Gift Card
           </button>
-          <button className="hidden md:flex w-fit py-1 items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
+          <button className="hidden md:flex py-1 items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
             <img src={weblog} className="w-5 " />
             Weblog
           </button>
         </div>
         <div className="mt-3 min-w-36 flex justify-center">
           <button className="flex items-center transition hover:text-pink-700 duration-300  text-black text-sm font-bold gap-1">
-            Branches Sorme 
+            Branches Sorme
             {/* <img src={locImg} className="w-5 " /> */}
             <LocationLoader />
           </button>
