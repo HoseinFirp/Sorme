@@ -14,6 +14,7 @@ import { HiMiniMagnifyingGlass } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../App";
+import LocationLoader from "../Tools/Loaders/LocationLoader";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -31,14 +32,14 @@ function Navbar() {
     <div className="z-50 w-full bg-white fixed pb-1">
       <img src={NavbarPic} className="h-10 z-0 w-full" />
       <div className="absolute flex   justify-between  w-full  top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <p className="text-custom-green min-w-32 text-lg ml-32 sm:ml-36 md:ml-52 lg:ml-56 xl:ml-64 font-bold ">
+        <p className="text-custom-green min-w-32 text-lg ml-24 sm:ml-36 md:ml-52 lg:ml-56 xl:ml-64 font-bold ">
           70$ Off + Gift{" "}
         </p>
-        <button className="bg-custom-cream min-w-40 mr-36 sm:mr-48 md:mr-60 lg:mr-64 xl:mr-80 hover:bg-amber-700 active:bg-amber-800 transition duration-300  text-custom-white rounded-md text-lg p-4 font-bold  pt-0 pb-0">
+        <button className="bg-custom-cream min-w-40 mr-20 sm:mr-48 md:mr-60 lg:mr-64 xl:mr-80 hover:bg-amber-700 active:bg-amber-800 transition duration-300  text-custom-white rounded-md text-lg p-4 font-bold  pt-0 pb-0">
           Register Now
         </button>
       </div>
-      <div className="ml-10 mr-16 mt-3 flex justify-between flex-col gap-5 md:flex-row  items-center">
+      <div className="ml-5 mr-10 sm:ml-10 sm:mr-16 mt-3 flex justify-between flex-col gap-5 md:flex-row  items-center">
         <div className="flex w-full md:justify-start items-center justify-between ">
           <img
             src={SormeLogo}
@@ -76,7 +77,7 @@ function Navbar() {
             }}
             className="flex min-w-32 gap-1 text-xs hover:text-pink-700  active:bg-pink-100 text-black border rounded-md border-black p-1 font-bold  items-center"
           >
-            SignIn / SingUp
+            Login / SingUp
             <img src={signInPic} className="w-5" />
           </button>
           <p className="text-2xl -mt-2">|</p>
@@ -91,8 +92,8 @@ function Navbar() {
           </div>
         </div>
       </div>
-      <div className="flex gap-5  justify-between items-center mr-16 ml-12  mb-5">
-        <div className=" mt-3 ml-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 justify-items-center md:justify-items-center auto-cols-max items-center  gap-3">
+      <div className="flex gap-10   sm:mx-14 scale-75 sm:scale-100  justify-between items-center   mb-5">
+        <div className=" mt-3 ml-5 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 justify-items-center md:justify-items-center auto-cols-max items-center  gap-3">
           <div className="dropdown md:hidden dropdown-bottom">
             <div tabIndex={0} role="button" className=" m-1 min-w-52">
               <button className="flex items-center min-w-52 text-sm   transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1  font-bold ">
@@ -138,7 +139,7 @@ function Navbar() {
           </div>
           <div className="dropdown  dropdown-bottom">
             <div tabIndex={0} role="button" className=" m-1 min-w-52">
-              <button className="flex  items-center min-w-52 text-sm justify-end  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1  font-bold ">
+              <button className="flex items-center min-w-52 text-sm justify-start  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1  font-bold ">
                 Products Categorization
                 <img src={rightArrow} className="w-3 mt-1" />
               </button>
@@ -185,31 +186,32 @@ function Navbar() {
             </ul>
           </div>
 
-          <button className="hidden w-fit lg:ml-10  md:flex items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
+          <button className="hidden w-fit lg:ml-7  md:flex items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
             <img src={flower} className="w-5" />
             Brands
           </button>
-          <button className="hidden md:flex w-32  items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
+          <button className="hidden md:flex w-32 py-1 items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
             <img src={organization} className="w-5 " />
             Organizational
           </button>
-          <button className="hidden md:flex w-fit items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
+          <button className="hidden md:flex w-fit py-1 items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
             <img src={chatIcon} className="w-5 " />
             Counseling
           </button>
-          <button className="hidden md:flex w-fit items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
+          <button className="hidden md:flex w-fit py-1 items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
             <img src={gift} className="w-5 " />
             Gift Card
           </button>
-          <button className="hidden md:flex w-fit items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
+          <button className="hidden md:flex w-fit py-1 items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
             <img src={weblog} className="w-5 " />
             Weblog
           </button>
         </div>
         <div className="mt-3 min-w-36 flex justify-center">
           <button className="flex items-center transition hover:text-pink-700 duration-300  text-black text-sm font-bold gap-1">
-            Branches Sorme
-            <img src={locImg} className="w-5 " />
+            Branches Sorme 
+            {/* <img src={locImg} className="w-5 " /> */}
+            <LocationLoader />
           </button>
         </div>
       </div>

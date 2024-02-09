@@ -9,14 +9,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 import ErrorAlert from "../../Tools/alerts/ErrorAlert";
-import {
-  updateEmail,
-  updateId,
-  updateName,
-  updatePosition,
-  updateToken,
-  useUser,
-} from "../../user/userSlice";
+import { updateToken } from "../../user/userSlice";
 import { UserContext } from "../../App";
 
 function SignInComp() {
@@ -26,15 +19,18 @@ function SignInComp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const user =useUser()
-  
+
   function handleGoCreate(e) {
     e.preventDefault();
     navigate("/signup");
   }
   function handleForgot(e) {
     e.preventDefault();
-    navigate("/forgotpassword");
+    if (path === "seller") {
+      navigate("/forgotpassword-seller");
+    } else if (path === "user") {
+      navigate("/forgotpassword");
+    }
   }
 
   const navigate = useNavigate();
@@ -46,13 +42,12 @@ function SignInComp() {
   const req = async () => {
     setShowError(false);
     setShowAlert(false);
+    console.log(path);
     try {
       const { data } = await axios.post(
         `https://keykavoos-sorme.liara.run/${
           path === "seller" ? "Seller" : "user"
-        }/login${
-          path === "seller" ? "Seller" : ""
-        }`,
+        }/Login${path === "seller" ? "Seller" : ""}`,
         {
           username: `${username}`,
           password: `${password}`,
@@ -61,8 +56,8 @@ function SignInComp() {
 
       console.log(data);
       setShowAlert(true);
-      // dispatch(updateName(data.username));
       dispatch(updateToken(data.token));
+      // dispatch(updateName(data.username));
       // dispatch(updateEmail(data.email));
       // dispatch(updatePosition(data.position));
       // dispatch(updateId(data._id));
@@ -72,7 +67,7 @@ function SignInComp() {
       }, 1500);
     } catch (error) {
       console.log(error);
-      setShowError(error.response.data.messages);
+      setShowError(error.response.data.message);
     }
   };
   const { path } = useContext(UserContext);
@@ -109,7 +104,6 @@ function SignInComp() {
                   className="block  px-2.5 pb-2.5 pt-4 w-full text-sm border-2  text-pink-700 bg-transparent rounded-lg border-1 border-white  appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
                   placeholder=" "
                   onChange={(e) => setUsername(e.target.value)}
-
                   autoFocus
                 />
                 <label
@@ -149,6 +143,7 @@ function SignInComp() {
               type="submit"
               className=" btn bg-transparent w-36 border-none hover:bg-pink-200 bg-white text-pink-500 active:bg-pink-300  px-3  py-2   font-bold "
               onClick={handleSubmit}
+              disabled={!username || !password}
             >
               Login to account
             </button>

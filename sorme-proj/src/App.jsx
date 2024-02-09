@@ -59,7 +59,8 @@ export const UserContext = React.createContext();
 
 function App() {
   const [path, setPath] = useState();
-  const value = { path, setPath };
+  const [pathForgot, setPathForgot] = useState();
+  const value = { path, setPath ,pathForgot, setPathForgot};
   const user = useUser();
   const dispatch = useDispatch();
 
@@ -77,7 +78,9 @@ function App() {
     const req = async () => {
       try {
         const data = await axios.get(
-          "https://keykavoos-sorme.liara.run/user/get_Profile",
+          `https://keykavoos-sorme.liara.run/${
+            path === "seller" ? "Seller" : "user"
+          }/get_Profile`,
           {
             headers: {
               Authorization: `Bearer ${user.token}`,
@@ -97,7 +100,7 @@ function App() {
       }
     };
     req();
-  }, [user.token]);
+  }, [user.token,dispatch,path]);
   return (
     <UserContext.Provider value={value}>
       <BrowserRouter>
@@ -133,9 +136,16 @@ function App() {
           <Route path="/login-seller" element={<SignInComp />} />
           <Route path="/signup" element={<SignUpComp />} />
           <Route path="/signup-seller" element={<SignUpComp />} />
+         {(path||user.token)?
+         <>
           <Route path="/forgotpassword" element={<ForgotComp />} />
+          <Route path="/forgotpassword-seller" element={<ForgotComp />} />
           <Route path="/forgotpassword/newpassword" element={<NewPassComp />} />
+          <Route path="/forgotpassword/newpassword-seller" element={<NewPassComp />} />
           <Route path="/entercode" element={<EnterCode />} />
+          <Route path="/entercode-seller" element={<EnterCode />} />
+         </>
+         :null} 
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>

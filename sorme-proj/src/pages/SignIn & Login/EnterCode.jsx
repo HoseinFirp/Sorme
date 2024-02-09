@@ -14,7 +14,7 @@ function EnterCode() {
   const [code, setCode] = useState();
   const [email, setEmail] = useState();
   const [showAlert, setShowAlert] = useState(false);
-
+  const { pathForgot } = useContext(UserContext);
 
   const finalCode = [];
 
@@ -39,7 +39,11 @@ function EnterCode() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    req();
+    if (pathForgot === "forgot") {
+      navigate("/forgotpassword/newpassword");
+    } else if (pathForgot === "signup") {
+      req();
+    }
   }
 
   const navigate = useNavigate();
@@ -66,23 +70,22 @@ function EnterCode() {
       );
       console.log(data);
       setShowAlert(true);
-       setTimeout(() => {
+      setTimeout(() => {
         navigate("/dashboard-panel");
       }, 2000);
-      
     } catch (error) {
       console.log(error);
     }
   };
 
   const { path } = useContext(UserContext);
-  
+
   return (
     <div className="h-screen flex items-center justify-center bg-pink-100">
-      {showAlert ? <SuccessAlert props={"user created successfuly"} /> : null}
+      {showAlert ? <SuccessAlert props={pathForgot==="signup"?"User created successfuly":"Changing Password was successful"} /> : null}
       <form>
         <div className="flex flex-col glass rounded-2xl bg-pink-500 gap-3 items-center">
-        {path === "seller" ? (
+          {path === "seller" ? (
             <div className="flex gap-2 mt-5 mr-9 self-end items-center">
               <p className="text-white">Seller</p>
               <img src={sellerWhite} className="h-7" />
@@ -90,7 +93,7 @@ function EnterCode() {
           ) : (
             <div className="mt-5"></div>
           )}
-          
+
           <div className="flex items-center gap-36 justify-between">
             <p className="text-white text-xl font-bold">Code Sent!</p>
             <img src={sormenew} className="w-24 " />
@@ -160,5 +163,3 @@ function EnterCode() {
 }
 
 export default EnterCode;
-
-

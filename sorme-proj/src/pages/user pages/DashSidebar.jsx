@@ -8,15 +8,16 @@ import support from "../../images/support.png";
 import settings from "../../images/setting.png";
 import pinkObj from "../../images/pinkObj.png";
 import sellerIcon from "../../images/sellerIcon.png";
-import {  useState } from "react";
+import {  useContext, useState } from "react";
 import { useUser } from "../../user/userSlice";
-// import userPic from "../../images/userPic.png";
+import { UserContext } from "../../App";
+import userPic from "../../images/userPic.png";
 
 function DashSidebar() {
   const [panel, setPanel] = useState("dashboardPanel");
   const user = useUser();
   const navigate = useNavigate();
-  // const { path, setPath } = useContext(UserContext);
+  const { path } = useContext(UserContext);
   return (
     <div className="drawer shadow-slate-300 shadow-inner bg-white lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -78,9 +79,9 @@ function DashSidebar() {
             </div>
           </li>
           {/* for Manager */}
-          {/* <li onClick={()=>{navigate("/dashboard-panel/user")
+          {(path!=="user"&&path!=="seller")?<li onClick={()=>{navigate("/dashboard-panel/user")
           setPanel("userPanel")}} className="w-58">
-            <div className="flex gap-5 ml-0 py-0 py-0 pl-0">
+            <div className="flex gap-5 ml-0 py-0 pl-0">
               <div className="w-12">
               {panel==="userPanel" ?<img src={pinkObj} className="h-12" />:<div className="h-12"></div>}
               </div>
@@ -91,8 +92,8 @@ function DashSidebar() {
                     : "text-gray-700 font-bold"
                 }>User</p>
             </div>
-          </li> */}
-          <li
+          </li>:null}
+          {(path!=="user"&&path!=="seller")?<li
             onClick={() => {
               navigate("/dashboard-panel/seller");
               setPanel("sellerPanel");
@@ -118,8 +119,8 @@ function DashSidebar() {
                 Seller
               </p>
             </div>
-          </li>
-          <li
+          </li>:null}
+          {path==="user"?<li
             onClick={() => {
               navigate("/dashboard-panel/orders");
               setPanel("ordersPanel");
@@ -145,8 +146,8 @@ function DashSidebar() {
                 Orders
               </p>
             </div>
-          </li>
-          <li
+          </li>:null}
+          {path==="user"?<li
             onClick={() => {
               navigate("/dashboard-panel/favorites");
               setPanel("favoritesPanel");
@@ -172,8 +173,8 @@ function DashSidebar() {
                 Favorites
               </p>
             </div>
-          </li>
-          <li
+          </li>:null}
+          {path==="user"?<li
             onClick={() => {
               navigate("/dashboard-panel/wallet");
               setPanel("walletPanel");
@@ -199,8 +200,35 @@ function DashSidebar() {
                 Wallet
               </p>
             </div>
-          </li>
-          <li
+          </li>:null}
+          {(path!=="user"&&path!=="seller")?<li
+            onClick={() => {
+              navigate("/dashboard-panel/financial");
+              setPanel("financialPanel");
+            }}
+            className="w-58"
+          >
+            <div className="flex gap-5 ml-0 py-0 pl-0">
+              <div className="w-12">
+                {panel === "financialPanel" ? (
+                  <img src={pinkObj} className="h-12" />
+                ) : (
+                  <div className="h-12"></div>
+                )}
+              </div>
+              <img src={wallet} className="w-8" />{" "}
+              <p
+                className={
+                  panel === "financialPanel"
+                    ? "text-pink-300 font-bold"
+                    : "text-gray-700 font-bold"
+                }
+              >
+                Financial
+              </p>
+            </div>
+          </li>:null}
+          {path!=="seller"?<li
             onClick={() => {
               navigate("/dashboard-panel/support");
               setPanel("supportPanel");
@@ -226,7 +254,34 @@ function DashSidebar() {
                 Support
               </p>
             </div>
-          </li>
+          </li>:null}
+          {(path==="seller")?<li
+            onClick={() => {
+              navigate("/dashboard-panel/product");
+              setPanel("productPanel");
+            }}
+            className="w-58"
+          >
+            <div className="flex gap-5 ml-0 py-0 pl-0">
+              <div className="w-12">
+                {panel === "productPanel" ? (
+                  <img src={pinkObj} className="h-12" />
+                ) : (
+                  <div className="h-12"></div>
+                )}
+              </div>
+              <img src={sellerIcon} className="w-8" />{" "}
+              <p
+                className={
+                  panel === "productPanel"
+                    ? "text-pink-300 font-bold"
+                    : "text-gray-700 font-bold"
+                }
+              >
+                Product
+              </p>
+            </div>
+          </li>:null}
           <li
             onClick={() => {
               navigate("/dashboard-panel/settings");

@@ -16,15 +16,30 @@ function SignInComp() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [showPass, setShowPass] = useState(false);
+  const [isValid, setIsValid] = useState(true);
   // const [showAlert, setShowAlert] = useState(false);
   const [showError, setShowError] = useState(false);
+  const { setPathForgot } = useContext(UserContext);
 
   const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
-    req();
+    setPathForgot("signup");
+    validateEmail();
   }
+
+  const validateEmail = () => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValidEmail = regex.test(email);
+    setIsValid(isValidEmail);
+    if (isValidEmail === true) {
+      setShowError(false);
+      req();
+    } else {
+      setShowError("Please enter valid email");
+    }
+  };
 
   function handleLogin(e) {
     e.preventDefault();
@@ -89,7 +104,7 @@ function SignInComp() {
             <div className="mt-5"></div>
           )}
           <div className="flex items-center gap-36 justify-between">
-            <p className="text-white text-xl font-bold">Signup</p>
+            <p className="text-white text-xl font-bold">SignUp</p>
             <img
               src={sormenew}
               onClick={() => navigate("/")}
@@ -124,7 +139,10 @@ function SignInComp() {
                   id="floating_outlined2"
                   className="block text-white px-2.5 pb-2.5 pt-4 w-full text-sm border-2   bg-transparent rounded-lg border-1 border-white  appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
                   placeholder=" "
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    setIsValid(true);
+                  }}
                 />
                 <label
                   htmlFor="floating_outlined2"
@@ -163,7 +181,7 @@ function SignInComp() {
               type="submit"
               className="bg-white btn px-5 py-3 active:bg-pink-300 border-none hover:bg-pink-200  mx-10 rounded-lg font-bold text-pink-500"
               onClick={(e) => handleSubmit(e)}
-              disabled={!username || !password || !email}
+              disabled={!username || !password || !email || !isValid}
             >
               Create Your Account
             </button>
