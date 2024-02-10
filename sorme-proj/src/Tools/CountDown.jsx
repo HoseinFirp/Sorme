@@ -27,13 +27,15 @@ const CountdownTimer = ({ initialSeconds }) => {
 
   // Format the remaining time (e.g., “00:05:10” for 5 minutes and 10 seconds)
   const formatTime = (timeInSeconds) => {
-    const minutes = Math.floor(timeInSeconds / 60)
+    const hours = Math.floor(timeInSeconds / 3600)
+      .toString()
+      .padStart(2, "0");
+    const minutes = Math.floor((timeInSeconds % 3600) / 60)
       .toString()
       .padStart(2, "0");
     const seconds = (timeInSeconds % 60).toString().padStart(2, "0");
-    return `${minutes} : ${seconds}`;
+    return `${hours} : ${minutes} : ${seconds}`;
   };
-
   useEffect(() => {
     if (!seconds) {
       dispatch(updateToken(""));
@@ -44,17 +46,24 @@ const CountdownTimer = ({ initialSeconds }) => {
   }, [seconds]);
 
   function handleStart(e) {
-    e.preventDefault()
-    setShowButton(false)
-    setTurnOn(true)
-    setSeconds(90)
+    e.preventDefault();
+    setShowButton(false);
+    setTurnOn(true);
+    setSeconds(90);
   }
   return (
-    <span>
+    <span className="flex justify-center">
       {showButton ? (
-        <button onClick={handleStart} className=" bg-transparent border-none text-white">Resend the code </button>
+        <button
+          onClick={handleStart}
+          className=" bg-transparent border-none text-white"
+        >
+          Resend the code{" "}
+        </button>
       ) : (
-        <span className="text-lg">{formatTime(seconds)}</span>
+        <span className="text-2xl min-w-32 text-center">
+          {formatTime(seconds)}
+        </span>
       )}
     </span>
   );

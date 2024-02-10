@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 import CountdownTimer from "../../Tools/CountDown";
 import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 import { UserContext } from "../../App";
+import ErrorAlert from "../../Tools/alerts/ErrorAlert";
+import { useDispatch } from "react-redux";
+import { updateToken } from "../../user/userSlice";
 
 function EnterCode() {
   const secondInputRef = useRef();
@@ -13,14 +16,12 @@ function EnterCode() {
   const fourthInputRef = useRef();
   const [code, setCode] = useState();
   const [email, setEmail] = useState();
+  const [showError, setShowError] = useState(false);
+
   const [showAlert, setShowAlert] = useState(false);
   const { pathForgot } = useContext(UserContext);
 
   const finalCode = [];
-
-  useEffect(() => {
-    console.log(code);
-  }, [code]);
 
   const handleInputChange = (e, nextInputRef) => {
     const maxLength = parseInt(e.target.maxLength, 10);
@@ -54,10 +55,10 @@ function EnterCode() {
       setEmail(JSON.parse(storedData));
     }
   }, []);
-
+  const dispatch = useDispatch();
   const req = async () => {
     setShowAlert(false);
-
+    console.log(email);
     try {
       const { data } = await axios.post(
         `https://keykavoos-sorme.liara.run/${
@@ -70,11 +71,13 @@ function EnterCode() {
       );
       console.log(data);
       setShowAlert(true);
+      dispatch(updateToken(data.token));
       setTimeout(() => {
         navigate("/dashboard-panel");
       }, 2000);
     } catch (error) {
       console.log(error);
+      setShowError(error.response.data.message);
     }
   };
 
@@ -82,7 +85,16 @@ function EnterCode() {
 
   return (
     <div className="h-screen flex items-center justify-center bg-pink-100">
-      {showAlert ? <SuccessAlert props={pathForgot==="signup"?"User created successfuly":"Changing Password was successful"} /> : null}
+      {showError ? <ErrorAlert props={`${showError}`} /> : null}
+      {showAlert ? (
+        <SuccessAlert
+          props={
+            pathForgot === "signup"
+              ? "User created successfuly"
+              : "The password changed succesfuly"
+          }
+        />
+      ) : null}
       <form>
         <div className="flex flex-col glass rounded-2xl bg-pink-500 gap-3 items-center">
           {path === "seller" ? (
@@ -101,6 +113,9 @@ function EnterCode() {
           <div>
             <p className="text-white mt-3 self-start ">
               Enter the code you received
+            </p>
+            <p className="text-white mt-3 self-start  text-center">
+              The code is : 2 0 2 4
             </p>
           </div>
           <div className="flex mt-4 mb-4 mx-5 gap-2">

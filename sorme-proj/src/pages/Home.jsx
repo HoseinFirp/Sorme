@@ -22,6 +22,7 @@ import refund4 from "../images/refund4.png";
 import supportPic from "../images/supportPic.png";
 import MiniSlider from "../Tools/MiniSlider";
 import FormOpinions from "../Tools/FormOpinions";
+import CountdownTimer from "../Tools/CountDown";
 // import ErrorAlert from "../Tools/alerts/ErrorAlert";
 // import SuccessAlert from "../Tools/alerts/SuccessAlert";
 
@@ -35,12 +36,14 @@ function Home() {
         <img src={rimmel3} className="w-48" />
         <img src={rimmel4} className="w-48" />
       </div>
-      <div className="w-full flex items-center  h-72 bg-custom-bg-pink mt-16 rounded-2xl">
+      <div className="w-full flex items-center justify-center h-72 bg-custom-bg-pink mt-16 rounded-2xl">
         <div className="flex ml-14 flex-col gap-4 items-center">
           <img src={box1} className="w-56" />
-          <p className="text-white text-3xl">Daily Off</p>
+          <p className="text-white min-w-32 text-3xl">Daily Off</p>
         </div>
-        <p className="text-white -rotate-90 text-5xl ">12:24:33</p>
+        <p className="text-white -rotate-90 font-bold  ">
+          <CountdownTimer initialSeconds={44673} />
+        </p>
         <MiniSlider />
       </div>
       <div className="flex justify-center mt-10 items-center gap-2 font-bold">

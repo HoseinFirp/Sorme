@@ -23,15 +23,16 @@ function ForgotComp() {
 
   const req = async () => {
     setShowAlert(false);
+    setShowError(false);
 
+    console.log(username);
+    console.log(path);
     try {
       const { data } = await axios.get(
         `https://keykavoos-sorme.liara.run/user/get-otp${
           path === "seller" ? "-Seller" : ""
         }`,
-        {
-          username: `${username}`,
-        }
+        { username: "mamadazadii" }
       );
       console.log(data);
       setShowAlert(true);
@@ -103,7 +104,7 @@ function ForgotComp() {
               disabled={!username}
               onClick={handleSubmit}
               type="submit"
-              className=" btn mb-4 bg-transparent w-72 border-none hover:bg-pink-200 bg-white text-pink-500 active:bg-pink-300  px-3  py-2   font-bold "
+              className=" btn mb-4 bg-transparent w-72 border-none hover:bg-pink-200 bg-white text-pink-500 active:bg-pink-300  px-3  py-2  my-2 font-bold "
             >
               Confirm
             </button>

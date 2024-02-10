@@ -70,7 +70,7 @@ function SignInComp() {
       // setShowAlert(true);
       const newEmail = { email: `${email}` };
       localStorage.setItem("userEmail", JSON.stringify(newEmail));
-
+          
       navigate("/entercode");
     } catch (error) {
       console.log(error);

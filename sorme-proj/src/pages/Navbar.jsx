@@ -21,7 +21,7 @@ function Navbar() {
   const navigate = useNavigate();
   const { path, setPath } = useContext(UserContext);
   const user = useUser();
-  console.log(user);
+  // console.log(user);
   // useEffect(() => {
   //   // Retrieve data from localStorage when component mounts
   //   localStorage.setItem('userPath', JSON.stringify(path));
@@ -62,7 +62,7 @@ function Navbar() {
         </div>
         <div className="flex gap-3 md:px-0 px-10 justify-between w-full md:w-min items-center ">
           {!user.token ? (
-            <div>
+            <div className="flex gap-3  md:px-0  justify-start w-full md:w-min items-center ">
               <button
                 onClick={() => {
                   navigate("/signup-seller");
@@ -79,7 +79,7 @@ function Navbar() {
                   navigate("/signup");
                   setPath("user");
                 }}
-                className="flex min-w-32 gap-1 text-xs hover:text-pink-700  active:bg-pink-100 text-black border rounded-md border-black p-1 font-bold  items-center"
+                className="flex min-w-32 justify-between gap-1 text-xs  hover:text-pink-700  active:bg-pink-100 text-black border rounded-md border-black p-1 font-bold  items-center"
               >
                 Login / SingUp
                 <img src={signInPic} className="w-5" />
@@ -202,23 +202,23 @@ function Navbar() {
             </ul>
           </div>
 
-          <button className="hidden lg:ml-7  md:flex items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
+          <button className="hidden lg:ml-7  md:flex items-center text-sm hover:bg-opacity-80 hover:bg-pink-100 hover:border border-transparent border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
             <img src={flower} className="w-5" />
             Brands
           </button>
-          <button className="hidden md:flex w-32 py-1 items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
+          <button className="hidden md:flex w-32 py-1 items-center text-sm hover:bg-opacity-80 hover:bg-pink-100 hover:border border-transparent border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
             <img src={organization} className="w-5 " />
             Organizational
           </button>
-          <button className="hidden md:flex py-1 items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
+          <button className="hidden md:flex py-1 items-center text-sm hover:bg-opacity-80 hover:bg-pink-100 hover:border border-transparent border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
             <img src={chatIcon} className="w-5 " />
             Counseling
           </button>
-          <button className="hidden md:flex py-1 items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
+          <button className="hidden md:flex py-1 items-center text-sm hover:bg-opacity-80 hover:bg-pink-100 hover:border border-transparent border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
             <img src={gift} className="w-5 " />
             Gift Card
           </button>
-          <button className="hidden md:flex py-1 items-center text-sm hover:bg-pink-100 hover:border border-white border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
+          <button className="hidden md:flex py-1 items-center text-sm hover:bg-opacity-80 hover:bg-pink-100 hover:border border-transparent border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
             <img src={weblog} className="w-5 " />
             Weblog
           </button>

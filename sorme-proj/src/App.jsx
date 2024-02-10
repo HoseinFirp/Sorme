@@ -60,7 +60,6 @@ export const UserContext = React.createContext();
 
 function App() {
   const user = useUser();
-  console.log(user);
   const [path, setPath] = useState();
   const [date, setDate] = useState(dayjs("2020/05/05"));
   // `${(user.date?.$y, user.date?.$M + 1, user.date?.$D)}`
@@ -86,7 +85,7 @@ function App() {
     }
   }, [path]);
 
-  useEffect(() => {
+  useEffect(() => {if(user.token){
     const req = async () => {
       try {
         const data = await axios.get(
@@ -111,7 +110,7 @@ function App() {
         console.log(error.response.data);
       }
     };
-    req();
+    req();}
   }, [user.token, dispatch, path]);
   return (
     <UserContext.Provider value={value}>

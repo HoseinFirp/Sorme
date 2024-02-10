@@ -4,30 +4,28 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useContext, useState } from "react";
-import { UserContext } from "../App";
 import { useEffect } from "react";
-import { updateBirth, useUser } from "../user/userSlice";
-import { useDispatch } from "react-redux";
+import dayjs from "dayjs";
+import { UserContext } from "../App";
 
 export default function DatePickerValue() {
-  // const [value, setValue] = useState();
-  const { date, setDate } = useContext(UserContext);
-  const user = useUser();
-  console.log(user);
-  // console.log(date);
+  const [inputBirth, setInputBirth] = useState("");
+  useEffect(() => {
+    const storedValue = localStorage.getItem("inputBirth");
+    if (storedValue) {
+      setInputBirth(storedValue);
+    }
+  }, []);
 
-  // function handleDate(e) {
-  //   setDate(e);
-  //   const newDate = { date: `${date}` };
-  //   localStorage.setItem("userBirthday", JSON.stringify(newDate));
-  // }
+  const handleChange = (event) => {
+    setInputBirth(event);
+    console.log(event);
+    localStorage.setItem("inputBirth", event);
+    setDate(event)
+  };
 
-  // useEffect(() => {
-  //   const storedData = localStorage.getItem("userBirthday");
-  //   if (storedData) {
-  //     setDate(JSON.parse(storedData));
-  //   }
-  // }, []);
+
+  const { setDate } = useContext(UserContext);
 
   return (
     <>
@@ -35,8 +33,8 @@ export default function DatePickerValue() {
         <DemoContainer components={["DatePicker"]}>
           <DatePicker
             label="Date of Birth"
-            value={date}
-            onChange={(e)=>setDate(e)}
+            value={dayjs(inputBirth)}
+            onChange={handleChange}
             className="bg-pink-100"
           />
         </DemoContainer>
