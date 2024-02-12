@@ -9,6 +9,7 @@ import { UserContext } from "../../App";
 import ErrorAlert from "../../Tools/alerts/ErrorAlert";
 import { useDispatch } from "react-redux";
 import { updateToken } from "../../user/userSlice";
+import LoaderDots from "../../Tools/Loaders/LoaderDots";
 
 function EnterCode() {
   const secondInputRef = useRef();
@@ -17,7 +18,7 @@ function EnterCode() {
   const [code, setCode] = useState();
   const [email, setEmail] = useState();
   const [showError, setShowError] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const { pathForgot } = useContext(UserContext);
 
@@ -58,6 +59,8 @@ function EnterCode() {
   const dispatch = useDispatch();
   const req = async () => {
     setShowAlert(false);
+    setLoading(true);
+
     console.log(email);
     try {
       const { data } = await axios.post(
@@ -70,12 +73,16 @@ function EnterCode() {
         }
       );
       console.log(data);
+      setLoading(false);
+
       setShowAlert(true);
       dispatch(updateToken(data.token));
       setTimeout(() => {
         navigate("/dashboard-panel");
       }, 2000);
     } catch (error) {
+      setLoading(false);
+
       console.log(error);
       setShowError(error.response.data.message);
     }
@@ -90,7 +97,7 @@ function EnterCode() {
         <SuccessAlert
           props={
             pathForgot === "signup"
-              ? "User created successfuly"
+              ? "User created successfully"
               : "The password changed succesfuly"
           }
         />
@@ -163,11 +170,11 @@ function EnterCode() {
             Until resend
           </p>
           <button
-            disabled={!code}
+            disabled={!code || loading}
             onClick={(e) => handleSubmit(e)}
-            className="bg-pink-600 btn px-5 py-3 my-3 active:bg-pink-800 border-none hover:bg-pink-700  mx-10 rounded-lg font-bold text-white"
+            className="bg-pink-600 disabled:bg-pink-600 disabled:text-pink-200 btn px-5 py-3 my-3 active:bg-pink-800 border-none hover:bg-pink-700  mx-10 rounded-lg font-bold text-white"
           >
-            Confirm
+            {loading ? <LoaderDots /> : "Confirm"}
           </button>
 
           <div></div>

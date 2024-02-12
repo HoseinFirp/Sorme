@@ -35,7 +35,7 @@ export default function DatePickerValue() {
             label="Date of Birth"
             value={dayjs(inputBirth)}
             onChange={handleChange}
-            className="bg-pink-100"
+            className="bg-pink-100 disabled:bg-slate-400"
           />
         </DemoContainer>
       </LocalizationProvider>

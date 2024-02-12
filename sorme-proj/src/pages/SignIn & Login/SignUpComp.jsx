@@ -11,6 +11,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 // import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 import ErrorAlert from "../../Tools/alerts/ErrorAlert";
 import { UserContext } from "../../App";
+import LoaderDots from "../../Tools/Loaders/LoaderDots";
 function SignInComp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -19,6 +20,7 @@ function SignInComp() {
   const [isValid, setIsValid] = useState(true);
   // const [showAlert, setShowAlert] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { setPathForgot } = useContext(UserContext);
 
   const navigate = useNavigate();
@@ -55,6 +57,7 @@ function SignInComp() {
   const req = async () => {
     setShowError(false);
     // setShowAlert(false);
+    setLoading(true)
     try {
       const { data } = await axios.post(
         `https://keykavoos-sorme.liara.run/${
@@ -70,10 +73,11 @@ function SignInComp() {
       // setShowAlert(true);
       const newEmail = { email: `${email}` };
       localStorage.setItem("userEmail", JSON.stringify(newEmail));
-          
+          setLoading(false)
       navigate("/entercode");
     } catch (error) {
       console.log(error);
+      setLoading(false)
       setShowError(error.response.data.messages);
     }
   };
@@ -179,11 +183,11 @@ function SignInComp() {
           <div className="w-full flex justify-center">
             <button
               type="submit"
-              className="bg-white btn px-5 py-3 active:bg-pink-300 border-none hover:bg-pink-200  mx-10 rounded-lg font-bold text-pink-500"
+              className="bg-white btn disabled:bg-pink-600 disabled:text-pink-200 px-5 py-3 active:bg-pink-300 border-none hover:bg-pink-200  mx-10 rounded-lg font-bold text-pink-500"
               onClick={(e) => handleSubmit(e)}
-              disabled={!username || !password || !email || !isValid}
+              disabled={!username || !password || !email || !isValid|| loading}
             >
-              Create Your Account
+              {loading?<LoaderDots/>:"Create Your Account"}
             </button>
           </div>
 
@@ -194,6 +198,8 @@ function SignInComp() {
             </p>
             <button
               onClick={handleLogin}
+              disabled={loading}
+
               className="text-white btn bg-transparent border-none hover:bg-transparent active:text-pink-200 text-lg px-3 w-full py-2 pt-3 mb-3 font-bold "
             >
               Login

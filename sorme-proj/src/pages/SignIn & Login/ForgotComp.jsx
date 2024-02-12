@@ -7,11 +7,13 @@ import axios from "axios";
 import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 import ErrorAlert from "../../Tools/alerts/ErrorAlert";
 import { UserContext } from "../../App";
+import LoaderDots from "../../Tools/Loaders/LoaderDots";
 
 function ForgotComp() {
   const navigate = useNavigate();
   const [showAlert, setShowAlert] = useState(false);
   const [username, setUsername] = useState("");
+  const [loading, setLoading] = useState(false);
   const [showError, setShowError] = useState(false);
   const { path, setPathForgot } = useContext(UserContext);
 
@@ -24,6 +26,7 @@ function ForgotComp() {
   const req = async () => {
     setShowAlert(false);
     setShowError(false);
+    setLoading(true);
 
     console.log(username);
     console.log(path);
@@ -35,6 +38,8 @@ function ForgotComp() {
         { username: "mamadazadii" }
       );
       console.log(data);
+    setLoading(false);
+
       setShowAlert(true);
 
       const newUsername = { username: `${username}` };
@@ -48,6 +53,8 @@ function ForgotComp() {
         }
       }, 2000);
     } catch (error) {
+    setLoading(false);
+
       setShowError(error.response.data.message);
       console.log(error);
     }
@@ -101,12 +108,12 @@ function ForgotComp() {
           </div>
           <div className="w-full flex justify-center">
             <button
-              disabled={!username}
+              disabled={!username||loading}
               onClick={handleSubmit}
               type="submit"
-              className=" btn mb-4 bg-transparent w-72 border-none hover:bg-pink-200 bg-white text-pink-500 active:bg-pink-300  px-3  py-2  my-2 font-bold "
+              className=" btn mb-4 disabled:bg-pink-600 disabled:text-pink-200 bg-transparent w-72 border-none hover:bg-pink-200 bg-white text-pink-500 active:bg-pink-300  px-3  py-2  my-2 font-bold "
             >
-              Confirm
+              {loading ? <LoaderDots /> : "Confirm"}
             </button>
           </div>
         </div>

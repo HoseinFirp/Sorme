@@ -13,6 +13,7 @@ function Shop() {
   const navigate = useNavigate();
 
   const [showError, setShowError] = useState(false);
+  const [panel, setPanel] = useState("Best");
 
   useEffect(() => {
     const req = async () => {
@@ -31,7 +32,6 @@ function Shop() {
     req();
   }, []);
 
-  
   return (
     <div className="bg-white">
       <div className="text-sm ml-16 pt-52 breadcrumbs bg-white text-gray-600">
@@ -59,20 +59,51 @@ function Shop() {
         >
           Order By
         </p>
-        <button className=" min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-custom-bg-pink justify-self-center btn border-none  text-custom-white rounded-lg">
+        <button
+          onClick={() => setPanel("Best")}
+          className={`${
+            panel === "Best"
+              ? "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-custom-bg-pink justify-self-center btn border-none  text-custom-white rounded-lg"
+              : "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-gray-400 bg-opacity-50 btn border-none  justify-self-center   text-gray-600 text-xs lg:text-sm  rounded-lg"
+          } `}
+        >
           Best selling
         </button>
-        <button className="min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-gray-400 bg-opacity-50 btn border-none  justify-self-center   text-gray-600 text-xs lg:text-sm  rounded-lg">
+        <button
+          onClick={() => setPanel("Most")}
+          className={`${
+            panel === "Most"
+              ? "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-custom-bg-pink justify-self-center btn border-none  text-custom-white rounded-lg"
+              : "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-gray-400 bg-opacity-50 btn border-none  justify-self-center   text-gray-600 text-xs lg:text-sm  rounded-lg"
+          } `}        >
           Most expensive
         </button>
-        <button className="min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-gray-400 bg-opacity-50 btn border-none  justify-self-center   text-gray-600 text-xs lg:text-sm  rounded-lg">
+        <button
+          onClick={() => setPanel("Cheapest")}
+          className={`${
+            panel === "Cheapest"
+              ? "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-custom-bg-pink justify-self-center btn border-none  text-custom-white rounded-lg"
+              : "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-gray-400 bg-opacity-50 btn border-none  justify-self-center   text-gray-600 text-xs lg:text-sm  rounded-lg"
+          } `}        >
           Cheapest
         </button>
-        <button className="min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-gray-400 bg-opacity-50 btn border-none  justify-self-center   text-gray-600 text-xs lg:text-sm  rounded-lg">
-          Name : A to Z
+        <button
+          onClick={() => setPanel("A - Z")}
+          className={`${
+            panel === "A - Z"
+              ? "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-custom-bg-pink justify-self-center btn border-none  text-custom-white rounded-lg"
+              : "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-gray-400 bg-opacity-50 btn border-none  justify-self-center   text-gray-600 text-xs lg:text-sm  rounded-lg"
+          } `}        >
+          Name : A - Z
         </button>
-        <button className="min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-gray-400 bg-opacity-50 btn border-none  justify-self-center   text-gray-600 text-xs lg:text-sm  rounded-lg">
-          Name : Z to A
+        <button
+          onClick={() => setPanel("Z - A")}
+          className={`${
+            panel === "Z - A"
+              ? "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-custom-bg-pink justify-self-center btn border-none  text-custom-white rounded-lg"
+              : "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-gray-400 bg-opacity-50 btn border-none  justify-self-center   text-gray-600 text-xs lg:text-sm  rounded-lg"
+          } `}        >
+          Name : Z - A
         </button>
       </div>
       <div

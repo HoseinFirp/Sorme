@@ -8,6 +8,7 @@ import { UserContext } from "../../App";
 import axios from "axios";
 import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 import ErrorAlert from "../../Tools/alerts/ErrorAlert";
+import LoaderDots from "../../Tools/Loaders/LoaderDots";
 
 function NewPassComp() {
   const [showPass1, setShowPass1] = useState(false);
@@ -16,6 +17,7 @@ function NewPassComp() {
   const [showError, setShowError] = useState(false);
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const { path } = useContext(UserContext);
@@ -35,7 +37,7 @@ function NewPassComp() {
 
   const req = async () => {
     setShowAlert(false);
-
+    setLoading(true)
     try {
       const { data } = await axios.put(
         `https://keykavoos-sorme.liara.run/${
@@ -49,6 +51,7 @@ function NewPassComp() {
         }
       );
       console.log(data);
+      setLoading(false)
       setShowAlert(true);
       setTimeout(() => {
         if (path === "seller") {
@@ -58,6 +61,7 @@ function NewPassComp() {
         }
       }, 2000);
     } catch (error) {
+      setLoading(false)
       setShowError(error.response.data.message);
       console.log(error);
     }
@@ -65,7 +69,7 @@ function NewPassComp() {
 
   return (
     <div className="h-screen flex items-center justify-center bg-pink-100">
-      {showAlert ? <SuccessAlert props={"Your Password change successfuly"} /> : null}
+      {showAlert ? <SuccessAlert props={"Your Password change successfully"} /> : null}
       {showError ? <ErrorAlert props={`${showError}`} /> : null}
 
       <form>
@@ -137,10 +141,11 @@ function NewPassComp() {
           <div className="w-full flex justify-center">
             <button
               type="submit"
-              className="bg-white  px-2 mb-5 py-3 w-full mx-10 rounded-lg font-bold text-pink-500"
+              disabled={loading || !password || !passwordConfirm}
+              className="bg-white disabled:bg-pink-600 disabled:text-pink-200 px-2 mb-5 py-3 w-full mx-10 rounded-lg font-bold text-pink-500"
               onClick={handleSubmit}
             >
-              Confirm
+              {loading ? <LoaderDots /> : "Confirm"}
             </button>
           </div>
         </div>

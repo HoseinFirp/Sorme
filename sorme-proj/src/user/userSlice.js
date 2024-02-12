@@ -7,6 +7,7 @@ const initialState = {
   token: "",
   email: "",
   position: "",
+  address: "",
   _id: "",
   avatar: [],
   support: [],
@@ -44,6 +45,9 @@ const userSlice = createSlice({
     updateAvatar(state, action) {
       state.avatar = action.payload;
     },
+    updateAddress(state, action) {
+      state.address = action.payload;
+    },
     // deleteItem(state, action) {
     //   state.data = state.data.filter((item) => item._id !== action.payload);
     // },
@@ -60,6 +64,7 @@ export const {
   updateId,
   updateBirth,
   updateData,
+  updateAddress,
 } = userSlice.actions;
 export const useUser = () => useSelector((state) => state.user);
 

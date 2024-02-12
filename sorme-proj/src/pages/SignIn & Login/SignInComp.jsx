@@ -11,8 +11,10 @@ import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 import ErrorAlert from "../../Tools/alerts/ErrorAlert";
 import { updateToken } from "../../user/userSlice";
 import { UserContext } from "../../App";
+import LoaderDots from "../../Tools/Loaders/LoaderDots";
 
 function SignInComp() {
+  const [loading, setLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [showError, setShowError] = useState(false);
   const [showPass, setShowPass] = useState(false);
@@ -22,8 +24,14 @@ function SignInComp() {
 
   function handleGoCreate(e) {
     e.preventDefault();
-    navigate("/signup");
+    if (path === "user") {
+      navigate("/signup");
+    }
+    if (path === "seller") {
+      navigate("/signup-seller");
+    }
   }
+
   function handleForgot(e) {
     e.preventDefault();
     if (path === "seller") {
@@ -42,6 +50,8 @@ function SignInComp() {
   const req = async () => {
     setShowError(false);
     setShowAlert(false);
+    setLoading(true);
+
     console.log(path);
     try {
       const { data } = await axios.post(
@@ -58,17 +68,19 @@ function SignInComp() {
       setShowAlert(true);
 
       dispatch(updateToken(data.token));
-      
+
       // dispatch(updateName(data.username));
       // dispatch(updateEmail(data.email));
       // dispatch(updatePosition(data.position));
       // dispatch(updateId(data._id));
 
+      setLoading(false);
       setTimeout(() => {
         navigate("/dashboard-panel");
       }, 1500);
     } catch (error) {
       console.log(error);
+      setLoading(false);
       setShowError(error.response.data.message);
     }
   };
@@ -143,14 +155,15 @@ function SignInComp() {
           <div className="flex mt-2 gap-2">
             <button
               type="submit"
-              className=" btn bg-transparent w-36 border-none hover:bg-pink-200 bg-white text-pink-500 active:bg-pink-300  px-3  py-2   font-bold "
+              className=" btn disabled:bg-pink-600 disabled:text-pink-200 bg-transparent w-36 border-none hover:bg-pink-200 bg-white text-pink-500 active:bg-pink-300  px-3  py-2   font-bold "
               onClick={handleSubmit}
-              disabled={!username || !password}
+              disabled={!username || !password || loading}
             >
-              Login to account
+              {loading ? <LoaderDots /> : "Login to account"}
             </button>
             <button
               onClick={handleForgot}
+              disabled={loading}
               className=" btn bg-pink-600 w-36 border-none hover:bg-pink-700 bg-pink-00 text-white active:bg-pink-800  px-3  py-2   font-bold "
             >
               Forgot Password
@@ -165,6 +178,7 @@ function SignInComp() {
             </p>
             <button
               onClick={handleGoCreate}
+              disabled={loading}
               className="text-white btn bg-transparent border-none hover:bg-transparent active:text-pink-200 text-lg px-3 w-full py-2 pt-3 mb-3 font-bold "
             >
               Create an account

@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import DatePickerValue from "../../Tools/DatePickerValue";
 import {
+  updateAddress,
+  updateBirth,
   updateEmail,
   updateId,
   updateName,
@@ -12,6 +14,9 @@ import axios from "axios";
 import { UserContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import LoaderDots from "../../Tools/Loaders/LoaderDots";
+import SuccessAlert from "../../Tools/alerts/SuccessAlert";
+import ErrorAlert from "../../Tools/alerts/ErrorAlert";
 
 function DashSettings() {
   const user = useUser();
@@ -21,10 +26,11 @@ function DashSettings() {
   const [newPassword, setNewPassword] = useState();
   const [confirmPassword, setConfirmassword] = useState();
   const [avatar, setAvatar] = useState(`${user.avatar}`);
+  const [loadingLogout, setLoadingLogout] = useState(false);
+  const [loadingConfirm, setLoadingConfirm] = useState(false);
 
   const [showError, setShowError] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-
   const { path, date } = useContext(UserContext);
 
   const navigate = useNavigate();
@@ -34,34 +40,31 @@ function DashSettings() {
     req();
   }
 
-  // useEffect(() => {
-  //   const storedValue = localStorage.getItem("address");
-  //   if (storedValue) {
-  //     setAddress(storedValue);
-  //   }
-  // }, []);
-
-  // const handleChange = (event) => {
-  //   const value = event.target.value;
-  //   setAddress(value);
-  //   console.log(value);
-  //   localStorage.setItem("address", value);
-  // };
-
   function handleLogout(e) {
+    setLoadingLogout(true);
     e.preventDefault();
     dispatch(updateToken(""));
     dispatch(updateName(""));
     dispatch(updateEmail(""));
     dispatch(updatePosition(""));
     dispatch(updateId(""));
-    navigate("/");
+    setTimeout(() => {
+      navigate("/");
+      setLoadingLogout(false);
+    }, 2000);
   }
+  useEffect(() => {
+    const storedValue = localStorage.getItem("inputAddress");
+    if (storedValue) {
+      setAddress(storedValue);
+    }
+  }, []);
 
   const req = async () => {
     setShowAlert(false);
     setShowError(false);
-    console.log(date.$y, date.$M + 1, date.$D);
+    setLoadingConfirm(true);
+    // console.log(date.$y, date.$M + 1, date.$D);
     try {
       const { data } = await axios.put(
         `https://keykavoos-sorme.liara.run/${
@@ -69,6 +72,7 @@ function DashSettings() {
         }/Updata-Profile`,
         {
           fullname: `${username}`,
+          username: `${username}`,
           address: `${address}`,
           date_Of_Brith: `${(date.$y, date.$M + 1, date.$D)}`,
         },
@@ -79,9 +83,19 @@ function DashSettings() {
         }
       );
       console.log(data);
-      setShowAlert(true);
+      setLoadingConfirm(false);
+      localStorage.setItem("inputAddress", address);
+      dispatch(updateAddress(address));
+      dispatch(updateName(username));
+      dispatch(updateBirth(date));
+      console.log(user);
+
+      setShowAlert(data.message);
     } catch (error) {
+      setLoadingConfirm(false);
+
       setShowError(error.response.data.message);
+      console.log(user.token);
       console.log(error);
     }
     if (newPassword && confirmPassword) {
@@ -103,14 +117,17 @@ function DashSettings() {
         );
         console.log(data);
         setShowAlert(true);
+        setLoadingConfirm(false);
       } catch (error) {
+        setLoadingConfirm(false);
+
         setShowError(error.response.data.message);
         console.log(error);
       }
     }
-    const formData = new FormData();
-    formData.append("photo", avatar);
     if (avatar) {
+      const formData = new FormData();
+      formData.append("photo", avatar);
       try {
         const { data } = await axios.put(
           `https://keykavoos-sorme.liara.run/${
@@ -124,8 +141,11 @@ function DashSettings() {
           }
         );
         console.log(data);
+        setLoadingConfirm(false);
         setShowAlert(true);
       } catch (error) {
+        setLoadingConfirm(false);
+
         setShowError(error.response.data.message);
         console.log(error);
       }
@@ -133,6 +153,8 @@ function DashSettings() {
   };
   return (
     <div className="flex flex-col items-center gap-5 p-5 rounded-2xl mx-10 bg-pink-100">
+      {showAlert ? <SuccessAlert props={`${showAlert}`} /> : null}
+      {showError ? <ErrorAlert props={`${showError}`} /> : null}
       <form className="flex flex-col items-center gap-5">
         <div className="flex flex-col rounded-2xl pr-2 bg-white gap-5 ">
           <div className="lg:grid gap-5 m-2 mb-0 flex  flex-col lg:grid-cols-2">
@@ -140,8 +162,9 @@ function DashSettings() {
               <p className="text-gray-600 px-3 min-w-40">Profile Picture :</p>
               <input
                 type="file"
-                className="file-input file-input-bordered file-input-secondary w-full max-w-xs bg-pink-100"
+                className="file-input disabled:bg-slate-400 disabled:border-gray-400 file-input-bordered file-input-secondary w-full max-w-xs bg-pink-100"
                 onChange={(e) => setAvatar(e.target.files[0])}
+                disabled={loadingLogout || loadingConfirm}
               />
             </div>
             <div className="flex items-center order-4 lg:order-2">
@@ -149,8 +172,9 @@ function DashSettings() {
               <input
                 type="password"
                 id="floating_outlined1"
-                className="block px-2.5 py-2  w-full text-sm border-2  text-pink-700 bg-gray-100 rounded-lg border-1 border-gray-200 appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
+                className="block px-2.5 py-2  w-full text-sm border-2 disabled:bg-slate-400 text-pink-700 bg-gray-100 rounded-lg border-1 border-gray-200 appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
                 placeholder=" "
+                disabled={loadingLogout || loadingConfirm}
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
@@ -161,9 +185,10 @@ function DashSettings() {
               <input
                 type="text"
                 id="floating_outlined2"
-                className="block px-2.5 py-2  w-full text-sm border-2  text-pink-700 bg-pink-100 rounded-lg border-1 border-pink-200 appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
+                className="block px-2.5 py-2  w-full text-sm border-2 disabled:bg-slate-400 text-pink-700 bg-pink-100 rounded-lg border-1 border-pink-200 appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
                 placeholder=" "
                 defaultValue={user.username}
+                disabled={loadingLogout || loadingConfirm}
                 // onChange={(e) => setFirstname(e.target.value)}
                 onChange={(e) => {
                   setUsername(e.target.value);
@@ -176,9 +201,9 @@ function DashSettings() {
               <input
                 type="password"
                 id="floating_outlined3"
-                className="block px-2.5 py-2   w-full text-sm border-2  text-pink-700 bg-gray-100 rounded-lg border-1 border-gray-200 appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
+                className="block px-2.5 py-2  w-full text-sm border-2 disabled:bg-slate-200 text-pink-700 bg-gray-100 rounded-lg border-1 border-gray-200 appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
                 placeholder=" "
-                disabled={!password}
+                disabled={!password || loadingLogout || loadingConfirm}
                 onChange={(e) => {
                   setNewPassword(e.target.value);
                 }}
@@ -194,9 +219,9 @@ function DashSettings() {
               <input
                 type="password"
                 id="floating_outlined4"
-                className="block px-2.5 py-2  w-full text-sm border-2  text-pink-700 bg-gray-100 rounded-lg border-1 border-gray-200 appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
+                className="block px-2.5 py-2  w-full text-sm border-2 disabled:bg-slate-200 text-pink-700 bg-gray-100 rounded-lg border-1 border-gray-200 appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
                 placeholder=" "
-                disabled={!newPassword}
+                disabled={!newPassword || loadingLogout || loadingConfirm}
                 onChange={(e) => {
                   setConfirmassword(e.target.value);
                 }}
@@ -209,8 +234,9 @@ function DashSettings() {
               <input
                 type="text"
                 id="floating_outlined5"
-                className="block px-2.5 py-2  w-full min-w-32 text-sm border-2  text-pink-700 bg-pink-100 rounded-lg border-1 border-pink-200 appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
+                className="block px-2.5 py-2 disabled:bg-slate-400 w-full min-w-32 text-sm border-2  text-pink-700 bg-pink-100 rounded-lg border-1 border-pink-200 appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
                 placeholder=" "
+                disabled={loadingLogout || loadingConfirm}
                 value={address}
                 onChange={(e) => {
                   setAddress(e.target.value);
@@ -219,18 +245,20 @@ function DashSettings() {
             </div>
             <button
               type="submit"
+              disabled={loadingLogout || loadingConfirm}
               onClick={handleSubmit}
-              className="bg-pink-200 btn border-none justify-self-center font-bold hover:bg-pink-300 active:bg-pink-400 transition duration-300 col-span-2 text-gray-700 w-24  px-5 rounded-xl"
+              className="bg-pink-200 btn border-none justify-self-center font-bold hover:bg-pink-300 disabled:bg-pink-500 disabled:text-white active:bg-pink-400 transition duration-300 col-span-2 text-gray-700 w-24  px-5 rounded-xl"
             >
-              Confirm
+              {loadingConfirm ? <LoaderDots /> : "Confirm"}
             </button>
           </div>
         </div>
         <button
           onClick={handleLogout}
+          disabled={loadingLogout || loadingConfirm}
           className="bg-red-400 btn border-none h-10 justify-self-center font-bold  active:bg-red-600 col-span-2  w-24  hover:bg-red-500 transition-all text-white rounded-xl"
         >
-          Log out
+          {loadingLogout ? <LoaderDots /> : "Log out"}
         </button>
       </form>
     </div>

@@ -19,7 +19,7 @@ import { useUser } from "../user/userSlice";
 
 function Navbar() {
   const navigate = useNavigate();
-  const { path, setPath } = useContext(UserContext);
+  const { setPath } = useContext(UserContext);
   const user = useUser();
   // console.log(user);
   // useEffect(() => {
@@ -56,21 +56,21 @@ function Navbar() {
             <input
               type="text"
               placeholder=" Product search ..."
-              className="w-52 h-9 lg:w-64 -ml-2 p-2 pl-6 text-pink-600 font-semibold rounded-md  outline-none focus:bg-gray-200 transition duration-300 bg-custom-bg-1"
+              className="w-52 h-9 lg:w-64  -ml-2 p-2 pl-6 text-pink-600 font-semibold rounded-md  outline-none focus:bg-gray-200 transition duration-300 bg-custom-bg-1"
             />
           </div>
         </div>
-        <div className="flex gap-3 md:px-0 px-10 justify-between w-full md:w-min items-center ">
+        <div className=" flex gap-3 md:px-0 px-10 justify-between w-full md:w-min items-center ">
           {!user.token ? (
-            <div className="flex gap-3  md:px-0  justify-start w-full md:w-min items-center ">
+            <div className=" flex gap-3  md:px-0  justify-start w-full md:w-min items-center ">
               <button
                 onClick={() => {
                   navigate("/signup-seller");
                   setPath("seller");
                 }}
-                className="flex gap-1 min-w-16 text-xs hover:text-pink-700  active:bg-pink-100 text-black border rounded-md border-black p-1 font-bold  items-center"
+                className="flex gap-1 min-w-28 justify-around text-xs hover:text-pink-700  active:bg-pink-100 text-black border rounded-md border-black p-1 font-bold  items-center"
               >
-                Seller
+                Seller panel
                 <img src={seller} className="w-5" />
               </button>
               <p className="text-2xl -mt-2">|</p>
@@ -79,9 +79,9 @@ function Navbar() {
                   navigate("/signup");
                   setPath("user");
                 }}
-                className="flex min-w-32 justify-between gap-1 text-xs  hover:text-pink-700  active:bg-pink-100 text-black border rounded-md border-black p-1 font-bold  items-center"
+                className="flex min-w-32  justify-around gap-0 text-xs  hover:text-pink-700  active:bg-pink-100 text-black border rounded-md border-black p-1 font-bold  items-center"
               >
-                Login / SingUp
+                Customer panel
                 <img src={signInPic} className="w-5" />
               </button>
             </div>
