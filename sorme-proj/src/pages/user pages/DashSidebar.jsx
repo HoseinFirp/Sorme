@@ -9,9 +9,9 @@ import settings from "../../images/setting.png";
 import pinkObj from "../../images/pinkObj.png";
 import sellerIcon from "../../images/sellerIcon.png";
 import { useContext, useState } from "react";
-import { useUser } from "../../user/userSlice";
 import { UserContext } from "../../App";
 import userPic from "../../images/userPic.png";
+import { useUser } from "../../Slicers/userSlice";
 
 function DashSidebar() {
   const [panel, setPanel] = useState("dashboardPanel");

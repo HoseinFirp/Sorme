@@ -9,9 +9,9 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 import ErrorAlert from "../../Tools/alerts/ErrorAlert";
-import { updateToken } from "../../user/userSlice";
 import { UserContext } from "../../App";
 import LoaderDots from "../../Tools/Loaders/LoaderDots";
+import { updateToken } from "../../Slicers/userSlice";
 
 function SignInComp() {
   const [loading, setLoading] = useState(false);

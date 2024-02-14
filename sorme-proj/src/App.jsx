@@ -25,17 +25,18 @@ import NewPassComp from "./pages/SignIn & Login/NewPassComp";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
-import {
-  updateAvatar,
-  updateEmail,
-  updateId,
-  updateName,
-  updatePosition,
-  updateSupport,
-  updateToken,
-  useUser,
-} from "./user/userSlice";
+// import {
+//   updateAvatar,
+//   updateEmail,
+//   updateId,
+//   updateName,
+//   updatePosition,
+//   updateSupport,
+//   updateToken,
+//   useUser,
+// } from "./user/userSlice";
 import { useDispatch } from "react-redux";
+import { updateAvatar, updateEmail, updateId, updateName, updatePosition, updateSupport, updateToken, useUser } from "./Slicers/userSlice";
 
 function AppLayOut() {
   return (

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import LoaderDots from "../../Tools/Loaders/LoaderDots";
 import axios from "axios";
-import { useUser } from "../../user/userSlice";
+import { useUser } from "../../Slicers/userSlice";
 import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 import ErrorAlert from "../../Tools/alerts/ErrorAlert";
 

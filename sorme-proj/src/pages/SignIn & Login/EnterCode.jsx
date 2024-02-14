@@ -8,8 +8,8 @@ import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 import { UserContext } from "../../App";
 import ErrorAlert from "../../Tools/alerts/ErrorAlert";
 import { useDispatch } from "react-redux";
-import { updateToken } from "../../user/userSlice";
 import LoaderDots from "../../Tools/Loaders/LoaderDots";
+import { updateToken } from "../../Slicers/userSlice";
 
 function EnterCode() {
   const secondInputRef = useRef();

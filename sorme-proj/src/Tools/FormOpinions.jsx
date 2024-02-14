@@ -1,9 +1,9 @@
 import axios from "axios";
-import { useUser } from "../user/userSlice";
 import { useState } from "react";
 import SuccessAlert from "./alerts/SuccessAlert";
 import ErrorAlert from "./alerts/ErrorAlert";
 import LoaderDots from "./Loaders/LoaderDots";
+import { useUser } from "../Slicers/userSlice";
 
 function FormOpinions() {
   const [showError, setShowError] = useState(false);

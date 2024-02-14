@@ -14,7 +14,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import userReducer from "./user/userSlice.js";
+import userReducer from "./Slicers/userSlice.js";
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
 

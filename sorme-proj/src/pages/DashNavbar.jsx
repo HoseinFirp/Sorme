@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import SormeLogo from "../images/SormeLogo.png";
 import iconCart from "../images/iconCart.png";
-import { useUser } from "../user/userSlice";
+import { useUser } from "../Slicers/userSlice";
 
 function DashNavbar() {
   const user = useUser();

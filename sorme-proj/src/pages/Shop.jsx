@@ -6,11 +6,11 @@ import womanhair from "../images/womanhair.png";
 import womanlips from "../images/womanlips.png";
 import womanbody from "../images/womanbody.png";
 import powder1 from "../images/powder1.png";
-import powder2 from "../images/powder2.png";
-import powder3 from "../images/powder3.png";
-import powder4 from "../images/powder4.png";
-import powder5 from "../images/powder5.png";
-import powder6 from "../images/powder6.png";
+// import powder2 from "../images/powder2.png";
+// import powder3 from "../images/powder3.png";
+// import powder4 from "../images/powder4.png";
+// import powder5 from "../images/powder5.png";
+// import powder6 from "../images/powder6.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ErrorAlert from "../Tools/alerts/ErrorAlert";
@@ -129,7 +129,7 @@ function Shop() {
           >
             <div className="flex justify-between flex-col">
               <img
-                src={powder1}
+                src={!prod.avatar ? prod.avatar : powder1}
                 className="  max-h-56 rounded-xl justify-self-start"
               />
               <div className="flex gap-5 content-center ml-4 justify-between mb-1">
@@ -169,258 +169,38 @@ function Shop() {
               <div className="rating flex flex-col-reverse gap-2">
                 <input
                   type="radio"
+                  disabled
                   name="rating-2"
-                  className="mask mask-star-2 bg-orange-400"
+                  className="mask mask-star-2  cursor-default bg-orange-400"
                 />
                 <input
                   type="radio"
+                  disabled
                   name="rating-2"
-                  className="mask mask-star-2 bg-orange-400"
+                  className="mask mask-star-2 cursor-default bg-orange-400"
                 />
                 <input
                   type="radio"
+                  disabled
                   name="rating-2"
-                  className="mask mask-star-2 bg-orange-400"
+                  className="mask mask-star-2 cursor-default bg-orange-400"
                 />
                 <input
                   type="radio"
+                  disabled
                   name="rating-2"
-                  className="mask mask-star-2 bg-orange-400"
+                  className="mask mask-star-2 cursor-default bg-orange-400"
                 />
                 <input
                   type="radio"
+                  disabled
                   name="rating-2"
-                  className="mask mask-star-2 bg-orange-400"
+                  className="mask mask-star-2 cursor-default bg-orange-400"
                 />
               </div>
             </div>
           </div>
         ))}
-        <div className=" border-2 border-pink-100 shadow-xl rounded-xl flex w-min justify-between">
-          <div className="flex justify-between flex-col">
-            <img
-              src={powder6}
-              className="  max-h-56 rounded-xl justify-self-start"
-            />
-            <div className="flex gap-5 ml-4 justify-between mb-5">
-              <p className="w-36 font-bold text-custom-gray">
-                Fix Arcanil powder
-              </p>
-              <p className="font-bold text-pink-400">60$</p>
-            </div>
-          </div>
-
-          <div className="flex flex-col justify-between py-8 items-center">
-            <p className="w-24 flex justify-center">20 persons</p>
-            <div className="rating flex flex-col-reverse gap-2">
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-            </div>
-          </div>
-        </div>
-        <div className=" border-2 border-pink-100 shadow-xl rounded-xl flex w-min justify-between">
-          <div className="flex justify-between flex-col">
-            <img
-              src={powder2}
-              className="  max-h-56 rounded-xl justify-self-start"
-            />
-            <div className="flex gap-5 ml-4 justify-between mb-5">
-              <p className="w-36 font-bold text-custom-gray">
-                Fix Arcanil powder
-              </p>
-              <p className="font-bold text-pink-400">60$</p>
-            </div>
-          </div>
-
-          <div className="flex flex-col justify-between py-8 items-center">
-            <p className="w-24 flex justify-center">20 persons</p>
-            <div className="rating flex flex-col-reverse gap-2">
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-            </div>
-          </div>
-        </div>
-        <div className=" border-2 border-pink-100 shadow-xl rounded-xl flex w-min justify-between">
-          <div className="flex justify-between flex-col">
-            <img
-              src={powder3}
-              className="  max-h-56 rounded-xl justify-self-start"
-            />
-            <div className="flex gap-5 ml-4 justify-between mb-5">
-              <p className="w-36 font-bold text-custom-gray">
-                Fix Arcanil powder
-              </p>
-              <p className="font-bold text-pink-400">60$</p>
-            </div>
-          </div>
-
-          <div className="flex flex-col justify-between py-8 items-center">
-            <p className="w-24 flex justify-center">20 persons</p>
-            <div className="rating flex flex-col-reverse gap-2">
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-            </div>
-          </div>
-        </div>
-        <div className=" border-2 border-pink-100 shadow-xl rounded-xl flex w-min justify-between">
-          <div className="flex justify-between flex-col">
-            <img
-              src={powder4}
-              className="  max-h-56 rounded-xl justify-self-start"
-            />
-            <div className="flex gap-5 ml-4 justify-between mb-5">
-              <p className="w-36 font-bold text-custom-gray">
-                Fix Arcanil powder
-              </p>
-              <p className="font-bold text-pink-400">60$</p>
-            </div>
-          </div>
-
-          <div className="flex flex-col justify-between py-8 items-center">
-            <p className="w-24 flex justify-center">20 persons</p>
-            <div className="rating flex flex-col-reverse gap-2">
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-            </div>
-          </div>
-        </div>
-        <div className=" border-2 border-pink-100 shadow-xl rounded-xl flex w-min justify-between">
-          <div className="flex justify-between flex-col">
-            <img
-              src={powder5}
-              className="  max-h-56 rounded-xl justify-self-start"
-            />
-            <div className="flex gap-5 ml-4 justify-between mb-5">
-              <p className="w-36 font-bold text-custom-gray">
-                Fix Arcanil powder
-              </p>
-              <p className="font-bold text-pink-400">60$</p>
-            </div>
-          </div>
-
-          <div className="flex flex-col justify-between py-8 items-center">
-            <p className="w-24 flex justify-center">20 persons</p>
-            <div className="rating flex flex-col-reverse gap-2">
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

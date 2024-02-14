@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../App";
 import LocationLoader from "../Tools/Loaders/LocationLoader";
-import { useUser } from "../user/userSlice";
+import { useUser } from "../Slicers/userSlice";
 
 function Navbar() {
   const navigate = useNavigate();

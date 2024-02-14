@@ -1,15 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import DatePickerValue from "../../Tools/DatePickerValue";
-import {
-  updateAddress,
-  updateBirth,
-  updateEmail,
-  updateId,
-  updateName,
-  updatePosition,
-  updateToken,
-  useUser,
-} from "../../user/userSlice";
+// import {
+//   updateAddress,
+//   updateBirth,
+//   updateEmail,
+//   updateId,
+//   updateName,
+//   updatePosition,
+//   updateToken,
+//   useUser,
+// } from "../../user/userSlice";
 import axios from "axios";
 import { UserContext } from "../../App";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import LoaderDots from "../../Tools/Loaders/LoaderDots";
 import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 import ErrorAlert from "../../Tools/alerts/ErrorAlert";
+import { updateAddress, updateBirth, updateEmail, updateId, updateName, updatePosition, updateToken, useUser } from "../../Slicers/userSlice";
 
 function DashSettings() {
   const user = useUser();
