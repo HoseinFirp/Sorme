@@ -51,7 +51,7 @@ function DashSettings() {
     setTimeout(() => {
       navigate("/");
       setLoadingLogout(false);
-    }, 2000);
+    }, 1500);
   }
   useEffect(() => {
     const storedValue = localStorage.getItem("inputAddress");
@@ -64,7 +64,7 @@ function DashSettings() {
     setShowAlert(false);
     setShowError(false);
     setLoadingConfirm(true);
-    // console.log(date.$y, date.$M + 1, date.$D);
+    console.log(date.$y, date.$M + 1, date.$D);
     try {
       const { data } = await axios.put(
         `https://keykavoos-sorme.liara.run/${
@@ -152,7 +152,7 @@ function DashSettings() {
     }
   };
   return (
-    <div className="flex flex-col items-center gap-5 p-5 rounded-2xl mx-10 bg-pink-100">
+    <div className="flex flex-col my-10 items-center gap-5 p-5 rounded-2xl mx-10 bg-pink-100">
       {showAlert ? <SuccessAlert props={`${showAlert}`} /> : null}
       {showError ? <ErrorAlert props={`${showError}`} /> : null}
       <form className="flex flex-col items-center gap-5">

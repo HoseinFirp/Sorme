@@ -9,7 +9,6 @@ const CountdownTimer = ({ initialSeconds }) => {
   const dispatch = useDispatch();
   //   const navigate = useNavigate();
   useEffect(() => {
-    // Exit early if countdown is finished
     if (turnOn) {
       if (seconds <= 0) {
         return;

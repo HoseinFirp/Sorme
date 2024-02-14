@@ -85,32 +85,34 @@ function App() {
     }
   }, [path]);
 
-  useEffect(() => {if(user.token){
-    const req = async () => {
-      try {
-        const data = await axios.get(
-          `https://keykavoos-sorme.liara.run/${
-            path === "seller" ? "Seller" : "user"
-          }/get_Profile`,
-          {
-            headers: {
-              Authorization: `Bearer ${user.token}`,
-            },
-          }
-        );
-        dispatch(updateName(data.data.username));
-        dispatch(updateEmail(data.data.email));
-        dispatch(updateToken(data.data.token));
-        dispatch(updateSupport(data.data.support));
-        dispatch(updatePosition(data.data.position));
-        dispatch(updateAvatar(data.data.avatar));
-        dispatch(updateId(data.data._id));
-      } catch (error) {
-        // setIsLogin(false);
-        console.log(error.response.data);
-      }
-    };
-    req();}
+  useEffect(() => {
+    if (user.token) {
+      const req = async () => {
+        try {
+          const data = await axios.get(
+            `https://keykavoos-sorme.liara.run/${
+              path === "seller" ? "Seller" : "user"
+            }/get_Profile`,
+            {
+              headers: {
+                Authorization: `Bearer ${user.token}`,
+              },
+            }
+          );
+          dispatch(updateName(data.data.username));
+          dispatch(updateEmail(data.data.email));
+          dispatch(updateToken(data.data.token));
+          dispatch(updateSupport(data.data.support));
+          dispatch(updatePosition(data.data.position));
+          dispatch(updateAvatar(data.data.avatar));
+          dispatch(updateId(data.data._id));
+        } catch (error) {
+          // setIsLogin(false);
+          console.log(error.response.data);
+        }
+      };
+      req();
+    }
   }, [user.token, dispatch, path]);
   return (
     <UserContext.Provider value={value}>

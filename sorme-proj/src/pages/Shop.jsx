@@ -1,4 +1,10 @@
 import { useNavigate } from "react-router-dom";
+import womanface from "../images/womanface.png";
+import womanhand from "../images/womanhand.png";
+import womaneye from "../images/womaneye.png";
+import womanhair from "../images/womanhair.png";
+import womanlips from "../images/womanlips.png";
+import womanbody from "../images/womanbody.png";
 import powder1 from "../images/powder1.png";
 import powder2 from "../images/powder2.png";
 import powder3 from "../images/powder3.png";
@@ -13,7 +19,9 @@ function Shop() {
   const navigate = useNavigate();
 
   const [showError, setShowError] = useState(false);
+  const [products, setProducts] = useState([]);
   const [panel, setPanel] = useState("Best");
+  console.log(products);
 
   useEffect(() => {
     const req = async () => {
@@ -23,7 +31,7 @@ function Shop() {
         const { data } = await axios.get(
           `https://keykavoos-sorme.liara.run/Product/all_Product`
         );
-        console.log(data);
+        setProducts(data);
       } catch (error) {
         console.log(error);
         setShowError(error.response.data.messages);
@@ -75,7 +83,8 @@ function Shop() {
             panel === "Most"
               ? "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-custom-bg-pink justify-self-center btn border-none  text-custom-white rounded-lg"
               : "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-gray-400 bg-opacity-50 btn border-none  justify-self-center   text-gray-600 text-xs lg:text-sm  rounded-lg"
-          } `}        >
+          } `}
+        >
           Most expensive
         </button>
         <button
@@ -84,7 +93,8 @@ function Shop() {
             panel === "Cheapest"
               ? "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-custom-bg-pink justify-self-center btn border-none  text-custom-white rounded-lg"
               : "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-gray-400 bg-opacity-50 btn border-none  justify-self-center   text-gray-600 text-xs lg:text-sm  rounded-lg"
-          } `}        >
+          } `}
+        >
           Cheapest
         </button>
         <button
@@ -93,7 +103,8 @@ function Shop() {
             panel === "A - Z"
               ? "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-custom-bg-pink justify-self-center btn border-none  text-custom-white rounded-lg"
               : "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-gray-400 bg-opacity-50 btn border-none  justify-self-center   text-gray-600 text-xs lg:text-sm  rounded-lg"
-          } `}        >
+          } `}
+        >
           Name : A - Z
         </button>
         <button
@@ -102,7 +113,8 @@ function Shop() {
             panel === "Z - A"
               ? "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-custom-bg-pink justify-self-center btn border-none  text-custom-white rounded-lg"
               : "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-gray-400 bg-opacity-50 btn border-none  justify-self-center   text-gray-600 text-xs lg:text-sm  rounded-lg"
-          } `}        >
+          } `}
+        >
           Name : Z - A
         </button>
       </div>
@@ -110,51 +122,80 @@ function Shop() {
         id="grid"
         className="grid grid-cols-1 md:grid-cols-2 py-20 mx-16 gap-x-5 gap-y-10 lg:grid-cols-3 justify-items-center "
       >
-        <div className=" border-2 border-pink-100 shadow-xl rounded-xl flex w-min justify-between">
-          <div className="flex justify-between flex-col">
-            <img
-              src={powder1}
-              className="  max-h-56 rounded-xl justify-self-start"
-            />
-            <div className="flex gap-5 ml-4 justify-between mb-5">
-              <p className="w-36 font-bold text-custom-gray">
-                Fix Arcanil powder
+        {products.map((prod) => (
+          <div
+            key={prod._id}
+            className=" border-2 border-pink-100 shadow-xl rounded-xl flex w-min justify-between"
+          >
+            <div className="flex justify-between flex-col">
+              <img
+                src={powder1}
+                className="  max-h-56 rounded-xl justify-self-start"
+              />
+              <div className="flex gap-5 content-center ml-4 justify-between mb-1">
+                <p className="w-36 font-bold text-lg text-custom-gray">
+                  {prod.name}
+                </p>
+                <p className="font-bold text-pink-400">{prod.price}$</p>
+              </div>
+              <p className=" flex gap-5 ml-4 justify-between mb-2 text-sm text-custom-gray">
+                {prod.description.length > 10
+                  ? prod.description.slice(0, 22) + " ..."
+                  : prod.description}
               </p>
-              <p className="font-bold text-pink-400">60$</p>
+              <p className="w-36 ml-4 mb-5 text-xs text-custom-gray">
+                seller : {prod.username}
+              </p>
             </div>
-          </div>
 
-          <div className="flex flex-col justify-between py-8 items-center">
-            <p className="w-24 flex justify-center">20 persons</p>
-            <div className="rating flex flex-col-reverse gap-2">
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
+            <div className="flex flex-col justify-between py-6 gap-1 items-center">
+              <p className="w-24 flex justify-center ">20 Persons</p>
+              {/* if product was any of categories */}
+
+              {prod.category === "Face" ? (
+                <img src={womanface} className="w-9 my-2" />
+              ) : prod.category === "Hands" ? (
+                <img src={womanhand} className="w-9 my-2" />
+              ) : prod.category === "Eyes" ? (
+                <img src={womaneye} className="w-9 my-2" />
+              ) : prod.category === "Hair" ? (
+                <img src={womanhair} className="w-9 my-2" />
+              ) : prod.category === "Lips" ? (
+                <img src={womanlips} className="w-9 my-2" />
+              ) : prod.category === "Body" ? (
+                <img src={womanbody} className="w-9 my-2" />
+              ) : null}
+
+              <div className="rating flex flex-col-reverse gap-2">
+                <input
+                  type="radio"
+                  name="rating-2"
+                  className="mask mask-star-2 bg-orange-400"
+                />
+                <input
+                  type="radio"
+                  name="rating-2"
+                  className="mask mask-star-2 bg-orange-400"
+                />
+                <input
+                  type="radio"
+                  name="rating-2"
+                  className="mask mask-star-2 bg-orange-400"
+                />
+                <input
+                  type="radio"
+                  name="rating-2"
+                  className="mask mask-star-2 bg-orange-400"
+                />
+                <input
+                  type="radio"
+                  name="rating-2"
+                  className="mask mask-star-2 bg-orange-400"
+                />
+              </div>
             </div>
           </div>
-        </div>
+        ))}
         <div className=" border-2 border-pink-100 shadow-xl rounded-xl flex w-min justify-between">
           <div className="flex justify-between flex-col">
             <img

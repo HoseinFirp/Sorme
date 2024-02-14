@@ -21,15 +21,6 @@ function Navbar() {
   const navigate = useNavigate();
   const { setPath } = useContext(UserContext);
   const user = useUser();
-  // console.log(user);
-  // useEffect(() => {
-  //   // Retrieve data from localStorage when component mounts
-  //   localStorage.setItem('userPath', JSON.stringify(path));
-  //   const storedData = localStorage.getItem('userPath');
-  //   if (storedData) {
-  //     setPath(JSON.parse(storedData));
-  //   }
-  // }, [setPath,path]);
   return (
     <div className="z-50 w-full bg-white glass bg-opacity-25 fixed pb-1">
       <img src={NavbarPic} className="h-10 z-0 w-full" />
@@ -171,32 +162,33 @@ function Navbar() {
               </li>
               <li>
                 <button className=" hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
-                  Cosmetic
+                Eyes
                 </button>
               </li>
               <li>
                 <a className=" hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
-                  Skin products
+                Face
                 </a>
               </li>
               <li>
                 <a className=" hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
-                  Hair products
+                Hair
                 </a>
               </li>
               <li>
                 <a className=" hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
-                  Bathroom products
+                Lips
                 </a>
               </li>
               <li>
                 <a className=" hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
-                  Health products
+                <option>Body</option>
+
                 </a>
               </li>
               <li>
                 <a className=" hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
-                  Appliances
+                Hands
                 </a>
               </li>
             </ul>
