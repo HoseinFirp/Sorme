@@ -27,6 +27,8 @@ import CountdownTimer from "../Tools/CountDown";
 // import SuccessAlert from "../Tools/alerts/SuccessAlert";
 
 function Home() {
+
+  
   return (
     <div className="bg-white pt-20 lg:pt-5 pl-16 pr-16 pb-20">
       <Slider />

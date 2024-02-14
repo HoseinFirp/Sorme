@@ -1,15 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import DatePickerValue from "../../Tools/DatePickerValue";
-// import {
-//   updateAddress,
-//   updateBirth,
-//   updateEmail,
-//   updateId,
-//   updateName,
-//   updatePosition,
-//   updateToken,
-//   useUser,
-// } from "../../user/userSlice";
+
 import axios from "axios";
 import { UserContext } from "../../App";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +8,16 @@ import { useDispatch } from "react-redux";
 import LoaderDots from "../../Tools/Loaders/LoaderDots";
 import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 import ErrorAlert from "../../Tools/alerts/ErrorAlert";
-import { updateAddress, updateBirth, updateEmail, updateId, updateName, updatePosition, updateToken, useUser } from "../../Slicers/userSlice";
+import {
+  updateAddress,
+  updateBirth,
+  updateEmail,
+  updateId,
+  updateName,
+  updatePosition,
+  updateToken,
+  useUser,
+} from "../../Slicers/userSlice";
 
 function DashSettings() {
   const user = useUser();
@@ -86,12 +86,19 @@ function DashSettings() {
       console.log(data);
       setLoadingConfirm(false);
       localStorage.setItem("inputAddress", address);
+      setShowAlert(data.message);
+      setTimeout(() => {
+        if (username !== user.username) {
+          if (path === "seller") {
+            navigate("/login");
+          } else if (path === "user") {
+            navigate("/login-seller");
+          }
+        }
+      }, 1500);
       dispatch(updateAddress(address));
       dispatch(updateName(username));
       dispatch(updateBirth(date));
-      console.log(user);
-
-      setShowAlert(data.message);
     } catch (error) {
       setLoadingConfirm(false);
 
@@ -152,6 +159,7 @@ function DashSettings() {
       }
     }
   };
+
   return (
     <div className="flex flex-col my-10 items-center gap-5 p-5 rounded-2xl mx-10 bg-pink-100">
       {showAlert ? <SuccessAlert props={`${showAlert}`} /> : null}

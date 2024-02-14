@@ -1,4 +1,29 @@
+import { useEffect } from "react";
+import { useUser } from "../Slicers/userSlice";
+import axios from "axios";
+
 function TableSupport() {
+  const user = useUser()
+
+  useEffect(() => {
+    const req = async () => {
+      try {
+        const data = await axios.get(
+          `https://keykavoos-sorme.liara.run/Admin/get-support`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+        console.log(data);
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    };
+    req();
+  }, [user.token]);
+  
   return (
     <div className="overflow-x-auto bg-white p-5  rounded-lg">
       <table className="table">

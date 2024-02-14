@@ -1,7 +1,7 @@
 import { useState } from "react";
 import LoaderDots from "../../Tools/Loaders/LoaderDots";
 import axios from "axios";
-import { useUser } from "../../Slicers/userSlice";
+// import { useUser } from "../../Slicers/userSlice";
 import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 import ErrorAlert from "../../Tools/alerts/ErrorAlert";
 
@@ -16,7 +16,7 @@ function DashProduct() {
   const [aboutProduct, setAboutProduct] = useState();
   const [category, setCategory] = useState("");
   const [productBrand, setProductBrand] = useState();
-  const user = useUser();
+  // const user = useUser();
 
   function handleSubmit(e) {
     e.preventDefault();

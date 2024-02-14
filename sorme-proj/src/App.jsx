@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import PageNotFound from "./pages/PageNotFound";
 import Footer from "./pages/Footer";
 import Shop from "./pages/Shop";
+import Cart from "./pages/Cart/Cart";
 import Product from "./pages/Product";
 import DashPanel from "./pages/user pages/DashPanel";
 import DashSidebar from "./pages/user pages/DashSidebar";
@@ -25,16 +26,6 @@ import NewPassComp from "./pages/SignIn & Login/NewPassComp";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
-// import {
-//   updateAvatar,
-//   updateEmail,
-//   updateId,
-//   updateName,
-//   updatePosition,
-//   updateSupport,
-//   updateToken,
-//   useUser,
-// } from "./user/userSlice";
 import { useDispatch } from "react-redux";
 import { updateAvatar, updateEmail, updateId, updateName, updatePosition, updateSupport, updateToken, useUser } from "./Slicers/userSlice";
 
@@ -122,6 +113,7 @@ function App() {
           <Route element={<AppLayOut />}>
             <Route index element={<Home />} />
             <Route path="/shop" element={<Shop />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="/shop/product" element={<Product />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>

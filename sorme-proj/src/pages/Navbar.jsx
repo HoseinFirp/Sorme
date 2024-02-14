@@ -90,7 +90,12 @@ function Navbar() {
             <span className="indicator-item badge badge-secondary w-1 font-bold text-white">
               0
             </span>
-            <button className="flex gap-1 text-xs min-w-7 bg-custom-bg-1 transition duration-300 hover:bg-gray-300 active:bg-gray-400 rounded-md border-black p-1  font-bold items-center">
+            <button
+              onClick={() => {
+                navigate("/cart");
+              }}
+              className="flex gap-1 text-xs min-w-7 bg-custom-bg-1 transition duration-300 hover:bg-gray-300 active:bg-gray-400 rounded-md border-black p-1  font-bold items-center"
+            >
               <img src={iconCart} className="w-5" />
             </button>
           </div>
@@ -162,33 +167,32 @@ function Navbar() {
               </li>
               <li>
                 <button className=" hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
-                Eyes
+                  Eyes
                 </button>
               </li>
               <li>
                 <a className=" hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
-                Face
+                  Face
                 </a>
               </li>
               <li>
                 <a className=" hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
-                Hair
+                  Hair
                 </a>
               </li>
               <li>
                 <a className=" hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
-                Lips
+                  Lips
                 </a>
               </li>
               <li>
                 <a className=" hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
-                <option>Body</option>
-
+                  <option>Body</option>
                 </a>
               </li>
               <li>
                 <a className=" hover:bg-violet-300 hover:text-violet-800 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
-                Hands
+                  Hands
                 </a>
               </li>
             </ul>

@@ -4,6 +4,7 @@ import SuccessAlert from "./alerts/SuccessAlert";
 import ErrorAlert from "./alerts/ErrorAlert";
 import LoaderDots from "./Loaders/LoaderDots";
 import { useUser } from "../Slicers/userSlice";
+import { useLocation } from "react-router-dom";
 
 function FormOpinions() {
   const [showError, setShowError] = useState(false);
@@ -14,16 +15,50 @@ function FormOpinions() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const user = useUser();
-  // console.log(user);
+  const location = useLocation();
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (user.email === email) {
-      req();
+    if (location.pathname === "/") {
+      req1();
     } else {
-      setShowError("Email doesn't match with your email");
+      if (user.email === email) {
+        req();
+      } else {
+        setShowError("Email doesn't match with your email");
+      }
     }
   }
+
+  const req1 = async () => {
+    setShowError(false);
+    setShowAlert(false);
+    setLoading(true);
+
+    // console.log(path);
+    try {
+      const { data } = await axios.post(
+        `https://keykavoos-sorme.liara.run/user/support`,
+        {
+          name: `${username}`,
+          email: `${email}`,
+          message: `${message}`,
+        }
+      );
+
+      console.log(data);
+      setShowAlert(true);
+      setLoading(false);
+      setUsername("")
+      setEmail("")
+      setMessage("")
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      setShowError(error.response.data.message);
+    }
+  };
+
   const req = async () => {
     setShowError(false);
     setShowAlert(false);

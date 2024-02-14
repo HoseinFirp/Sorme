@@ -4,19 +4,41 @@ import homeIcon from "../images/homeIcon.png";
 import checkIcon from "../images/checkIcon.png";
 import truckIcon from "../images/truckIcon.png";
 import powder1 from "../images/powder1.png";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Product() {
+  const navigate = useNavigate();
 
+  const [showError, setShowError] = useState(false);
+  const [product, setProduct] = useState([]);
 
+  useEffect(() => {
+    const req = async () => {
+      setShowError(false);
+      // setShowAlert(false);
+      try {
+        const { data } = await axios.get(
+          `https://keykavoos-sorme.liara.run/Product/One_Product/:_id`
+        );
+        setProduct(data);
+      } catch (error) {
+        console.log(error);
+        setShowError(error.response.data.messages);
+      }
+    };
+    req();
+  }, []);
   return (
-    <div>
+    <div className="pt-48 bg-white">
       <div className="text-sm pl-16 breadcrumbs bg-white text-gray-600">
         <ul>
           <li>
-            <a>Home</a>
+            <a onClick={() => navigate("/")}>Home</a>
           </li>
           <li>
-            <a>Store</a>
+            <a onClick={() => navigate("/shop")}>Store</a>
           </li>
           <li>
             <a>Skin Care</a>
@@ -24,6 +46,8 @@ function Product() {
           <li>Fix Arcanil powder</li>
         </ul>
       </div>
+      {showError ? <ErrorAlert props={`${showError}`} /> : null}
+
       <div
         id="main"
         className="grid grid-cols-2 gap-y-12 gap-x-10 px-16 py-10 pb-20 bg-white justify-around"
@@ -32,11 +56,11 @@ function Product() {
           <div className="flex gap-10  flex-col">
             <img
               src={heart}
-              className="w-14 p-2 rounded-lg bg-custom-bg-icons"
+              className="w-14 h-14 border-none hover:bg-pink-100 active:bg-pink-300 p-2 btn rounded-lg bg-custom-bg-icons"
             />
             <img
               src={share}
-              className="w-14 p-2 rounded-lg bg-custom-bg-icons"
+              className="w-14 h-14 border-none hover:bg-pink-100 active:bg-pink-300 p-2 btn rounded-lg bg-custom-bg-icons"
             />
           </div>
           <img src={powder1} />
@@ -102,7 +126,7 @@ function Product() {
             </p>
             <p className="text-4xl font-bold text-pink-400">67$</p>
           </div>
-          <button className="h-10 text-2xl bg-custom-bg-pink justify-self-center   col-span-2 text-custom-white  p-4 pt-0 pb-1 rounded-lg">
+          <button className="h-12 btn border-none text-2xl bg-custom-bg-pink hover:bg-pink-400 active:bg-pink-500 justify-self-center   text-custom-white  p-4 pt-0 pb-1 rounded-lg">
             Add to Cart
           </button>
         </div>

@@ -1,4 +1,45 @@
+import axios from "axios";
+import { useUser } from "../Slicers/userSlice";
+import { useEffect } from "react";
+
 function TableSeller() {
+  const user = useUser();
+
+  const reqDelete = async () => {
+    try {
+      const data = await axios.delete(
+        `https://keykavoos-sorme.liara.run/Admin/delete_Seller/:_id`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      console.log(data);
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
+
+  useEffect(() => {
+    const req = async () => {
+      try {
+        const data = await axios.get(
+          `https://keykavoos-sorme.liara.run/Admin/get-seller`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+        console.log(data);
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    };
+    req();
+  }, [user.token]);
+  
   return (
     <div className="flex flex-col scale-75 lg:scale-110 xl:scale-125">
       <div className="overflow-x-auto">
@@ -48,6 +89,7 @@ function TableSeller() {
                     <a
                       className="text-red-500 flex justify-center hover:text-red-700"
                       href="#"
+                      onClick={reqDelete}
                     >
                       X
                     </a>
@@ -67,6 +109,7 @@ function TableSeller() {
                     <a
                       className="text-red-500 flex justify-center hover:text-red-700 "
                       href="#"
+                      onClick={reqDelete}
                     >
                       X
                     </a>
@@ -86,6 +129,7 @@ function TableSeller() {
                     <a
                       className="text-red-500 flex justify-center hover:text-red-700"
                       href="#"
+                      onClick={reqDelete}
                     >
                       X
                     </a>
@@ -105,6 +149,7 @@ function TableSeller() {
                     <a
                       className="text-red-500 flex justify-center hover:text-red-700"
                       href="#"
+                      onClick={reqDelete}
                     >
                       X
                     </a>

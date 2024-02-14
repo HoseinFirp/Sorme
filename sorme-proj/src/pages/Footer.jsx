@@ -6,13 +6,19 @@ import enamad2 from "../images/enamad2.png";
 import sormeLogoFooter from "../images/sormeLogoFooter.png";
 
 function Footer() {
-    return (<div className="bg-white">
-        <footer className="bg-custom-bg-footer bg-opacity-25  pl-16 pr-16">
+  return (
+    <div className="bg-white">
+      <footer className="bg-custom-bg-footer bg-opacity-25  pl-16 pr-16">
         <div className="grid sm:grid-cols-3 py-10 gap-y-4 sm:gap-y-10 items-center">
-          <img src={sormeLogoFooter} className="w-20 lg:w-28 order-1 lg:order-1" />
+          <img
+            src={sormeLogoFooter}
+            className="w-20 lg:w-28 order-1 lg:order-1"
+          />
           <div className="flex items-center gap-3 order-2 lg:order-2">
             <img src={emailPic} className="h-7 lg:h-10" />
-            <p className="text-custom-gray  text-lg lg:text-2xl">Email Address</p>
+            <p className="text-custom-gray  text-lg lg:text-2xl">
+              Email Address
+            </p>
           </div>
           <div className="flex items-center gap-3 order-4 lg:order-3">
             <img src={callPic} className="h-7 lg:h-10" />
@@ -28,10 +34,11 @@ function Footer() {
         </div>
         <p className="flex justify-center text-center pb-5">
           All material and intellectual rights of this website are reserved for
-          &quot;Sorme©&quot; 2020-2024
+          &quot;Sorme©&quot; 2024
         </p>
-      </footer></div> 
-    )
+      </footer>
+    </div>
+  );
 }
 
-export default Footer
+export default Footer;
