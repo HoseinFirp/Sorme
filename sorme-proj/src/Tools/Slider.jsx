@@ -10,6 +10,7 @@ function Slider() {
   return (
     <div className="overflow-x-auto">
       <div className="carousel w-full h-full mt-36">
+      <div className="carousel-items-wrapper flex">
         <div id="slide1" className="carousel-item  relative w-full">
           <img src={slider1} className="w-full mt-5 h-fit ml-auto mr-auto" />
           <div className="absolute hidden sm:flex justify-between transform -translate-y-4 left-0 right-0 top-1/2">
@@ -42,6 +43,7 @@ function Slider() {
               <img src={lArrow} className="w-10" />
             </a>
           </div>
+        </div>
         </div>
       </div>
     </div>

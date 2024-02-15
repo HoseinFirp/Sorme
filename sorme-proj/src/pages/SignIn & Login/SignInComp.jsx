@@ -51,8 +51,6 @@ function SignInComp() {
     setShowError(false);
     setShowAlert(false);
     setLoading(true);
-
-    console.log(path);
     try {
       const { data } = await axios.post(
         `https://keykavoos-sorme.liara.run/${
@@ -68,7 +66,9 @@ function SignInComp() {
       setShowAlert(true);
 
       dispatch(updateToken(data.token));
-
+      if(username==="admin"){
+        setPath("admin")
+      }
       // dispatch(updateName(data.username));
       // dispatch(updateEmail(data.email));
       // dispatch(updatePosition(data.position));
@@ -82,9 +82,10 @@ function SignInComp() {
       console.log(error);
       setLoading(false);
       setShowError(error.response.data.message);
+      // setShowError(error.message);
     }
   };
-  const { path } = useContext(UserContext);
+  const { path ,setPath } = useContext(UserContext);
 
   return (
     <div className="h-screen  flex items-center justify-center bg-pink-100">

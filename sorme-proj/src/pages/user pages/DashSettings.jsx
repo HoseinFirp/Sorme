@@ -12,6 +12,7 @@ import {
   updateAddress,
   updateBirth,
   updateEmail,
+  updateFullname,
   updateId,
   updateName,
   updatePosition,
@@ -21,7 +22,8 @@ import {
 
 function DashSettings() {
   const user = useUser();
-  const [username, setUsername] = useState(`${user.username}`);
+  // const [username, setUsername] = useState(`${user.username}`);
+  const [fullName, setFullName] = useState();
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState();
   const [newPassword, setNewPassword] = useState();
@@ -46,9 +48,12 @@ function DashSettings() {
     e.preventDefault();
     dispatch(updateToken(""));
     dispatch(updateName(""));
+    dispatch(updateFullname(""));
     dispatch(updateEmail(""));
     dispatch(updatePosition(""));
     dispatch(updateId(""));
+    dispatch(updateAddress(""));
+    dispatch(updateBirth(""));
     setTimeout(() => {
       navigate("/");
       setLoadingLogout(false);
@@ -65,15 +70,16 @@ function DashSettings() {
     setShowAlert(false);
     setShowError(false);
     setLoadingConfirm(true);
-    console.log(date.$y, date.$M + 1, date.$D);
+    // console.log(date.$y, date.$M + 1, date.$D);
+    
     try {
       const { data } = await axios.put(
         `https://keykavoos-sorme.liara.run/${
           path === "seller" ? "Seller" : "user"
         }/Updata-Profile`,
         {
-          fullname: `${username}`,
-          username: `${username}`,
+          fullname: `${fullName}`,
+          username: `${user.username}`,
           address: `${address}`,
           date_Of_Brith: `${(date.$y, date.$M + 1, date.$D)}`,
         },
@@ -87,18 +93,20 @@ function DashSettings() {
       setLoadingConfirm(false);
       localStorage.setItem("inputAddress", address);
       setShowAlert(data.message);
-      setTimeout(() => {
-        if (username !== user.username) {
-          if (path === "seller") {
-            navigate("/login");
-          } else if (path === "user") {
-            navigate("/login-seller");
-          }
-        }
-      }, 1500);
-      dispatch(updateAddress(address));
-      dispatch(updateName(username));
-      dispatch(updateBirth(date));
+      // setTimeout(() => {
+      //   // if (username !== user.username) {
+      //   //   if (path === "user") {
+      //   //     navigate("/login");
+      //   //   } else if (path === "seller") {
+      //   //     navigate("/login-seller");
+      //   //   }
+      //   // }
+      // }, 1500);
+      dispatch(updateToken(data.data.token));
+      dispatch(updateFullname(data.data.fullname));
+      dispatch(updateAddress(data.data.address));
+      dispatch(updateName(data.data.username));
+      dispatch(updateBirth(data.data.date_Of_Brith));
     } catch (error) {
       setLoadingConfirm(false);
 
@@ -190,17 +198,17 @@ function DashSettings() {
               />
             </div>
             <div className="flex items-center order-2 lg:order-3">
-              <p className="text-gray-600 px-3 min-w-40 ">Username :</p>
+              <p className="text-gray-600 px-3 min-w-40 ">Full Name :</p>
               <input
                 type="text"
                 id="floating_outlined2"
                 className="block px-2.5 py-2  w-full text-sm border-2 disabled:bg-slate-400 text-pink-700 bg-pink-100 rounded-lg border-1 border-pink-200 appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
                 placeholder=" "
-                defaultValue={user.username}
+                defaultValue={user.fullname}
                 disabled={loadingLogout || loadingConfirm}
                 // onChange={(e) => setFirstname(e.target.value)}
                 onChange={(e) => {
-                  setUsername(e.target.value);
+                  setFullName(e.target.value);
                 }}
                 required
               />

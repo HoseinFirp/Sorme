@@ -125,7 +125,8 @@ function Shop() {
         {products.map((prod) => (
           <div
             key={prod._id}
-            className=" border-2 border-pink-100 shadow-xl rounded-xl flex w-min justify-between"
+            onClick={()=>navigate(`${prod._id}`)}
+            className=" border-2 cursor-pointer border-pink-100 shadow-xl rounded-xl flex w-min justify-between"
           >
             <div className="flex justify-between flex-col">
               <img

@@ -4,15 +4,24 @@ import homeIcon from "../images/homeIcon.png";
 import checkIcon from "../images/checkIcon.png";
 import truckIcon from "../images/truckIcon.png";
 import powder1 from "../images/powder1.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addItem } from "../Slicers/cartSlice";
+import ErrorAlert from "../Tools/alerts/ErrorAlert";
 
 function Product() {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const loaction = useLocation();
   const [showError, setShowError] = useState(false);
   const [product, setProduct] = useState([]);
+
+  function handleAdd(e) {
+    e.preventDefault();
+    dispatch(addItem(product));
+  }
 
   useEffect(() => {
     const req = async () => {
@@ -85,28 +94,33 @@ function Product() {
             <div className="rating flex gap-1">
               <input
                 type="radio"
+                disabled
                 name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
+                className="mask mask-star-2  cursor-default bg-orange-400"
               />
               <input
                 type="radio"
+                disabled
                 name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
+                className="mask mask-star-2 cursor-default bg-orange-400"
               />
               <input
                 type="radio"
+                disabled
                 name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
+                className="mask mask-star-2 cursor-default bg-orange-400"
               />
               <input
                 type="radio"
+                disabled
                 name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
+                className="mask mask-star-2 cursor-default bg-orange-400"
               />
               <input
                 type="radio"
+                disabled
                 name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
+                className="mask mask-star-2 cursor-default bg-orange-400"
               />
             </div>
             <p>20 persons</p>
@@ -126,7 +140,10 @@ function Product() {
             </p>
             <p className="text-4xl font-bold text-pink-400">67$</p>
           </div>
-          <button className="h-12 btn border-none text-2xl bg-custom-bg-pink hover:bg-pink-400 active:bg-pink-500 justify-self-center   text-custom-white  p-4 pt-0 pb-1 rounded-lg">
+          <button
+            onClick={handleAdd}
+            className="h-12 btn border-none text-2xl bg-custom-bg-pink hover:bg-pink-400 active:bg-pink-500 justify-self-center   text-custom-white  p-4 pt-0 pb-1 rounded-lg"
+          >
             Add to Cart
           </button>
         </div>

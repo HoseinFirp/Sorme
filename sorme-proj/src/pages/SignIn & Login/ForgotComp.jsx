@@ -8,6 +8,7 @@ import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 import ErrorAlert from "../../Tools/alerts/ErrorAlert";
 import { UserContext } from "../../App";
 import LoaderDots from "../../Tools/Loaders/LoaderDots";
+import { useUser } from "../../Slicers/userSlice";
 
 function ForgotComp() {
   const navigate = useNavigate();
@@ -16,13 +17,11 @@ function ForgotComp() {
   const [loading, setLoading] = useState(false);
   const [showError, setShowError] = useState(false);
   const { path, setPathForgot } = useContext(UserContext);
-
   function handleSubmit(e) {
     e.preventDefault();
     setPathForgot("forgot");
     req();
   }
-
   const req = async () => {
     setShowAlert(false);
     setShowError(false);
@@ -31,16 +30,16 @@ function ForgotComp() {
     console.log(username);
     console.log(path);
     try {
-      const { data } = await axios.get(
+      const { data } = await axios.put(
         `https://keykavoos-sorme.liara.run/user/get-otp${
           path === "seller" ? "-Seller" : ""
         }`,
-        { username: "mamadazadii" }
+        { username: `${username}` }
       );
       console.log(data);
-    setLoading(false);
+      setLoading(false);
 
-      setShowAlert(true);
+      setShowAlert(data.message);
 
       const newUsername = { username: `${username}` };
       localStorage.setItem("userUsername", JSON.stringify(newUsername));
@@ -53,7 +52,7 @@ function ForgotComp() {
         }
       }, 2000);
     } catch (error) {
-    setLoading(false);
+      setLoading(false);
 
       setShowError(error.response.data.message);
       console.log(error);
@@ -62,7 +61,7 @@ function ForgotComp() {
 
   return (
     <div className="h-screen flex items-center justify-center bg-pink-100">
-      {showAlert ? <SuccessAlert props={""} /> : null}
+      {showAlert ? <SuccessAlert props={`${showAlert}`} /> : null}
       {showError ? <ErrorAlert props={`${showError}`} /> : null}
       <form>
         <div className="flex glass flex-col rounded-2xl bg-pink-500 gap-3 items-center ">
@@ -108,7 +107,7 @@ function ForgotComp() {
           </div>
           <div className="w-full flex justify-center">
             <button
-              disabled={!username||loading}
+              disabled={!username || loading}
               onClick={handleSubmit}
               type="submit"
               className=" btn mb-4 disabled:bg-pink-600 disabled:text-pink-200 bg-transparent w-72 border-none hover:bg-pink-200 bg-white text-pink-500 active:bg-pink-300  px-3  py-2  my-2 font-bold "

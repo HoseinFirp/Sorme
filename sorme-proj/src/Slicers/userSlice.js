@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 const initialState = {
   username: "",
+  fullname: "",
   birth: "",
   token: "",
   email: "",
@@ -20,6 +21,9 @@ const userSlice = createSlice({
   reducers: {
     updateName(state, action) {
       state.username = action.payload;
+    },
+    updateFullname(state, action) {
+      state.fullname = action.payload;
     },
     updateToken(state, action) {
       state.token = action.payload;
@@ -65,6 +69,7 @@ export const {
   updateBirth,
   updateData,
   updateAddress,
+  updateFullname,
 } = userSlice.actions;
 export const useUser = () => useSelector((state) => state.user);
 

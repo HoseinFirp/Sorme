@@ -2,7 +2,7 @@ import { HiMiniMagnifyingGlass } from "react-icons/hi2";
 import notFound from "../images/notFound.png";
 function PageNotFound() {
   return (
-    <div className="relative ">
+    <div className="relative bg-white">
       <img src={notFound} className="h-full pt-36 w-full" alt="Background" />
 
       <p className="absolute mt-36 sm:mt-32 md:text-7xl md:mt-36 text-white text-5xl  top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:text-9xl">

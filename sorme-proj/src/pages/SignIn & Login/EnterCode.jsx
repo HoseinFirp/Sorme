@@ -172,12 +172,10 @@ function EnterCode() {
           <button
             disabled={!code || loading}
             onClick={(e) => handleSubmit(e)}
-            className="bg-pink-600 disabled:bg-pink-600 disabled:text-pink-200 btn px-5 py-3 my-3 active:bg-pink-800 border-none hover:bg-pink-700  mx-10 rounded-lg font-bold text-white"
+            className="bg-pink-600 disabled:bg-pink-600 disabled:text-pink-200 btn px-5 py-3 my-3 mb-5 active:bg-pink-800 border-none hover:bg-pink-700  mx-10 rounded-lg font-bold text-white"
           >
             {loading ? <LoaderDots /> : "Confirm"}
           </button>
-
-          <div></div>
         </div>
       </form>
     </div>

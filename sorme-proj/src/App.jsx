@@ -81,7 +81,7 @@ function App() {
     if (user.token) {
       const req = async () => {
         try {
-          const data = await axios.get(
+          const {data} = await axios.get(
             `https://keykavoos-sorme.liara.run/${
               path === "seller" ? "Seller" : "user"
             }/get_Profile`,
@@ -91,13 +91,13 @@ function App() {
               },
             }
           );
-          dispatch(updateName(data.data.username));
-          dispatch(updateEmail(data.data.email));
-          dispatch(updateToken(data.data.token));
-          dispatch(updateSupport(data.data.support));
-          dispatch(updatePosition(data.data.position));
-          dispatch(updateAvatar(data.data.avatar));
-          dispatch(updateId(data.data._id));
+          dispatch(updateName(data.username));
+          dispatch(updateEmail(data.email));
+          dispatch(updateToken(data.token));
+          dispatch(updateSupport(data.support));
+          dispatch(updatePosition(data.position));
+          dispatch(updateAvatar(data.avatar));
+          dispatch(updateId(data._id));
         } catch (error) {
           // setIsLogin(false);
           console.log(error.response.data);
@@ -114,7 +114,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/shop/product" element={<Product />} />
+            <Route path="/shop/product/:_id" element={<Product />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
           <Route element={<DashboardLayout />}>

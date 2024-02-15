@@ -17,7 +17,11 @@ function Cart() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    req();
+    if (user.token) {
+      req();
+    } else {
+      navigate("/login");
+    }
   }
 
   // const cartData = cart?.reduce((arr, c) => {
@@ -43,7 +47,7 @@ function Cart() {
             { productId: "64254d33735379f41dad936e", qty: 2 },
             { productId: "6362a84eb90ac8bc6100a979", qty: 2 },
           ],
-          address: "address",
+          address: `${user.address}`,
         },
         {
           headers: {
@@ -61,20 +65,23 @@ function Cart() {
   console.log(cart);
 
   return (
-    <div className="bg-white pt-56 lg:pt-5 pl-16 pr-16 pb-20">
+    <div className="bg-white pt-56 lg:pt-40 pl-16 pr-16 pb-20">
       <h2 className={` mt-7 text-xl font-semibold`}>
         Your cart <span className={`font-extrabold`}>{user?.username}</span> :
       </h2>
-
-      <ul className={` mt-3 divide-y divide-stone-200 border-b`}>
-        {cart?.map((data) => (
-          <CartItem data={data} key={data.productId} />
-        ))}
-      </ul>
-      <div className="ml-5 mt-10 space-x-2 flex gap-10">
+      {!cart ? (
+        <p className="mt-10 text-center">Cart is empty!</p>
+      ) : (
+        <ul className={` mt-3 divide-y divide-stone-200 border-b`}>
+          {cart?.map((data) => (
+            <CartItem data={data} key={data.productId} />
+          ))}
+        </ul>
+      )}
+      <div className=" mt-10 flex justify-between mr-10">
         <button
           type="submit"
-          className="bg-pink-400 btn disabled:bg-pink-400 disabled:text-white px-5 py-3 active:bg-pink-300 border-none hover:bg-pink-200  mx-10 rounded-lg font-bold text-pink-500"
+          className="bg-pink-400 btn disabled:bg-pink-300 disabled:text-white px-5 py-3 active:bg-pink-300 border-none hover:bg-pink-200  mx-10 rounded-lg font-bold text-pink-500"
           onClick={(e) => handleSubmit(e)}
           disabled={!cart || loading}
         >
@@ -84,7 +91,7 @@ function Cart() {
         <button
           type="secondary"
           disabled={!cart || loading}
-          className={`btn btn-secondary text-white disabled:bg-red-400 disabled:text-white bg-red-600 hover:bg-red-800 border-none`}
+          className={`btn btn-secondary text-white disabled:bg-red-300 disabled:text-white bg-red-600 hover:bg-red-800 border-none`}
           onClick={() => dispatch(clearCart())}
         >
           Clear cart
