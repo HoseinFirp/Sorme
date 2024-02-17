@@ -23,6 +23,13 @@ function Shop() {
   const [panel, setPanel] = useState("Best");
   console.log(products);
 
+
+// for delete product  .:: delete ::.
+// https://keykavoos-sorme.liara.run/Admin/deleteProduct/:_id
+// https://keykavoos-sorme.liara.run/seller/deleteProduct/:_id
+
+// id + token
+
   useEffect(() => {
     const req = async () => {
       setShowError(false);

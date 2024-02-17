@@ -98,9 +98,7 @@ function App() {
       const req = async () => {
         try {
           const { data } = await axios.get(
-            `https://keykavoos-sorme.liara.run/${
-              path === "seller" ? "Seller" : "user"
-            }/get_Profile`,
+            `https://keykavoos-sorme.liara.run/user/get_Profile`,
             {
               headers: {
                 Authorization: `Bearer ${user.token}`,

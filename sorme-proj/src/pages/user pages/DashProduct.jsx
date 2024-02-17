@@ -1,9 +1,9 @@
 import { useState } from "react";
 import LoaderDots from "../../Tools/Loaders/LoaderDots";
 import axios from "axios";
-// import { useUser } from "../../Slicers/userSlice";
 import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 import ErrorAlert from "../../Tools/alerts/ErrorAlert";
+import { useUser } from "../../Slicers/userSlice";
 
 function DashProduct() {
   const [loadingConfirm, setLoadingConfirm] = useState(false);
@@ -14,9 +14,9 @@ function DashProduct() {
   const [priceProduct, setPriceProduct] = useState();
   const [count, setCount] = useState();
   const [aboutProduct, setAboutProduct] = useState();
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("Eyes");
   const [productBrand, setProductBrand] = useState();
-  // const user = useUser();
+  const user = useUser();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -38,7 +38,7 @@ function DashProduct() {
     const numericValue = currentValue.replace(/[^0-9]/g, "");
     setCount(numericValue);
   };
-
+  
   const req = async () => {
     setShowAlert(false);
     setShowError(false);
@@ -57,7 +57,7 @@ function DashProduct() {
         },
         {
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoibWFtYWR6IiwiaWF0IjoxNzA3ODE0NDExLCJleHAiOjE3MDc5MDA4MTF9.hhDGwICC-ZmVCWS44my1xPh-wlH7VDxrAO-cwI4sVZ4`,
+            Authorization: `Bearer ${user.token}`,
           },
         }
       );
@@ -85,7 +85,7 @@ function DashProduct() {
           formData,
           {
             headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoibWFtYWR6IiwiaWF0IjoxNzA3ODE0NDExLCJleHAiOjE3MDc5MDA4MTF9.hhDGwICC-ZmVCWS44my1xPh-wlH7VDxrAO-cwI4sVZ4`,
+              Authorization: `Bearer ${user.token}`,
             },
           }
         );

@@ -20,7 +20,6 @@ function FormOpinions() {
   const location = useLocation();
   const { path, support } = useContext(UserContext);
 
-  console.log(support);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -68,7 +67,7 @@ function FormOpinions() {
     setShowError(false);
     setShowAlert(false);
     setLoading(true);
-    console.log(loading);
+    
     try {
       const { data } = await axios.post(
         `https://keykavoos-sorme.liara.run/user/support_User`,

@@ -61,6 +61,7 @@ function DashSettings() {
   }
   useEffect(() => {
     const storedValue = localStorage.getItem("inputAddress");
+
     if (storedValue) {
       setAddress(storedValue);
     }
@@ -71,12 +72,13 @@ function DashSettings() {
     setShowError(false);
     setLoadingConfirm(true);
     // console.log(date.$y, date.$M + 1, date.$D);
-    console.log(user.token);
+
+
+
+
     try {
       const { data } = await axios.put(
-        `https://keykavoos-sorme.liara.run/${
-          path === "seller" ? "Seller" : "user"
-        }/Updata-Profile`,
+        `https://keykavoos-sorme.liara.run/user/Updata-Profile`,
         {
           fullname: `${fullName}`,
           username: `${user.username}`,
@@ -93,6 +95,7 @@ function DashSettings() {
       setLoadingConfirm(false);
       localStorage.setItem("inputAddress", address);
       setShowAlert(data.message);
+
       // setTimeout(() => {
       //   // if (username !== user.username) {
       //   //   if (path === "user") {
@@ -102,11 +105,12 @@ function DashSettings() {
       //   //   }
       //   // }
       // }, 1500);
-      dispatch(updateToken(data.data.token));
-      dispatch(updateFullname(data.data.fullname));
-      dispatch(updateAddress(data.data.address));
-      dispatch(updateName(data.data.username));
-      dispatch(updateBirth(data.data.date_Of_Brith));
+
+      // dispatch(updateToken(data.data.token));
+      // dispatch(updateFullname(data.data.fullname));
+      // dispatch(updateAddress(data.data.address));
+      // dispatch(updateName(data.data.username));
+      // dispatch(updateBirth(data.data.date_Of_Brith));
     } catch (error) {
       setLoadingConfirm(false);
 
@@ -117,9 +121,7 @@ function DashSettings() {
     if (newPassword && confirmPassword) {
       try {
         const { data } = await axios.put(
-          `https://keykavoos-sorme.liara.run/${
-            path === "seller" ? "Seller" : "user"
-          }/change-password${path === "seller" ? "-Seller" : ""}`,
+          `https://keykavoos-sorme.liara.run/user/change-password`,
           {
             oldPassword: `${password}`,
             newPassword: `${newPassword}`,
@@ -132,7 +134,7 @@ function DashSettings() {
           }
         );
         console.log(data);
-        setShowAlert(true);
+        setShowAlert(data.message);
         setLoadingConfirm(false);
       } catch (error) {
         setLoadingConfirm(false);

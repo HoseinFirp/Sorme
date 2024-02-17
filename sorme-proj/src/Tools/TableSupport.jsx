@@ -6,6 +6,7 @@ import LoaderDots from "./Loaders/LoaderDots";
 
 function TableSupport() {
   const [supports, setSupports] = useState([]);
+  const [supportsUsers, setSupportsUsers] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const { path, setActiveTickets, setSupport } = useContext(UserContext);
@@ -24,6 +25,15 @@ function TableSupport() {
             },
           }
         );
+        const  dataUsers  = await axios.get(
+          `https://keykavoos-sorme.liara.run/Admin/getsupport_user`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+        setSupportsUsers(dataUsers.data)
         setSupports(data);
         setSupport(data);
         setActiveTickets(supports.length);
@@ -34,12 +44,12 @@ function TableSupport() {
         console.log(error.response.data);
       }
     };
+    console.log(supportsUsers)
 
     if (path === "admin") {
       req();
     }
-  }, [user.token, path, setActiveTickets, setSupport, supports.length]);
-  console.log(supports);
+  }, [user.token, path, setActiveTickets, setSupport,supportsUsers, supports.length]);
 
   return (
     <div className="overflow-x-auto bg-white p-5 max-h-96  rou,nded-lg">

@@ -11,7 +11,7 @@ import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 import ErrorAlert from "../../Tools/alerts/ErrorAlert";
 import { UserContext } from "../../App";
 import LoaderDots from "../../Tools/Loaders/LoaderDots";
-import { updateToken } from "../../Slicers/userSlice";
+import { updateFullname, updateToken } from "../../Slicers/userSlice";
 
 function SignInComp() {
   const [loading, setLoading] = useState(false);
@@ -53,9 +53,7 @@ function SignInComp() {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        `https://keykavoos-sorme.liara.run/${
-          path === "seller" ? "Seller" : "user"
-        }/Login${path === "seller" ? "Seller" : ""}`,
+        `https://keykavoos-sorme.liara.run/user/Login`,
         {
           username: `${username}`,
           password: `${password}`,
@@ -66,8 +64,10 @@ function SignInComp() {
       setShowAlert(true);
 
       dispatch(updateToken(data.token));
-      if(username==="admin"){
-        setPath("admin")
+      dispatch(updateFullname(data?.fullname));
+
+      if (username === "admin") {
+        setPath("admin");
       }
       // dispatch(updateName(data.username));
       // dispatch(updateEmail(data.email));
@@ -85,7 +85,7 @@ function SignInComp() {
       // setShowError(error.message);
     }
   };
-  const { path ,setPath } = useContext(UserContext);
+  const { path, setPath } = useContext(UserContext);
 
   return (
     <div className="h-screen  flex items-center justify-center bg-pink-100">
