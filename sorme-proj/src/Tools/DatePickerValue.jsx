@@ -19,7 +19,7 @@ export default function DatePickerValue() {
 
   const handleChange = (event) => {
     setInputBirth(event);
-    console.log(event);
+  
     localStorage.setItem("inputBirth", event);
     setDate(event)
   };

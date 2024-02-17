@@ -57,7 +57,7 @@ function SignInComp() {
   const req = async () => {
     setShowError(false);
     // setShowAlert(false);
-    setLoading(true)
+    setLoading(true);
     try {
       const { data } = await axios.post(
         `https://keykavoos-sorme.liara.run/${
@@ -73,11 +73,11 @@ function SignInComp() {
       // setShowAlert(true);
       const newEmail = { email: `${email}` };
       localStorage.setItem("userEmail", JSON.stringify(newEmail));
-          setLoading(false)
+      setLoading(false);
       navigate("/entercode");
     } catch (error) {
       console.log(error);
-      setLoading(false)
+      setLoading(false);
       setShowError(error.response.data.messages);
     }
   };
@@ -183,11 +183,11 @@ function SignInComp() {
           <div className="w-full flex justify-center">
             <button
               type="submit"
-              className="bg-white btn disabled:bg-pink-600 disabled:text-pink-200 px-5 py-3 active:bg-pink-300 border-none hover:bg-pink-200  mx-10 rounded-lg font-bold text-pink-500"
+              className="bg-white btn disabled:bg-pink-600 disabled:text-pink-200 px-5 py-3 w-48 active:bg-pink-300 border-none hover:bg-pink-200  mx-10 rounded-lg font-bold text-pink-500"
               onClick={(e) => handleSubmit(e)}
-              disabled={!username || !password || !email || !isValid|| loading}
+              disabled={!username || !password || !email || !isValid || loading}
             >
-              {loading?<LoaderDots/>:"Create Your Account"}
+              {loading ? <LoaderDots /> : "Create Your Account"}
             </button>
           </div>
 
@@ -199,7 +199,6 @@ function SignInComp() {
             <button
               onClick={handleLogin}
               disabled={loading}
-
               className="text-white btn bg-transparent border-none hover:bg-transparent active:text-pink-200 text-lg px-3 w-full py-2 pt-3 mb-3 font-bold "
             >
               Login

@@ -42,7 +42,9 @@ function EnterCode() {
   function handleSubmit(e) {
     e.preventDefault();
     if (pathForgot === "forgot") {
-      navigate("/forgotpassword/newpassword");
+      setTimeout(() => {
+        navigate("/forgotpassword/newpassword");
+      }, 1500);
     } else if (pathForgot === "signup") {
       req();
     }
@@ -69,7 +71,7 @@ function EnterCode() {
         }/Signup_OTP`,
         {
           email: `${email.email}`,
-          OTP: `${code}`,
+          OTP: `2024`,
         }
       );
       console.log(data);
@@ -115,7 +117,11 @@ function EnterCode() {
 
           <div className="flex items-center gap-36 justify-between">
             <p className="text-white text-xl font-bold">Code Sent!</p>
-            <img src={sormenew} className="w-24 " />
+            <img
+              src={sormenew}
+              onClick={() => navigate("/")}
+              className="w-24 cursor-pointer"
+            />
           </div>
           <div>
             <p className="text-white mt-3 self-start ">

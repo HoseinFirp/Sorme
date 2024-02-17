@@ -1,10 +1,11 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import SuccessAlert from "./alerts/SuccessAlert";
 import ErrorAlert from "./alerts/ErrorAlert";
 import LoaderDots from "./Loaders/LoaderDots";
 import { useUser } from "../Slicers/userSlice";
 import { useLocation } from "react-router-dom";
+import { UserContext } from "../App";
 
 function FormOpinions() {
   const [showError, setShowError] = useState(false);
@@ -13,9 +14,13 @@ function FormOpinions() {
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [disable, setDisable] = useState();
   const [message, setMessage] = useState("");
   const user = useUser();
   const location = useLocation();
+  const { path, support } = useContext(UserContext);
+
+  console.log(support);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -49,9 +54,9 @@ function FormOpinions() {
       console.log(data);
       setShowAlert(true);
       setLoading(false);
-      setUsername("")
-      setEmail("")
-      setMessage("")
+      setUsername("");
+      setEmail("");
+      setMessage("");
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -82,6 +87,9 @@ function FormOpinions() {
       setLoading(false);
       setMessage("");
       console.log(data);
+      if (path === "admin") {
+        setDisable(true);
+      }
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -102,6 +110,7 @@ function FormOpinions() {
             id="floating_outlined1"
             className="block px-2.5 pb-2.5 pt-4 w-full text-sm border-2  text-pink-700 bg-transparent rounded-lg border-1 border-pink-300 appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
             placeholder=" "
+            disabled={loading || disable}
             onChange={(e) => setUsername(e.target.value)}
           />
           <label
@@ -117,6 +126,7 @@ function FormOpinions() {
             id="floating_outlined2"
             className="block px-2.5 pb-2.5 pt-4 w-full text-sm border-2  text-pink-700 bg-transparent rounded-lg border-1 border-pink-300 appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
             placeholder=" "
+            disabled={loading || disable}
             onChange={(e) => setEmail(e.target.value)}
           />
           <label
@@ -139,7 +149,7 @@ function FormOpinions() {
             htmlFor="floating_outlined3"
             className="absolute text-sm text-pink-500 font-bold  duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-pink-500  peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
           >
-            Your Message
+            {path === "admin" ? "hi" : "Your Message"}
           </label>
         </div>
 
@@ -147,7 +157,9 @@ function FormOpinions() {
           type="submit"
           onClick={handleSubmit}
           disabled={!username || !email || !message}
-          className=" btn border-none bg-custom-bg-pink hover:bg-pink-500 active:bg-pink-600 transition duration-300 justify-self-center font-bold text-xl col-span-2 text-custom-white w-28 p-7 pt-0 pb-1 rounded-xl"
+          className={` btn border-none ${
+            path === "admin" ? "hidden" : ""
+          }  bg-custom-bg-pink hover:bg-pink-500 active:bg-pink-600 transition duration-300 justify-self-center font-bold text-xl col-span-2 text-custom-white w-28 p-7 pt-0 pb-1 rounded-xl`}
         >
           {loading ? <LoaderDots /> : "Send"}
         </button>

@@ -44,66 +44,70 @@ function TableFinancial() {
                 <tr>
                   <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     #2546
-                  </td>{" "}
+                  </td>
                   <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     Tom Hardy
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     jonne62@gmail.com
-                  </td><td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     2022/02/01
-                  </td><td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     - $60
                   </td>
-                  
                 </tr>
                 <tr>
                   <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     #2546
-                  </td>{" "}
+                  </td>
                   <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     Tom Hardy
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     jonne62@gmail.com
-                  </td><td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     2022/02/01
-                  </td><td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     - $60
                   </td>
-                  
                 </tr>
                 <tr>
                   <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     #2546
-                  </td>{" "}
+                  </td>
                   <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     Tom Hardy
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     jonne62@gmail.com
-                  </td><td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     2022/02/01
-                  </td><td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     - $60
                   </td>
-                  
                 </tr>
                 <tr>
                   <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     #2546
-                  </td>{" "}
+                  </td>
                   <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     Tom Hardy
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     jonne62@gmail.com
-                  </td><td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     2022/02/01
-                  </td><td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     - $60
                   </td>
-                  
                 </tr>
               </tbody>
             </table>

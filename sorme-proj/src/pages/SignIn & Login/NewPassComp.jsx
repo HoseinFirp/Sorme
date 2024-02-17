@@ -21,7 +21,7 @@ function NewPassComp() {
 
   const navigate = useNavigate();
   const { path } = useContext(UserContext);
-  const [username ,setUsername] =useState()
+  const [username, setUsername] = useState();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -37,21 +37,22 @@ function NewPassComp() {
 
   const req = async () => {
     setShowAlert(false);
-    setLoading(true)
+    setLoading(true);
+    console.log(username.username);
     try {
       const { data } = await axios.put(
         `https://keykavoos-sorme.liara.run/${
           path === "seller" ? "Seller" : "user"
         }/forget_password${path === "seller" ? "-Seller" : ""}`,
         {
-          username: `${username}`,
+          username: `${username.username}`,
           NewPassword: `${password}`,
           confirmPassword: `${passwordConfirm}`,
           OTP: "2024",
         }
       );
       console.log(data);
-      setLoading(false)
+      setLoading(false);
       setShowAlert(true);
       setTimeout(() => {
         if (path === "seller") {
@@ -61,7 +62,7 @@ function NewPassComp() {
         }
       }, 2000);
     } catch (error) {
-      setLoading(false)
+      setLoading(false);
       setShowError(error.response.data.message);
       console.log(error);
     }
@@ -69,7 +70,9 @@ function NewPassComp() {
 
   return (
     <div className="h-screen flex items-center justify-center bg-pink-100">
-      {showAlert ? <SuccessAlert props={"Your Password change successfully"} /> : null}
+      {showAlert ? (
+        <SuccessAlert props={"Your Password change successfully"} />
+      ) : null}
       {showError ? <ErrorAlert props={`${showError}`} /> : null}
 
       <form>
@@ -95,7 +98,7 @@ function NewPassComp() {
             <div className="flex items-center">
               <div className="relative w-72 ml-10">
                 <input
-                  type="password"
+                  type={!showPass1 ? "password" : "text"}
                   id="floating_outlined1"
                   className="block  px-2.5 pb-2.5 pt-4 w-full text-sm border-2  text-pink-700 bg-transparent rounded-lg border-1 border-white  appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
                   placeholder=" "
@@ -106,7 +109,7 @@ function NewPassComp() {
                   htmlFor="floating_outlined1"
                   className="absolute  text-sm text-white font-bold  duration-300 transform -translate-y-7 scale-75 top-2 z-10 origin-[0] bg-transparent  px-2 peer-focus:px-2 peer-focus:text-pink-500  peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
                 >
-                  Password
+                  New Password
                 </label>
               </div>
               <img
@@ -118,7 +121,7 @@ function NewPassComp() {
             <div className="flex items-center">
               <div className="relative w-72 ml-10">
                 <input
-                  type="password"
+                  type={!showPass2 ? "password" : "text"}
                   id="floating_outlined2"
                   className="block  px-2.5 pb-2.5 pt-4 w-full text-sm border-2  text-pink-700 bg-transparent rounded-lg border-1 border-white  appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
                   placeholder=" "

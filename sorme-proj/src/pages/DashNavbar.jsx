@@ -7,7 +7,6 @@ import { useUser } from "../Slicers/userSlice";
 function DashNavbar() {
   const user = useUser();
   const navigate = useNavigate();
-  console.log(user)
   return (
     <div className="h-16 bg-white shadow-black shadow-2xl flex items-center justify-between px-16 pl-20">
       <img

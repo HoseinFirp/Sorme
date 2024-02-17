@@ -1,14 +1,19 @@
 import axios from "axios";
 import { useUser } from "../Slicers/userSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 function TableSeller() {
   const user = useUser();
+  const [sellers, setSellers] = useState([]);
+  const [flag, setFlag] = useState(false);
 
-  const reqDelete = async () => {
+  console.log(sellers);
+
+  const reqDelete = async (_id) => {
     try {
       const data = await axios.delete(
-        `https://keykavoos-sorme.liara.run/Admin/delete_Seller/:_id`,
+        `https://keykavoos-sorme.liara.run/Admin/delete_Seller/${_id}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -16,6 +21,7 @@ function TableSeller() {
         }
       );
       console.log(data);
+      setFlag(true)
     } catch (error) {
       console.log(error.response.data);
     }
@@ -24,7 +30,7 @@ function TableSeller() {
   useEffect(() => {
     const req = async () => {
       try {
-        const data = await axios.get(
+        const { data } = await axios.get(
           `https://keykavoos-sorme.liara.run/Admin/get-seller`,
           {
             headers: {
@@ -33,13 +39,39 @@ function TableSeller() {
           }
         );
         console.log(data);
+        setSellers(data);
+        setFlag(false);
       } catch (error) {
-        console.log(error.response.data);
+        console.log(error);
       }
     };
     req();
-  }, [user.token]);
-  
+  }, [flag, user.token]);
+
+  function sureDelete(_id) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        reqDelete(_id);
+        // setTimeout(() => {
+        //   setFlag(!flag);
+        // }, 1000);
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
+    });
+  }
+
   return (
     <div className="flex flex-col scale-75 lg:scale-110 xl:scale-125">
       <div className="overflow-x-auto">
@@ -75,86 +107,31 @@ function TableSeller() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                <tr>
-                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                    Jone Doe
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                    2022/02/01
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                    jonne62@gmail.com
-                  </td>
-                  <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                    <a
-                      className="text-red-500 flex justify-center hover:text-red-700"
-                      href="#"
-                      onClick={reqDelete}
-                    >
-                      X
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                    Jone Doe
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                    2022/02/01
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                    jonne62@gmail.com
-                  </td>
-                  <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                    <a
-                      className="text-red-500 flex justify-center hover:text-red-700 "
-                      href="#"
-                      onClick={reqDelete}
-                    >
-                      X
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                    Jone Doe
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                    2022/02/01
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                    jonne62@gmail.com
-                  </td>
-                  <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                    <a
-                      className="text-red-500 flex justify-center hover:text-red-700"
-                      href="#"
-                      onClick={reqDelete}
-                    >
-                      X
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                    Jone Doe
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                    2022/02/01
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                    jonne62@gmail.com
-                  </td>
-                  <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                    <a
-                      className="text-red-500 flex justify-center hover:text-red-700"
-                      href="#"
-                      onClick={reqDelete}
-                    >
-                      X
-                    </a>
-                  </td>
-                </tr>
+                {sellers.map((data) => (
+                  <tr key={data._id}>
+                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                      {data.username}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                      {data.createdAt.slice(0, 10)}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                      {data.email}
+                    </td>
+                    <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                      <a className="text-red-500  flex justify-center hover:text-red-700">
+                        <button
+                          onClick={() => {
+                            sureDelete(data._id);
+                          }}
+                          className="cursor-pointer px-2"
+                        >
+                          X
+                        </button>
+                      </a>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

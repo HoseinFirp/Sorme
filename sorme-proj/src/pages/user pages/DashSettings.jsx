@@ -71,7 +71,7 @@ function DashSettings() {
     setShowError(false);
     setLoadingConfirm(true);
     // console.log(date.$y, date.$M + 1, date.$D);
-    
+    console.log(user.token);
     try {
       const { data } = await axios.put(
         `https://keykavoos-sorme.liara.run/${

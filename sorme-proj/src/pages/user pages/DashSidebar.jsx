@@ -82,7 +82,7 @@ function DashSidebar() {
           {path !== "user" && path !== "seller" ? (
             <li
               onClick={() => {
-                navigate("/dashboard-panel/user");
+                navigate("/dashboard-panel/users");
                 setPanel("userPanel");
               }}
               className="w-58"
@@ -103,7 +103,7 @@ function DashSidebar() {
                       : "text-gray-700 font-bold"
                   }
                 >
-                  User
+                  Users
                 </p>
               </div>
             </li>
@@ -111,7 +111,7 @@ function DashSidebar() {
           {path !== "user" && path !== "seller" ? (
             <li
               onClick={() => {
-                navigate("/dashboard-panel/seller");
+                navigate("/dashboard-panel/sellers");
                 setPanel("sellerPanel");
               }}
               className="w-58"
@@ -132,7 +132,7 @@ function DashSidebar() {
                       : "text-gray-700 font-bold"
                   }
                 >
-                  Seller
+                  Sellers
                 </p>
               </div>
             </li>

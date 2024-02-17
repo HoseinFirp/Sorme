@@ -1,14 +1,22 @@
-import { useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useUser } from "../Slicers/userSlice";
 import axios from "axios";
+import { UserContext } from "../App";
+import LoaderDots from "./Loaders/LoaderDots";
 
 function TableSupport() {
-  const user = useUser()
+  const [supports, setSupports] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const { path, setActiveTickets, setSupport } = useContext(UserContext);
+  const user = useUser();
 
   useEffect(() => {
     const req = async () => {
+      setLoading(true);
+
       try {
-        const data = await axios.get(
+        const { data } = await axios.get(
           `https://keykavoos-sorme.liara.run/Admin/get-support`,
           {
             headers: {
@@ -16,48 +24,57 @@ function TableSupport() {
             },
           }
         );
-        console.log(data);
+        setSupports(data);
+        setSupport(data);
+        setActiveTickets(supports.length);
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
+
         console.log(error.response.data);
       }
     };
-    req();
-  }, [user.token]);
-  
+
+    if (path === "admin") {
+      req();
+    }
+  }, [user.token, path, setActiveTickets, setSupport, supports.length]);
+  console.log(supports);
+
   return (
-    <div className="overflow-x-auto bg-white p-5  rounded-lg">
-      <table className="table">
+    <div className="overflow-x-auto bg-white p-5 max-h-96  rou,nded-lg">
+      <table className="table ">
         <thead>
           <tr>
             <th></th>
-            <th className="text-pink-300 font-bold text-lg min-w-36">Title</th>
-            <th className="text-pink-300 font-bold text-lg min-w-24">Date</th>
-            <th className="text-pink-300 font-bold text-lg max-w-32">
-              Condition
-            </th>
+            <th className="text-pink-300 font-bold text-lg min-w-28">Title</th>
+            <th className="text-pink-300 font-bold text-lg min-w-28">Date</th>
+            <th className="text-pink-300 font-bold text-lg ">Condition</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th className="font-bold text-pink-300">1</th>
-            <td className="text-gray-500 font-bold ">Cy Ganderton</td>
-            <td className="text-gray-500 font-bold">2022/02/10</td>
-            <td className="text-gray-700 font-extrabold text-center ">
-              active
-            </td>
-          </tr>
-          <tr>
-            <th className="font-bold text-pink-300">2</th>
-            <td className="text-gray-500 font-bold">Hart Hagerty</td>
-            <td className="text-gray-500 font-bold">2022/02/10</td>
-            <td className="text-gray-700 font-extrabold text-center">active</td>
-          </tr>
-          <tr>
-            <th className="font-bold text-pink-300">3</th>
-            <td className="text-gray-500 font-bold">Brice Swyre</td>
-            <td className="text-gray-500 font-bold">2022/02/10</td>
-            <td className="text-gray-700 font-extrabold text-center">active</td>
-          </tr>
+          {loading ? (
+            <div className="mt-5  ">
+              <LoaderDots />
+            </div>
+          ) : (
+            supports.map((data) => (
+              <tr className="cursor-pointer" key={data._id}>
+                <th className="font-bold text-pink-300">1</th>
+                <td className="text-gray-500 font-bold ">
+                  {data.Support.map((data) => (
+                    <p key={data._id}>{data.name}</p>
+                  ))}
+                </td>
+                <td className="text-gray-500 font-bold">
+                  {data.createdAt.slice(0, 10)}
+                </td>
+                <td className="text-gray-700 font-extrabold text-center ">
+                  active
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>

@@ -27,7 +27,16 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
-import { updateAvatar, updateEmail, updateId, updateName, updatePosition, updateSupport, updateToken, useUser } from "./Slicers/userSlice";
+import {
+  updateAvatar,
+  updateEmail,
+  updateId,
+  updateName,
+  updatePosition,
+  updateSupport,
+  updateToken,
+  useUser,
+} from "./Slicers/userSlice";
 
 function AppLayOut() {
   return (
@@ -54,9 +63,12 @@ function App() {
   const user = useUser();
   const [path, setPath] = useState();
   const [date, setDate] = useState(dayjs("2020/05/05"));
-  // `${(user.date?.$y, user.date?.$M + 1, user.date?.$D)}`
+  const [activeTickets, setActiveTickets] = useState();
+  const [support, setSupport] = useState([]);
 
+  // `${(user.date?.$y, user.date?.$M + 1, user.date?.$D)}`
   const [pathForgot, setPathForgot] = useState();
+
   const value = {
     path,
     setPath,
@@ -64,6 +76,10 @@ function App() {
     setPathForgot,
     date,
     setDate,
+    activeTickets,
+    setActiveTickets,
+    support,
+    setSupport,
   };
   const dispatch = useDispatch();
 
@@ -81,7 +97,7 @@ function App() {
     if (user.token) {
       const req = async () => {
         try {
-          const {data} = await axios.get(
+          const { data } = await axios.get(
             `https://keykavoos-sorme.liara.run/${
               path === "seller" ? "Seller" : "user"
             }/get_Profile`,
@@ -130,8 +146,8 @@ function App() {
               path="/dashboard-panel/settings"
               element={<DashSettings />}
             />
-            <Route path="/dashboard-panel/user" element={<DashUser />} />
-            <Route path="/dashboard-panel/seller" element={<DashSeller />} />
+            <Route path="/dashboard-panel/users" element={<DashUser />} />
+            <Route path="/dashboard-panel/sellers" element={<DashSeller />} />
             <Route
               path="/dashboard-panel/financial"
               element={<DashFinancial />}
