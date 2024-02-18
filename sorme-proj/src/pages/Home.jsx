@@ -27,8 +27,6 @@ import CountdownTimer from "../Tools/CountDown";
 // import SuccessAlert from "../Tools/alerts/SuccessAlert";
 
 function Home() {
-
-  
   return (
     <div className="bg-white pt-20 lg:pt-5 pl-16 pr-16 pb-20">
       <Slider />
@@ -102,36 +100,36 @@ function Home() {
         </div>
       </div>
       <div className="mt-16 grid md:grid-cols-2 gap-x-5 gap-y-10  lg:grid-cols-4 pt-10  justify-items-start">
-        <div className="flex gap-3">
-          <div className="border border-gray-400 rounded-3xl flex items-center justify-center w-18 h-18">
-            <img src={refund1} className="w-16 p-2" />
+        <div className="flex items-center gap-3">
+          <div className="border border-gray-400 rounded-3xl flex items-center justify-center min-w-16 max-h-16">
+            <img src={refund1} className="w-16 p-3" />
           </div>
           <div className="flex flex-col  gap-1 content-center justify-center">
             <p className="text-black font-bold">Money back</p>
             <p className="text-sm">Refund in case of dissatisfaction</p>
           </div>
         </div>
-        <div className="flex gap-3">
-          <div className="border border-gray-400 rounded-3xl flex items-center justify-center w-18 h-18">
-            <img src={refund2} className="w-16 p-2 " />
+        <div className="flex items-center gap-3">
+          <div className="border border-gray-400 rounded-3xl flex items-center justify-center min-w-16 max-h-16">
+            <img src={refund2} className="w-16 p-3" />
           </div>
           <div className="flex flex-col  gap-1 content-center justify-center">
             <p className="text-black font-bold">Send a gift</p>
             <p className="text-sm">Send a gift with a purchase of $50</p>
           </div>
         </div>
-        <div className="flex gap-3">
-          <div className="border border-gray-400 rounded-3xl flex items-center justify-center w-18 h-18">
-            <img src={refund3} className="w-16 p-2" />
+        <div className="flex items-center gap-3">
+          <div className="border border-gray-400 rounded-3xl flex items-center justify-center min-w-16 max-h-16">
+            <img src={refund3} className="w-16 p-3" />
           </div>
           <div className="flex flex-col  gap-1 content-center justify-center">
             <p className="text-black font-bold">Originality</p>
             <p className="text-sm">All goods are guaranteed to be original</p>
           </div>
         </div>
-        <div className="flex gap-3">
-          <div className="border border-gray-400 rounded-3xl flex items-center justify-center w-18 h-18">
-            <img src={refund4} className="w-16 p-2" />
+        <div className="flex items-center gap-3">
+          <div className="border border-gray-400 rounded-3xl flex items-center justify-center min-w-16 max-h-16">
+            <img src={refund4} className="w-16 p-3" />
           </div>
           <div className="flex flex-col  gap-1 content-center justify-center">
             <p className="text-black font-bold">Instant delivery</p>

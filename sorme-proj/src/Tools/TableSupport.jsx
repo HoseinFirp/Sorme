@@ -2,15 +2,23 @@ import { useContext, useEffect, useState } from "react";
 import { useUser } from "../Slicers/userSlice";
 import axios from "axios";
 import { UserContext } from "../App";
-import LoaderDots from "./Loaders/LoaderDots";
+import { LoaderDots1 } from "./Loaders/LoaderDots";
 
 function TableSupport() {
   const [supports, setSupports] = useState([]);
+  const [mergedArray, setMergedArray] = useState([]);
   const [supportsUsers, setSupportsUsers] = useState([]);
+  const [supportsUserProfile, setSupportsUserProfile] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const { path, setActiveTickets, setSupport } = useContext(UserContext);
   const user = useUser();
+
+  useEffect(() => {
+    setSupportsUserProfile(user.data.Support);
+
+    console.log(supportsUserProfile);
+  }, [supportsUserProfile, user.data.Support]);
 
   useEffect(() => {
     const req = async () => {
@@ -25,7 +33,7 @@ function TableSupport() {
             },
           }
         );
-        const  dataUsers  = await axios.get(
+        const dataUsers = await axios.get(
           `https://keykavoos-sorme.liara.run/Admin/getsupport_user`,
           {
             headers: {
@@ -33,58 +41,85 @@ function TableSupport() {
             },
           }
         );
-        setSupportsUsers(dataUsers.data)
+        setSupportsUsers(dataUsers.data);
+        console.log(dataUsers.data);
         setSupports(data);
         setSupport(data);
-        setActiveTickets(supports.length);
         setLoading(false);
+        let mergedArray1 = supports.concat(supportsUsers);
+        setMergedArray(mergedArray1);
+        setActiveTickets(mergedArray1.length);
+        console.log(mergedArray1);
       } catch (error) {
         setLoading(false);
 
         console.log(error.response.data);
       }
     };
-    console.log(supportsUsers)
 
     if (path === "admin") {
       req();
     }
-  }, [user.token, path, setActiveTickets, setSupport,supportsUsers, supports.length]);
+  }, [user.token, path, setActiveTickets, setSupport, supports.length]);
 
   return (
-    <div className="overflow-x-auto bg-white p-5 max-h-96  rou,nded-lg">
-      <table className="table ">
-        <thead>
+    <div className="overflow-x-auto bg-white p-5 pt-0 pb-5 max-h-72 min-w-96   rounded-lg">
+      <table className="w-full table-fixed ">
+        <thead className="sticky top-0 bg-white z-10">
           <tr>
-            <th></th>
-            <th className="text-pink-300 font-bold text-lg min-w-28">Title</th>
-            <th className="text-pink-300 font-bold text-lg min-w-28">Date</th>
-            <th className="text-pink-300 font-bold text-lg ">Condition</th>
+            <th className="text-pink-300 font-bold text-left text-lg w-1/4 py-3">
+              Title
+            </th>
+            <th className="text-pink-300 font-bold text-lg w-1/4 py-3">Date</th>
+            <th className="text-pink-300 font-bold text-lg text-center w-1/4 py-3">
+              Condition
+            </th>
           </tr>
         </thead>
         <tbody>
           {loading ? (
-            <div className="mt-5  ">
-              <LoaderDots />
-            </div>
+            <LoaderDots1 />
           ) : (
-            supports.map((data) => (
-              <tr className="cursor-pointer" key={data._id}>
-                <th className="font-bold text-pink-300">1</th>
-                <td className="text-gray-500 font-bold ">
-                  {data.Support.map((data) => (
-                    <p key={data._id}>{data.name}</p>
-                  ))}
+            mergedArray
+              .sort(
+                (a, b) =>
+                  new Date(b.createdAt.slice(0, 10)) -
+                  new Date(a.createdAt.slice(0, 10))
+              )
+              .map((data) => (
+                <tr
+                  className="cursor-pointer active:bg-pink-500 border-b-2"
+                  key={data._id}
+                >
+                  <td className="text-gray-500 flex gap-2 justify-between font-bold py-4">
+                    {data.Support.map((data) => (
+                      <p key={data._id}>{data.name}</p>
+                    ))}
+                    <p className="text-gray-400">
+                      {data.position ? `(${data.position})` : null}
+                    </p>
+                  </td>
+                  <td className="text-gray-500 text-center font-bold py-4">
+                    {data.createdAt.slice(0, 10)}
+                  </td>
+                  <td className="text-gray-700 font-extrabold text-center py-4">
+                    active
+                  </td>
+                </tr>
+              ))
+          )}
+          {path === "user" &&
+            supportsUserProfile.map((data) => (
+              <tr className="cursor-pointer border-b-2" key={data._id}>
+                <td className="text-gray-500 font-bold py-4">
+                  <td key={data._id}>{data.message}</td>
                 </td>
-                <td className="text-gray-500 font-bold">
-                  {data.createdAt.slice(0, 10)}
-                </td>
-                <td className="text-gray-700 font-extrabold text-center ">
+                <td className="text-gray-500 text-center font-bold py-4"></td>
+                <td className="text-gray-700 font-extrabold text-center py-4">
                   active
                 </td>
               </tr>
-            ))
-          )}
+            ))}
         </tbody>
       </table>
     </div>

@@ -7,7 +7,7 @@ function TableUser() {
   const user = useUser();
   const [users, setUsers] = useState([]);
   const [flag, setFlag] = useState(false);
-
+  
   const reqDelete = async (_id) => {
     try {
       const data = await axios.delete(
@@ -19,6 +19,8 @@ function TableUser() {
         }
       );
       console.log(data);
+      setFlag(true)
+
     } catch (error) {
       console.log(error.response.data);
     }
@@ -37,6 +39,7 @@ function TableUser() {
         );
         console.log(data);
         setUsers(data);
+        setFlag(false)
       } catch (error) {
         console.log(error.response.data);
       }
@@ -118,7 +121,6 @@ function TableUser() {
                         <button
                           onClick={() => {
                             sureDelete(data._id);
-                            setFlag(!flag);
                           }}
                           className="cursor-pointer px-2"
                         >

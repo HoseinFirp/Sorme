@@ -17,19 +17,23 @@ function Product() {
   const loaction = useLocation();
   const [showError, setShowError] = useState(false);
   const [product, setProduct] = useState([]);
+  const [id, setId] = useState("");
 
+  useEffect(() => {
+    setId(loaction.pathname.slice(14));
+  }, [loaction.pathname]);
   function handleAdd(e) {
     e.preventDefault();
     dispatch(addItem(product));
   }
-
+  // console.log(loaction.pathname.slice(14));
   useEffect(() => {
     const req = async () => {
       setShowError(false);
       // setShowAlert(false);
       try {
         const { data } = await axios.get(
-          `https://keykavoos-sorme.liara.run/Product/One_Product/:_id`
+          `https://keykavoos-sorme.liara.run/Product/One_Product/${id}`
         );
         setProduct(data);
       } catch (error) {
@@ -38,7 +42,7 @@ function Product() {
       }
     };
     req();
-  }, []);
+  }, [id]);
   return (
     <div className="pt-48 bg-white">
       <div className="text-sm pl-16 breadcrumbs bg-white text-gray-600">

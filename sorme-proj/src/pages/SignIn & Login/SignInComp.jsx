@@ -11,7 +11,13 @@ import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 import ErrorAlert from "../../Tools/alerts/ErrorAlert";
 import { UserContext } from "../../App";
 import LoaderDots from "../../Tools/Loaders/LoaderDots";
-import { updateFullname, updateToken } from "../../Slicers/userSlice";
+import {
+  updateAddress,
+  updateData,
+  updateFullname,
+  updateSupport,
+  updateToken,
+} from "../../Slicers/userSlice";
 
 function SignInComp() {
   const [loading, setLoading] = useState(false);
@@ -64,7 +70,10 @@ function SignInComp() {
       setShowAlert(true);
 
       dispatch(updateToken(data.token));
+      dispatch(updateSupport(data?.Support));
+      dispatch(updateData(data));
       dispatch(updateFullname(data?.fullname));
+      dispatch(updateAddress(data?.address));
 
       if (username === "admin") {
         setPath("admin");

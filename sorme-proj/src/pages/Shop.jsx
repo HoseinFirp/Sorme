@@ -20,15 +20,28 @@ function Shop() {
 
   const [showError, setShowError] = useState(false);
   const [products, setProducts] = useState([]);
+  const [sortModel, setSortModel] = useState();
   const [panel, setPanel] = useState("Best");
   console.log(products);
 
+  // for delete product  .:: delete ::.
+  // https://keykavoos-sorme.liara.run/Admin/deleteProduct/:_id
+  // https://keykavoos-sorme.liara.run/seller/deleteProduct/:_id
 
-// for delete product  .:: delete ::.
-// https://keykavoos-sorme.liara.run/Admin/deleteProduct/:_id
-// https://keykavoos-sorme.liara.run/seller/deleteProduct/:_id
+  // id + token
 
-// id + token
+  // useEffect(() => {
+  //   console.log(panel);
+  //   if (panel === "Best") {
+  //     setSortModel(products);
+  //   }
+  //   if (panel === "Most") {
+  //     setSortModel(products.sort((a, b) => a.price - b.price));
+  //   }
+  //   if (panel === "Cheapest") {
+  //     setSortModel(products.sort((a, b) => b.price - a.price));
+  //   }
+  // }, [panel, products]);
 
   useEffect(() => {
     const req = async () => {
@@ -47,6 +60,19 @@ function Shop() {
     req();
   }, []);
 
+  const handleSortAZ = () => {
+    const sortedData = [...products].sort((a, b) =>
+      a.name.localeCompare(b.name)
+    );
+    setSortModel(sortedData);
+  };
+
+  const handleSortZA = () => {
+    const sortedData = [...products].sort((a, b) =>
+      b.name.localeCompare(a.name)
+    );
+    setSortModel(sortedData);
+  };
   return (
     <div className="bg-white">
       <div className="text-sm ml-16 pt-52 breadcrumbs bg-white text-gray-600">
@@ -75,7 +101,10 @@ function Shop() {
           Order By
         </p>
         <button
-          onClick={() => setPanel("Best")}
+          onClick={() => {
+            setPanel("Best");
+            setSortModel(products.sort((a, b) => b.ratings - a.ratings));
+          }}
           className={`${
             panel === "Best"
               ? "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-custom-bg-pink justify-self-center btn border-none  text-custom-white rounded-lg"
@@ -85,7 +114,10 @@ function Shop() {
           Best selling
         </button>
         <button
-          onClick={() => setPanel("Most")}
+          onClick={() => {
+            setPanel("Most");
+            setSortModel(products.sort((a, b) => b.price - a.price));
+          }}
           className={`${
             panel === "Most"
               ? "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-custom-bg-pink justify-self-center btn border-none  text-custom-white rounded-lg"
@@ -95,7 +127,10 @@ function Shop() {
           Most expensive
         </button>
         <button
-          onClick={() => setPanel("Cheapest")}
+          onClick={() => {
+            setPanel("Cheapest");
+            setSortModel(products.sort((a, b) => a.price - b.price));
+          }}
           className={`${
             panel === "Cheapest"
               ? "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-custom-bg-pink justify-self-center btn border-none  text-custom-white rounded-lg"
@@ -105,7 +140,15 @@ function Shop() {
           Cheapest
         </button>
         <button
-          onClick={() => setPanel("A - Z")}
+          onClick={() => {
+            setPanel("A - Z");
+            handleSortAZ();
+            // setSortModel(
+            //   products.sort((a, b) => {
+            //     if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+            //   })
+            // );
+          }}
           className={`${
             panel === "A - Z"
               ? "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-custom-bg-pink justify-self-center btn border-none  text-custom-white rounded-lg"
@@ -115,7 +158,15 @@ function Shop() {
           Name : A - Z
         </button>
         <button
-          onClick={() => setPanel("Z - A")}
+          onClick={() => {
+            setPanel("Z - A");
+            handleSortZA();
+            // setSortModel(
+            //   products.sort((a, b) => {
+            //     if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+            //   })
+            // );
+          }}
           className={`${
             panel === "Z - A"
               ? "min-w-32 sm:min-w-32 md:min-w-40 hover:bg-pink-400 hover:text-white lg:min-w-36 bg-custom-bg-pink justify-self-center btn border-none  text-custom-white rounded-lg"
@@ -129,10 +180,10 @@ function Shop() {
         id="grid"
         className="grid grid-cols-1 md:grid-cols-2 py-20 mx-16 gap-x-5 gap-y-10 lg:grid-cols-3 justify-items-center "
       >
-        {products.map((prod) => (
+        {(sortModel ? sortModel : products).map((prod) => (
           <div
             key={prod._id}
-            onClick={()=>navigate(`${prod._id}`)}
+            onClick={() => navigate(`/shop/product/${prod._id}`)}
             className=" border-2 cursor-pointer border-pink-100 shadow-xl rounded-xl flex w-min justify-between"
           >
             <div className="flex justify-between flex-col">

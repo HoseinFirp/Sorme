@@ -52,7 +52,6 @@ function DashboardLayout() {
   return (
     <div>
       <DashNavbar />
-      {/* {user.token? */}
       <DashSidebar />
     </div>
   );
@@ -65,8 +64,6 @@ function App() {
   const [date, setDate] = useState(dayjs("2020/05/05"));
   const [activeTickets, setActiveTickets] = useState();
   const [support, setSupport] = useState([]);
-
-  // `${(user.date?.$y, user.date?.$M + 1, user.date?.$D)}`
   const [pathForgot, setPathForgot] = useState();
 
   const value = {

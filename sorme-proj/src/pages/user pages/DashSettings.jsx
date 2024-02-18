@@ -22,8 +22,9 @@ import {
 
 function DashSettings() {
   const user = useUser();
+  console.log(user.fullname);
   // const [username, setUsername] = useState(`${user.username}`);
-  const [fullName, setFullName] = useState();
+  const [fullName, setFullName] = useState(user.fullname);
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState();
   const [newPassword, setNewPassword] = useState();
@@ -34,7 +35,7 @@ function DashSettings() {
 
   const [showError, setShowError] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const { path, date } = useContext(UserContext);
+  const { setPath, path, date } = useContext(UserContext);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -54,6 +55,7 @@ function DashSettings() {
     dispatch(updateId(""));
     dispatch(updateAddress(""));
     dispatch(updateBirth(""));
+    setPath("");
     setTimeout(() => {
       navigate("/");
       setLoadingLogout(false);
@@ -71,10 +73,8 @@ function DashSettings() {
     setShowAlert(false);
     setShowError(false);
     setLoadingConfirm(true);
-    // console.log(date.$y, date.$M + 1, date.$D);
 
-
-
+    const dateOfBirth = `${date.$y}, ${date.$M + 1}, ${date.$D}`;
 
     try {
       const { data } = await axios.put(
@@ -83,7 +83,7 @@ function DashSettings() {
           fullname: `${fullName}`,
           username: `${user.username}`,
           address: `${address}`,
-          date_Of_Brith: `${(date.$y, date.$M + 1, date.$D)}`,
+          date_Of_Brith: `${dateOfBirth}`,
         },
         {
           headers: {
@@ -91,26 +91,12 @@ function DashSettings() {
           },
         }
       );
+
+      dispatch(updateFullname(fullName));
       console.log(data);
       setLoadingConfirm(false);
       localStorage.setItem("inputAddress", address);
       setShowAlert(data.message);
-
-      // setTimeout(() => {
-      //   // if (username !== user.username) {
-      //   //   if (path === "user") {
-      //   //     navigate("/login");
-      //   //   } else if (path === "seller") {
-      //   //     navigate("/login-seller");
-      //   //   }
-      //   // }
-      // }, 1500);
-
-      // dispatch(updateToken(data.data.token));
-      // dispatch(updateFullname(data.data.fullname));
-      // dispatch(updateAddress(data.data.address));
-      // dispatch(updateName(data.data.username));
-      // dispatch(updateBirth(data.data.date_Of_Brith));
     } catch (error) {
       setLoadingConfirm(false);
 
@@ -206,7 +192,7 @@ function DashSettings() {
                 id="floating_outlined2"
                 className="block px-2.5 py-2  w-full text-sm border-2 disabled:bg-slate-400 text-pink-700 bg-pink-100 rounded-lg border-1 border-pink-200 appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
                 placeholder=" "
-                defaultValue={user.fullname}
+                defaultValue={fullName ? fullName : ""}
                 disabled={loadingLogout || loadingConfirm}
                 // onChange={(e) => setFirstname(e.target.value)}
                 onChange={(e) => {
@@ -275,7 +261,7 @@ function DashSettings() {
         <button
           onClick={handleLogout}
           disabled={loadingLogout || loadingConfirm}
-          className="bg-red-400 btn border-none h-10 justify-self-center font-bold  active:bg-red-600 col-span-2  w-24  hover:bg-red-500 transition-all text-white rounded-xl"
+          className="bg-red-400 btn border-none h-10 justify-self-center font-bold disabled:text-white disabled:bg-red-300  active:bg-red-600 col-span-2  w-24  hover:bg-red-500 transition-all text-white rounded-xl"
         >
           {loadingLogout ? <LoaderDots /> : "Log out"}
         </button>

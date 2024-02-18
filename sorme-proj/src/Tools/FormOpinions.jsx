@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SuccessAlert from "./alerts/SuccessAlert";
 import ErrorAlert from "./alerts/ErrorAlert";
 import LoaderDots from "./Loaders/LoaderDots";
@@ -19,7 +19,6 @@ function FormOpinions() {
   const user = useUser();
   const location = useLocation();
   const { path, support } = useContext(UserContext);
-
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -67,7 +66,7 @@ function FormOpinions() {
     setShowError(false);
     setShowAlert(false);
     setLoading(true);
-    
+
     try {
       const { data } = await axios.post(
         `https://keykavoos-sorme.liara.run/user/support_User`,
@@ -86,15 +85,17 @@ function FormOpinions() {
       setLoading(false);
       setMessage("");
       console.log(data);
-      if (path === "admin") {
-        setDisable(true);
-      }
     } catch (error) {
       console.log(error);
       setLoading(false);
       setShowError(error.response.data.messages);
     }
   };
+  useEffect(() => {
+    if (path === "admin") {
+      setDisable(true);
+    }
+  }, [path]);
 
   return (
     <div>
@@ -142,6 +143,7 @@ function FormOpinions() {
             className="block  break-all px-2.5 pb-2.5 h-full pt-4 w-full text-sm border-2  text-pink-700 bg-transparent rounded-lg border-1 border-pink-300 appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
             placeholder=" "
             value={message}
+            disabled={loading || disable}
             onChange={(e) => setMessage(e.target.value)}
           />
           <label

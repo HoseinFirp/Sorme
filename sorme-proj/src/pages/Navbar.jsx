@@ -19,7 +19,7 @@ import { useUser } from "../Slicers/userSlice";
 
 function Navbar() {
   const navigate = useNavigate();
-  const { setPath } = useContext(UserContext);
+  const { path, setPath } = useContext(UserContext);
   const user = useUser();
   return (
     <div className="z-50 w-full bg-white glass bg-opacity-25 fixed pb-1">
@@ -84,21 +84,24 @@ function Navbar() {
               <HiUser />
             </button>
           )}
-          <p className="text-2xl -mt-2">|</p>
-
-          <div className="indicator">
-            <span className="indicator-item badge badge-secondary w-1 font-bold text-white">
-              0
-            </span>
-            <button
-              onClick={() => {
-                navigate("/cart");
-              }}
-              className="flex gap-1 text-xs min-w-7 bg-custom-bg-1 transition duration-300 hover:bg-gray-300 active:bg-gray-400 rounded-md border-black p-1  font-bold items-center"
-            >
-              <img src={iconCart} className="w-5" />
-            </button>
-          </div>
+          {path === "user" && (
+            <div className="flex gap-3">
+              <p className="text-2xl -mt-2">|</p>
+              <div className="indicator">
+                <span className="indicator-item badge badge-secondary w-1 font-bold text-white">
+                  0
+                </span>
+                <button
+                  onClick={() => {
+                    navigate("/cart");
+                  }}
+                  className="flex gap-1 text-xs min-w-7 bg-custom-bg-1 transition duration-300 hover:bg-gray-300 active:bg-gray-400 rounded-md border-black p-1  font-bold items-center"
+                >
+                  <img src={iconCart} className="w-5" />
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <div className="flex gap-10   sm:mx-14 scale-75 sm:scale-100  justify-between items-center   mb-5">

@@ -3,3 +3,7 @@ function LoaderDots() {
 }
 
 export default LoaderDots;
+
+export function LoaderDots1() {
+  return <tr className="loading loading-dots loading-lg"></tr>;
+}

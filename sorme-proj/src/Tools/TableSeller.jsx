@@ -60,9 +60,6 @@ function TableSeller() {
     }).then((result) => {
       if (result.isConfirmed) {
         reqDelete(_id);
-        // setTimeout(() => {
-        //   setFlag(!flag);
-        // }, 1000);
         Swal.fire({
           title: "Deleted!",
           text: "Your file has been deleted.",
