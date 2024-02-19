@@ -19,10 +19,20 @@ import refund1 from "../images/refund1.png";
 import refund2 from "../images/refund2.png";
 import refund3 from "../images/refund3.png";
 import refund4 from "../images/refund4.png";
+// import slider1 from "../images/slider1.png";
+// import slider2 from "../images/slider2.png";
+// import slider3 from "../images/slider3.png";
 import supportPic from "../images/supportPic.png";
 import MiniSlider from "../Tools/MiniSlider";
 import FormOpinions from "../Tools/FormOpinions";
 import CountdownTimer from "../Tools/CountDown";
+
+// import "swiper/css";
+// import "swiper/css/effect-coverflow";
+// import "swiper/css/pagination";
+// import "swiper/css/navigation";
+// import  Carousel  from "../Tools/Carousel";
+
 // import ErrorAlert from "../Tools/alerts/ErrorAlert";
 // import SuccessAlert from "../Tools/alerts/SuccessAlert";
 
@@ -30,6 +40,8 @@ function Home() {
   return (
     <div className="bg-white pt-20 lg:pt-5 pl-16 pr-16 pb-20">
       <Slider />
+      {/* <Carousel /> */}
+
       <div className="grid sm:grid-cols-2 gap-y-10 md:grid-cols-2 lg:grid-cols-4 pt-10  justify-items-center">
         <img src={rimmel1} className="w-72 sm:w-56 lg:w-52" />
         <img src={rimmel2} className="w-72 sm:w-56 lg:w-52" />
@@ -67,8 +79,8 @@ function Home() {
               The most complete review of Kaman products
             </p>
             <div className="flex justify-between">
-              <p>hamid</p>
-              <p> 2023/10/15</p>
+              <p>Hossein</p>
+              <p> 2023/05/10</p>
             </div>
           </div>
         </div>
@@ -80,8 +92,8 @@ function Home() {
               The most complete review of Kaman products
             </p>
             <div className="flex justify-between">
-              <p>hamid</p>
-              <p> 2023/10/15</p>
+              <p>Hossein</p>
+              <p> 2023/10/21</p>
             </div>
           </div>
         </div>
@@ -93,8 +105,8 @@ function Home() {
               The most complete review of Kaman products
             </p>
             <div className="flex justify-between">
-              <p>hamid</p>
-              <p> 2023/10/15</p>
+              <p>Hossein</p>
+              <p> 2024/01/15</p>
             </div>
           </div>
         </div>

@@ -20,12 +20,15 @@ import {
 } from "../../Slicers/userSlice";
 
 function SignInComp() {
+  const { path, setPath } = useContext(UserContext);
+
   const [loading, setLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [showError, setShowError] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   const dispatch = useDispatch();
 
   function handleGoCreate(e) {
@@ -59,7 +62,7 @@ function SignInComp() {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        `https://keykavoos-sorme.liara.run/user/Login`,
+        `https://keykavoos-sorme.liara.run/${path==="seller"?"seller":"user"}/Login${path==="seller"?"-seller":""}`,
         {
           username: `${username}`,
           password: `${password}`,
@@ -91,10 +94,8 @@ function SignInComp() {
       console.log(error);
       setLoading(false);
       setShowError(error.response.data.message);
-      // setShowError(error.message);
     }
   };
-  const { path, setPath } = useContext(UserContext);
 
   return (
     <div className="h-screen  flex items-center justify-center bg-pink-100">

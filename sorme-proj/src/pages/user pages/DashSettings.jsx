@@ -10,6 +10,7 @@ import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 import ErrorAlert from "../../Tools/alerts/ErrorAlert";
 import {
   updateAddress,
+  updateAvatar,
   updateBirth,
   updateEmail,
   updateFullname,
@@ -22,7 +23,6 @@ import {
 
 function DashSettings() {
   const user = useUser();
-  console.log(user.fullname);
   // const [username, setUsername] = useState(`${user.username}`);
   const [fullName, setFullName] = useState(user.fullname);
   const [address, setAddress] = useState("");
@@ -33,8 +33,12 @@ function DashSettings() {
   const [loadingLogout, setLoadingLogout] = useState(false);
   const [loadingConfirm, setLoadingConfirm] = useState(false);
 
-  const [showError, setShowError] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
+  const [showError1, setShowError1] = useState(false);
+  const [showError2, setShowError2] = useState(false);
+  const [showError3, setShowError3] = useState(false);
+  const [showAlert1, setShowAlert1] = useState(false);
+  const [showAlert2, setShowAlert2] = useState(false);
+  const [showAlert3, setShowAlert3] = useState(false);
   const { setPath, path, date } = useContext(UserContext);
 
   const navigate = useNavigate();
@@ -62,7 +66,7 @@ function DashSettings() {
     }, 1500);
   }
   useEffect(() => {
-    const storedValue = localStorage.getItem("inputAddress");
+    const storedValue = localStorage.getItem(`input${user.username}Address`);
 
     if (storedValue) {
       setAddress(storedValue);
@@ -70,8 +74,13 @@ function DashSettings() {
   }, []);
 
   const req = async () => {
-    setShowAlert(false);
-    setShowError(false);
+    setShowAlert1(false);
+    setShowAlert2(false);
+    setShowAlert3(false);
+
+    setShowError1(false);
+    setShowError2(false);
+    setShowError3(false);
     setLoadingConfirm(true);
 
     const dateOfBirth = `${date.$y}, ${date.$M + 1}, ${date.$D}`;
@@ -95,12 +104,12 @@ function DashSettings() {
       dispatch(updateFullname(fullName));
       console.log(data);
       setLoadingConfirm(false);
-      localStorage.setItem("inputAddress", address);
-      setShowAlert(data.message);
+      localStorage.setItem(`input${user.username}Address`, address);
+      setShowAlert1(data.message);
     } catch (error) {
       setLoadingConfirm(false);
 
-      setShowError(error.response.data.message);
+      setShowError1(error.response.data.message);
       console.log(user.token);
       console.log(error);
     }
@@ -120,18 +129,18 @@ function DashSettings() {
           }
         );
         console.log(data);
-        setShowAlert(data.message);
+        setShowAlert2(data.message);
         setLoadingConfirm(false);
       } catch (error) {
         setLoadingConfirm(false);
 
-        setShowError(error.response.data.message);
+        setShowError2(error.response.data.message);
         console.log(error);
       }
     }
     if (avatar) {
       const formData = new FormData();
-      formData.append("photo", avatar);
+      formData.append("photos", avatar);
       try {
         const { data } = await axios.put(
           `https://keykavoos-sorme.liara.run/${
@@ -146,11 +155,12 @@ function DashSettings() {
         );
         console.log(data);
         setLoadingConfirm(false);
-        setShowAlert(true);
+        setShowAlert3(data.message);
+        dispatch(updateAvatar(avatar))
       } catch (error) {
         setLoadingConfirm(false);
 
-        setShowError(error.response.data.message);
+        setShowError3(error.response.data.message);
         console.log(error);
       }
     }
@@ -158,8 +168,12 @@ function DashSettings() {
 
   return (
     <div className="flex flex-col my-10 items-center gap-5 p-5 rounded-2xl mx-10 bg-pink-100">
-      {showAlert ? <SuccessAlert props={`${showAlert}`} /> : null}
-      {showError ? <ErrorAlert props={`${showError}`} /> : null}
+      {showAlert1 ? <SuccessAlert props={`${showAlert1}`} /> : null}
+      {showAlert2 ? <SuccessAlert props={`${showAlert2}`} /> : null}
+      {showAlert3 ? <SuccessAlert props={`${showAlert3}`} /> : null}
+      {showError1 ? <ErrorAlert props={`${showError1}`} /> : null}
+      {showError2 ? <ErrorAlert props={`${showError2}`} /> : null}
+      {showError3 ? <ErrorAlert props={`${showError3}`} /> : null}
       <form className="flex flex-col items-center gap-5">
         <div className="flex flex-col rounded-2xl pr-2 bg-white gap-5 ">
           <div className="lg:grid gap-5 m-2 mb-0 flex  flex-col lg:grid-cols-2">

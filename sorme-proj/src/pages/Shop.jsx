@@ -178,7 +178,7 @@ function Shop() {
       </div>
       <div
         id="grid"
-        className="grid grid-cols-1 md:grid-cols-2 py-20 mx-16 gap-x-5 gap-y-10 lg:grid-cols-3 justify-items-center "
+        className="grid grid-cols-1 md:grid-cols-2 py-20 mx-16 gap-x-10 gap-y-10 lg:grid-cols-3 justify-items-center "
       >
         {(sortModel ? sortModel : products).map((prod) => (
           <div
@@ -189,7 +189,7 @@ function Shop() {
             <div className="flex justify-between flex-col">
               <img
                 src={!prod.avatar ? prod.avatar : powder1}
-                className="  max-h-56 rounded-xl justify-self-start"
+                className="  max-h-48 max-w-48 rounded-xl justify-self-start"
               />
               <div className="flex gap-5 content-center ml-4 justify-between mb-1">
                 <p className="w-36 font-bold text-lg text-custom-gray">
@@ -207,8 +207,8 @@ function Shop() {
               </p>
             </div>
 
-            <div className="flex flex-col justify-between py-6 gap-1 items-center">
-              <p className="w-24 flex justify-center ">20 Persons</p>
+            <div className="flex flex-col justify-between py-6  gap-1 items-center">
+              <p className="w-20 flex text-sm justify-center ">20 Persons</p>
               {/* if product was any of categories */}
 
               {prod.category === "Face" ? (

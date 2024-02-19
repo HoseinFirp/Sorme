@@ -16,6 +16,7 @@ import { useUser } from "../../Slicers/userSlice";
 function DashSidebar() {
   const [panel, setPanel] = useState("dashboardPanel");
   const user = useUser();
+  // console.log("avatar : ", user.avatar[0].path);
   const navigate = useNavigate();
   const { path } = useContext(UserContext);
   return (
@@ -39,7 +40,14 @@ function DashSidebar() {
         <div className="flex gap-4  flex-col my-4 items-center">
           <div className="avatar">
             <div className="w-24 rounded-full">
-              <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+              <img
+                src={
+                  user.avatar[0]?.path
+                    ? user.avatar[0].path
+                    : `https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg`
+                }
+                alt="Avatar"
+              />
             </div>
           </div>
           <div className="flex flex-col gap-1 items-center ">

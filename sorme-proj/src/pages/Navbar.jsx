@@ -22,7 +22,7 @@ function Navbar() {
   const { path, setPath } = useContext(UserContext);
   const user = useUser();
   return (
-    <div className="z-50 w-full bg-white glass bg-opacity-25 fixed pb-1">
+    <div className="z-50 w-full bg-white glass bg-opacity-25 fixed  pb-1 ">
       <img src={NavbarPic} className="h-10 z-0 w-full" />
       <div className="absolute flex   justify-between  w-full  top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <p className="text-custom-green min-w-32 text-lg ml-24 sm:ml-36 md:ml-52 lg:ml-56 xl:ml-64 font-bold ">
@@ -59,7 +59,7 @@ function Navbar() {
                   navigate("/signup-seller");
                   setPath("seller");
                 }}
-                className="flex gap-1 min-w-28 justify-around text-xs hover:text-pink-700  active:bg-pink-100 text-black border rounded-md border-black p-1 font-bold  items-center"
+                className="flex gap-1 min-w-28 justify-around text-xs hover:text-pink-700  active:bg-pink-100 text-gray-900 border rounded-md border-gray-500 p-1 font-bold  items-center"
               >
                 Seller panel
                 <img src={seller} className="w-5" />
@@ -70,7 +70,7 @@ function Navbar() {
                   navigate("/signup");
                   setPath("user");
                 }}
-                className="flex min-w-32  justify-around gap-0 text-xs  hover:text-pink-700  active:bg-pink-100 text-black border rounded-md border-black p-1 font-bold  items-center"
+                className="flex min-w-32  justify-around gap-0 text-xs  hover:text-pink-700  active:bg-pink-100 text-gray-900 border rounded-md border-gray-500 p-1 font-bold  items-center"
               >
                 Customer panel
                 <img src={signInPic} className="w-5" />
@@ -108,7 +108,7 @@ function Navbar() {
         <div className=" mt-3 ml-5 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 justify-items-center md:justify-items-center auto-cols-max items-center  gap-3">
           <div className="dropdown md:hidden dropdown-bottom">
             <div tabIndex={0} role="button" className=" m-1 min-w-52">
-              <button className="flex items-center min-w-52 text-sm   transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1  font-bold ">
+              <button className="flex items-center min-w-52 text-sm   transition hover:text-pink-700 duration-300 rounded-full px-2  text-gray-700 gap-1  font-bold ">
                 Categories
                 <img src={rightArrow} className="w-3 mt-1" />
               </button>
@@ -151,7 +151,7 @@ function Navbar() {
           </div>
           <div className="dropdown   dropdown-bottom">
             <div tabIndex={0} role="button" className=" m-1 min-w-52">
-              <button className="flex items-center min-w-52 text-sm justify-start  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1  font-bold ">
+              <button className="flex items-center min-w-52 text-sm justify-start  transition hover:text-pink-700 duration-300 rounded-full px-2  text-gray-700 gap-1  font-bold ">
                 Products Categorization
                 <img src={rightArrow} className="w-3 mt-1" />
               </button>
@@ -201,23 +201,23 @@ function Navbar() {
             </ul>
           </div>
 
-          <button className="hidden lg:ml-7  md:flex items-center text-sm hover:bg-opacity-80 hover:bg-pink-100 hover:border border-transparent border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
+          <button className="hidden lg:ml-7  md:flex items-center text-sm hover:bg-opacity-80 hover:bg-pink-100 hover:border border-transparent border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-gray-500 font-bold gap-2">
             <img src={flower} className="w-5" />
             Brands
           </button>
-          <button className="hidden md:flex w-32 py-1 items-center text-sm hover:bg-opacity-80 hover:bg-pink-100 hover:border border-transparent border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
+          <button className="hidden md:flex w-36 py-1 items-center text-sm hover:bg-opacity-80 hover:bg-pink-100 hover:border border-transparent border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-gray-500 font-bold gap-2">
             <img src={organization} className="w-5 " />
             Organizational
           </button>
-          <button className="hidden md:flex py-1 items-center text-sm hover:bg-opacity-80 hover:bg-pink-100 hover:border border-transparent border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
+          <button className="hidden md:flex py-1 items-center text-sm hover:bg-opacity-80 hover:bg-pink-100 hover:border border-transparent border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-gray-500 font-bold gap-2">
             <img src={chatIcon} className="w-5 " />
             Counseling
           </button>
-          <button className="hidden md:flex py-1 items-center text-sm hover:bg-opacity-80 hover:bg-pink-100 hover:border border-transparent border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
+          <button className="hidden md:flex py-1 items-center text-sm hover:bg-opacity-80 hover:bg-pink-100 hover:border border-transparent border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-gray-500 font-bold gap-2">
             <img src={gift} className="w-5 " />
             Gift Card
           </button>
-          <button className="hidden md:flex py-1 items-center text-sm hover:bg-opacity-80 hover:bg-pink-100 hover:border border-transparent border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-black gap-1">
+          <button className="hidden md:flex py-1 items-center text-sm hover:bg-opacity-80 hover:bg-pink-100 hover:border border-transparent border hover:border-pink-200  transition hover:text-pink-700 duration-300 rounded-full px-2  text-gray-500 font-bold gap-2">
             <img src={weblog} className="w-5 " />
             Weblog
           </button>

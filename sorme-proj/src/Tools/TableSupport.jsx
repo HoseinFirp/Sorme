@@ -112,7 +112,7 @@ function TableSupport() {
             supportsUserProfile.map((data) => (
               <tr className="cursor-pointer border-b-2" key={data._id}>
                 <td className="text-gray-500 font-bold py-4">
-                  <td key={data._id}>{data.message}</td>
+                  <p key={data._id}>{data.message}</p>
                 </td>
                 <td className="text-gray-500 text-center font-bold py-4"></td>
                 <td className="text-gray-700 font-extrabold text-center py-4">

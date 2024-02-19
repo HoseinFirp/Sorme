@@ -21,7 +21,7 @@ function Product() {
 
   useEffect(() => {
     setId(loaction.pathname.slice(14));
-  }, [loaction.pathname]);
+  }, []);
   function handleAdd(e) {
     e.preventDefault();
     dispatch(addItem(product));
@@ -139,7 +139,7 @@ function Product() {
             <p className="line-through font-bold text-4xl text-pink-200">
               120$
             </p>
-            <p className=" bg-pink-300 rounded-3xl text-white flex self-center px-3 ">
+            <p className=" bg-pink-300 rounded-3xl mr-5 text-white flex self-center px-3 ">
               25%
             </p>
             <p className="text-4xl font-bold text-pink-400">67$</p>
@@ -156,17 +156,17 @@ function Product() {
           className="flex items-center border-pink-100 border mr-28 bg-custom-bg-icons  p-8 justify-between rounded-3xl"
         >
           <div className="flex gap-3 flex-col">
-            <div className="flex justify-start items-center gap-3">
+            <div className="flex justify-start items-center gap-5">
               <img src={homeIcon} className="w-14" />
               <p>Seller : Sorme</p>
             </div>
-            <div className="flex justify-start items-center gap-3">
+            <div className="flex justify-start items-center gap-5">
               <img src={checkIcon} className="w-14" />
               <p>Brand : Follero</p>
             </div>
           </div>
           <p className="text-7xl pb-5">|</p>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-5">
             <img src={truckIcon} className="w-14 h-14" />
             <p>
               Free shipping
