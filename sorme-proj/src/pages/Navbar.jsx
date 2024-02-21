@@ -11,18 +11,21 @@ import rightArrow from "../images/rightArrow.png";
 import iconCart from "../images/iconCart.png";
 import signInPic from "../images/signInPic.png";
 import { HiMiniMagnifyingGlass, HiUser } from "react-icons/hi2";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../App";
 import LocationLoader from "../Tools/Loaders/LocationLoader";
 import { useUser } from "../Slicers/userSlice";
+import { useSelector } from "react-redux";
+import { getTotalCartQuantity } from "../Slicers/cartSlice";
 
 function Navbar() {
   const navigate = useNavigate();
+  const totalCartQuantity = useSelector(getTotalCartQuantity);
   const { path, setPath } = useContext(UserContext);
   const user = useUser();
   return (
-    <div className="z-50 w-full bg-white glass bg-opacity-25 fixed  pb-1 ">
+    <div className="z-50 w-full bg-pink-200 glass bg-opacity-25 fixed  pb-1 ">
       <img src={NavbarPic} className="h-10 z-0 w-full" />
       <div className="absolute flex   justify-between  w-full  top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <p className="text-custom-green min-w-32 text-lg ml-24 sm:ml-36 md:ml-52 lg:ml-56 xl:ml-64 font-bold ">
@@ -89,7 +92,7 @@ function Navbar() {
               <p className="text-2xl -mt-2">|</p>
               <div className="indicator">
                 <span className="indicator-item badge badge-secondary w-1 font-bold text-white">
-                  0
+                  {totalCartQuantity}
                 </span>
                 <button
                   onClick={() => {
@@ -224,7 +227,13 @@ function Navbar() {
         </div>
         <div className="mt-3 min-w-36 flex justify-center">
           <button className="flex items-center transition hover:text-pink-700 duration-300  text-black text-sm font-bold gap-1">
-            Branches Sorme
+            <Link
+              to={
+                "https://www.google.com/maps/@43.6766806,-79.2888683,9.94z?entry=ttu"
+              }
+            >
+              Sorme&apos;s branches
+            </Link>
             {/* <img src={locImg} className="w-5 " /> */}
             <LocationLoader />
           </button>

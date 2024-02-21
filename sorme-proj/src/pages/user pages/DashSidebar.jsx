@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 import dashboard from "../../images/dashboard.png";
 import orders from "../../images/orders.png";
@@ -8,7 +8,7 @@ import support from "../../images/support.png";
 import settings from "../../images/setting.png";
 import pinkObj from "../../images/pinkObj.png";
 import sellerIcon from "../../images/sellerIcon.png";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../App";
 import userPic from "../../images/userPic.png";
 import { useUser } from "../../Slicers/userSlice";
@@ -16,8 +16,33 @@ import { useUser } from "../../Slicers/userSlice";
 function DashSidebar() {
   const [panel, setPanel] = useState("dashboardPanel");
   const user = useUser();
-  // console.log("avatar : ", user.avatar[0].path);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname.slice(17) === "") {
+      setPanel("dashboardPanel");
+    } else if (location.pathname.slice(17) === "users") {
+      setPanel("userPanel");
+    } else if (location.pathname.slice(17) === "sellers") {
+      setPanel("sellerPanel");
+    } else if (location.pathname.slice(17) === "orders") {
+      setPanel("ordersPanel");
+    } else if (location.pathname.slice(17) === "favorites") {
+      setPanel("favoritesPanel");
+    } else if (location.pathname.slice(17) === "wallet") {
+      setPanel("walletPanel");
+    } else if (location.pathname.slice(17) === "financial") {
+      setPanel("financialPanel");
+    } else if (location.pathname.slice(17) === "support") {
+      setPanel("supportPanel");
+    } else if (location.pathname.slice(17) === "product") {
+      setPanel("productPanel");
+    } else if (location.pathname.slice(17) === "settings") {
+      setPanel("settingsPanel");
+    }
+  }, [location.pathname, user.panel]);
+  console.log(user);
   const { path } = useContext(UserContext);
   return (
     <div className="drawer shadow-slate-300 shadow-inner bg-white lg:drawer-open">

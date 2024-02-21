@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoaderDots from "../../Tools/Loaders/LoaderDots";
 import axios from "axios";
 import SuccessAlert from "../../Tools/alerts/SuccessAlert";
@@ -9,13 +9,14 @@ function DashProduct() {
   const [loadingConfirm, setLoadingConfirm] = useState(false);
   const [showError, setShowError] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [avatar, setAvatar] = useState();
-  const [productName, setProductName] = useState();
-  const [priceProduct, setPriceProduct] = useState();
-  const [count, setCount] = useState();
-  const [aboutProduct, setAboutProduct] = useState();
+  const [avatar, setAvatar] = useState("");
+  const [productName, setProductName] = useState("");
+  const [priceProduct, setPriceProduct] = useState(1);
+  const [count, setCount] = useState(1);
+  const [aboutProduct, setAboutProduct] = useState("");
   const [category, setCategory] = useState("Eyes");
-  const [productBrand, setProductBrand] = useState();
+  const [productBrand, setProductBrand] = useState("");
+  const [code, setCode] = useState();
   const user = useUser();
 
   function handleSubmit(e) {
@@ -28,61 +29,41 @@ function DashProduct() {
   };
 
   const handleInputChange = (e) => {
-    const currentValue = e.target.value;
+    let currentValue = e.target.value;
+    currentValue = currentValue.replace(/^0+/, "");
     const numericValue = currentValue.replace(/[^0-9]/g, "");
-    setPriceProduct(numericValue);
+    if (numericValue !== "" && numericValue !== "0") {
+      setPriceProduct(numericValue);
+    }
   };
 
   const handleInputChange2 = (e) => {
-    const currentValue = e.target.value;
+    let currentValue = e.target.value;
+    currentValue = currentValue.replace(/^0+/, "");
     const numericValue = currentValue.replace(/[^0-9]/g, "");
-    setCount(numericValue);
+    if (numericValue !== "" && numericValue !== "0") {
+      setCount(numericValue);
+    }
   };
-  
+
   const req = async () => {
     setShowAlert(false);
     setShowError(false);
     setLoadingConfirm(true);
-    try {
-      const { data } = await axios.post(
-        `https://keykavoos-sorme.liara.run/Product/Add-Product`,
-        {
-          name: `${productName}`,
-          price: `${priceProduct}`,
-          description: `${aboutProduct}`,
-          brand: `${productBrand}`,
-          Ingredients: "Ingredients",
-          category: `${category}`,
-          size: `${count}`,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
-      console.log(data);
-      setLoadingConfirm(false);
-      setShowAlert(data.message);
-      setProductName("");
-      setPriceProduct("");
-      setAboutProduct("");
-      setProductBrand("");
-      setCategory("");
-      setCount("");
-    } catch (error) {
-      setLoadingConfirm(false);
-
-      setShowError(error.response.data.message);
-      console.log(error);
-    }
-    if (avatar) {
-      const formData = new FormData();
-      formData.append("photo", avatar);
+    if (avatar && code) {
       try {
-        const { data } = await axios.put(
-          `https://keykavoos-sorme.liara.run/Product/upload-avatar/:_id`,
-          formData,
+        const { data } = await axios.post(
+          `https://keykavoos-sorme.liara.run/Product/Add-Product`,
+          {
+            name: `${productName}`,
+            price: `${priceProduct}`,
+            description: `${aboutProduct}`,
+            brand: `${productBrand}`,
+            Ingredients: "Ingredients",
+            category: `${category}`,
+            size: `${count}`,
+            code: `${code}`,
+          },
           {
             headers: {
               Authorization: `Bearer ${user.token}`,
@@ -91,15 +72,58 @@ function DashProduct() {
         );
         console.log(data);
         setLoadingConfirm(false);
-        setShowAlert(true);
+        setShowAlert(data.message);
+        setProductName("");
+        setPriceProduct("");
+        setAboutProduct("");
+        setProductBrand("");
+        setCategory("Eyes");
+        setCount("");
+        setAvatar("");
       } catch (error) {
         setLoadingConfirm(false);
 
         setShowError(error.response.data.message);
         console.log(error);
       }
+    } else {
+      setShowError("Please upload your product photo");
+      setLoadingConfirm(false);
     }
   };
+
+  useEffect(() => {
+    if (avatar) {
+      const formData = new FormData();
+      formData.append("photos", avatar);
+      const req = async () => {
+        setLoadingConfirm(true);
+
+        try {
+          const { data } = await axios.post(
+            `https://keykavoos-sorme.liara.run/Product/upload-avatar/`,
+            formData,
+            {
+              headers: {
+                Authorization: `Bearer ${user.token}`,
+              },
+            }
+          );
+          console.log(data);
+          setLoadingConfirm(false);
+          setShowAlert("Product picture added");
+          setLoadingConfirm(false);
+          setCode(data.code);
+        } catch (error) {
+          setLoadingConfirm(false);
+          setShowError(error.response.data.message);
+          console.log(error);
+        }
+      };
+      req();
+    }
+  }, [avatar, user.token]);
+
   return (
     <form className="my-20">
       {showAlert ? <SuccessAlert props={`${showAlert}`} /> : null}
@@ -111,7 +135,6 @@ function DashProduct() {
           <input
             onChange={(e) => setAvatar(e.target.files[0])}
             type="file"
-            value={avatar}
             className="file-input border-2 border-pink-200 file-input-bordered file-input-secondary w-full max-w-xs bg-pink-100"
           />
         </div>
@@ -179,15 +202,6 @@ function DashProduct() {
             <option>Body</option>
             <option>Hands</option>
           </select>
-          {/* <input
-            onChange={(e) => {
-              setCategory(e.target.value);
-            }}
-            type="text"
-            id="floating_outlined2"
-            className="block px-2.5 py-2  w-full text-sm border-2  text-pink-700 bg-pink-100 rounded-lg border-1 border-pink-200 appearance-none   focus:outline-none focus:ring-0 focus:border-pink-600 peer"
-            placeholder=" "
-          /> */}
         </div>
         <div className="flex items-center">
           <p className="text-gray-600 px-3 min-w-40">Product Brand </p>
@@ -206,7 +220,7 @@ function DashProduct() {
           type="submit"
           disabled={loadingConfirm}
           onClick={handleSubmit}
-          className="bg-pink-300  self-center btn border-none justify-self-center font-bold hover:bg-pink-400 disabled:bg-pink-500 disabled:text-white active:bg-pink-500 transition duration-300 col-span-2 text-gray-700 w-40  px-5 rounded-xl"
+          className="bg-pink-300  self-center btn border-none justify-self-center font-bold hover:bg-pink-400 disabled:bg-pink-500 disabled:text-white active:bg-pink-500 active:text-white transition duration-300 col-span-2 text-gray-700 w-40  px-5 rounded-xl"
         >
           {loadingConfirm ? <LoaderDots /> : "Create Product"}
         </button>

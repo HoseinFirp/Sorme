@@ -8,15 +8,16 @@ import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 import ErrorAlert from "../../Tools/alerts/ErrorAlert";
 import { UserContext } from "../../App";
 import LoaderDots from "../../Tools/Loaders/LoaderDots";
-import { useUser } from "../../Slicers/userSlice";
 
 function ForgotComp() {
+
   const navigate = useNavigate();
   const [showAlert, setShowAlert] = useState(false);
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
   const [showError, setShowError] = useState(false);
   const { path, setPathForgot } = useContext(UserContext);
+  
   function handleSubmit(e) {
     e.preventDefault();
     setPathForgot("forgot");

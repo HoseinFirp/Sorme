@@ -13,6 +13,7 @@ import { UserContext } from "../../App";
 import LoaderDots from "../../Tools/Loaders/LoaderDots";
 import {
   updateAddress,
+  updateAvatar,
   updateData,
   updateFullname,
   updateSupport,
@@ -62,7 +63,9 @@ function SignInComp() {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        `https://keykavoos-sorme.liara.run/${path==="seller"?"seller":"user"}/Login${path==="seller"?"-seller":""}`,
+        `https://keykavoos-sorme.liara.run/${
+          path === "seller" ? "seller" : "user"
+        }/Login${path === "seller" ? "-seller" : ""}`,
         {
           username: `${username}`,
           password: `${password}`,
@@ -77,7 +80,7 @@ function SignInComp() {
       dispatch(updateData(data));
       dispatch(updateFullname(data?.fullname));
       dispatch(updateAddress(data?.address));
-
+      dispatch(updateAvatar(data?.avatar[0]));
       if (username === "admin") {
         setPath("admin");
       }

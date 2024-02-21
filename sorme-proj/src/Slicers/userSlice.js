@@ -70,6 +70,7 @@ export const {
   updateData,
   updateAddress,
   updateFullname,
+  
 } = userSlice.actions;
 export const useUser = () => useSelector((state) => state.user);
 

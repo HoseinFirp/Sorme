@@ -1,15 +1,19 @@
 import { useNavigate } from "react-router-dom";
-import { clearCart, useCart } from "../../Slicers/cartSlice";
+// import { clearCart, useCart } from "../../Slicers/cartSlice";
 import { useUser } from "../../Slicers/userSlice";
 import CartItem from "./CartItem";
 import { useDispatch } from "react-redux";
 import LoaderDots from "../../Tools/Loaders/LoaderDots";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { clearCart, useCart } from "../../Slicers/cartSlice";
+import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 
 function Cart() {
   const [loading, setLoading] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
+  const [show, setShow] = useState(false);
   const cart = useCart();
   const user = useUser();
   const dispatch = useDispatch();
@@ -39,14 +43,14 @@ function Cart() {
 
   const req = async () => {
     setLoading(true);
+    setShowAlert(false)
     try {
       const { data } = await axios.post(
         "https://keykavoos-sorme.liara.run/Order/Submit-Order",
         {
-          orderItems: [
-            { productId: "64254d33735379f41dad936e", qty: 2 },
-            { productId: "6362a84eb90ac8bc6100a979", qty: 2 },
-          ],
+          OrderItems: cart.map((data) => {
+            return { productId: data.productId, qty: data.quantity };
+          }),
           address: `${user.address}`,
         },
         {
@@ -56,20 +60,32 @@ function Cart() {
         }
       );
       console.log(data);
+      setShowAlert(data)
       setLoading(false);
+      dispatch(clearCart())
     } catch (error) {
       console.log(error.response.data);
       setLoading(false);
     }
   };
-  console.log(cart);
+
+  useEffect(() => {
+    if (cart[0]) {
+      setShow(false);
+    } else {
+      setShow(true);
+    }
+  }, [cart]);
+
 
   return (
     <div className="bg-white pt-56 lg:pt-40 pl-16 pr-16 pb-20">
+            {showAlert ? <SuccessAlert props={showAlert} /> : null}
+
       <h2 className={` mt-7 text-xl font-semibold`}>
         Your cart <span className={`font-extrabold`}>{user?.username}</span> :
       </h2>
-      {!cart ? (
+      {show ? (
         <p className="mt-10 text-center">Cart is empty!</p>
       ) : (
         <ul className={` mt-3 divide-y divide-stone-200 border-b`}>
@@ -78,19 +94,19 @@ function Cart() {
           ))}
         </ul>
       )}
-      <div className=" mt-10 flex justify-between mr-10">
+      <div className=" mt-20 flex justify-start     mr-10">
         <button
           type="submit"
-          className="bg-pink-400 btn disabled:bg-pink-300 disabled:text-white px-5 py-3 active:bg-pink-300 border-none hover:bg-pink-200  mx-10 rounded-lg font-bold text-pink-500"
+          className="bg-pink-500 btn w-48 disabled:bg-pink-300 disabled:text-white px-5 py-3 active:bg-pink-400 border-none hover:bg-pink-600  mx-10 rounded-lg font-bold text-white"
           onClick={(e) => handleSubmit(e)}
-          disabled={!cart || loading}
+          disabled={show || loading}
         >
           {loading ? <LoaderDots /> : "Complete Your Buy"}
         </button>
 
         <button
           type="secondary"
-          disabled={!cart || loading}
+          disabled={show || loading}
           className={`btn btn-secondary text-white disabled:bg-red-300 disabled:text-white bg-red-600 hover:bg-red-800 border-none`}
           onClick={() => dispatch(clearCart())}
         >

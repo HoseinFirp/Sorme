@@ -6,23 +6,24 @@ import womanhair from "../images/womanhair.png";
 import womanlips from "../images/womanlips.png";
 import womanbody from "../images/womanbody.png";
 import powder1 from "../images/powder1.png";
-// import powder2 from "../images/powder2.png";
-// import powder3 from "../images/powder3.png";
-// import powder4 from "../images/powder4.png";
-// import powder5 from "../images/powder5.png";
-// import powder6 from "../images/powder6.png";
-import { useEffect, useState } from "react";
+
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import ErrorAlert from "../Tools/alerts/ErrorAlert";
+import { UserContext } from "../App";
+import { useUser } from "../Slicers/userSlice";
+import SuccessAlert from "../Tools/alerts/SuccessAlert";
 
 function Shop() {
   const navigate = useNavigate();
-
+  const { path } = useContext(UserContext);
+  const user = useUser();
   const [showError, setShowError] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const [products, setProducts] = useState([]);
-  const [sortModel, setSortModel] = useState();
+  const [sortModel, setSortModel] = useState([]);
   const [panel, setPanel] = useState("Best");
-  console.log(products);
+  const [flag, setFlag] = useState(false);
 
   // for delete product  .:: delete ::.
   // https://keykavoos-sorme.liara.run/Admin/deleteProduct/:_id
@@ -30,18 +31,29 @@ function Shop() {
 
   // id + token
 
-  // useEffect(() => {
-  //   console.log(panel);
-  //   if (panel === "Best") {
-  //     setSortModel(products);
-  //   }
-  //   if (panel === "Most") {
-  //     setSortModel(products.sort((a, b) => a.price - b.price));
-  //   }
-  //   if (panel === "Cheapest") {
-  //     setSortModel(products.sort((a, b) => b.price - a.price));
-  //   }
-  // }, [panel, products]);
+  const reqDelete = async (_id) => {
+    setShowError(false);
+
+    setShowAlert(false);
+    try {
+      const { data } = await axios.delete(
+        `https://keykavoos-sorme.liara.run/${
+          path === "admin" ? "Admin" : "seller"
+        }/deleteProduct/${_id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      setProducts(data);
+      setShowAlert(data.message);
+      setFlag(true);
+    } catch (error) {
+      console.log(error);
+      setShowError(error.response.data.messages);
+    }
+  };
 
   useEffect(() => {
     const req = async () => {
@@ -52,13 +64,14 @@ function Shop() {
           `https://keykavoos-sorme.liara.run/Product/all_Product`
         );
         setProducts(data);
+        setFlag(false);
       } catch (error) {
         console.log(error);
         setShowError(error.response.data.messages);
       }
     };
     req();
-  }, []);
+  }, [flag]);
 
   const handleSortAZ = () => {
     const sortedData = [...products].sort((a, b) =>
@@ -84,11 +97,12 @@ function Shop() {
             <a>Store</a>
           </li>
           <li>
-            <a>Skin Care</a>
+            <a>All products</a>
           </li>
         </ul>
       </div>
       {showError ? <ErrorAlert props={`${showError}`} /> : null}
+      {showAlert ? <SuccessAlert props={`${showAlert}`} /> : null}
 
       <div
         id="filter"
@@ -143,11 +157,6 @@ function Shop() {
           onClick={() => {
             setPanel("A - Z");
             handleSortAZ();
-            // setSortModel(
-            //   products.sort((a, b) => {
-            //     if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-            //   })
-            // );
           }}
           className={`${
             panel === "A - Z"
@@ -161,11 +170,6 @@ function Shop() {
           onClick={() => {
             setPanel("Z - A");
             handleSortZA();
-            // setSortModel(
-            //   products.sort((a, b) => {
-            //     if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
-            //   })
-            // );
           }}
           className={`${
             panel === "Z - A"
@@ -180,22 +184,25 @@ function Shop() {
         id="grid"
         className="grid grid-cols-1 md:grid-cols-2 py-20 mx-16 gap-x-10 gap-y-10 lg:grid-cols-3 justify-items-center "
       >
-        {(sortModel ? sortModel : products).map((prod) => (
+        {(products ? products : sortModel).map((prod) => (
           <div
             key={prod._id}
-            onClick={() => navigate(`/shop/product/${prod._id}`)}
-            className=" border-2 cursor-pointer border-pink-100 shadow-xl rounded-xl flex w-min justify-between"
+            className=" border-2 border-pink-100 shadow-xl rounded-xl flex w-min justify-between"
           >
             <div className="flex justify-between flex-col">
               <img
-                src={!prod.avatar ? prod.avatar : powder1}
-                className="  max-h-48 max-w-48 rounded-xl justify-self-start"
+                src={prod.avatar[0]?.path ? prod.avatar[0].path : powder1}
+                onClick={() => navigate(`/shop/product/${prod._id}`)}
+                className="  max-h-48 max-w-48 rounded-xl cursor-pointer justify-self-start"
               />
               <div className="flex gap-5 content-center ml-4 justify-between mb-1">
-                <p className="w-36 font-bold text-lg text-custom-gray">
+                <p
+                  onClick={() => navigate(`/shop/product/${prod._id}`)}
+                  className="w-36 cursor-pointer font-bold text-lg text-custom-gray"
+                >
                   {prod.name}
                 </p>
-                <p className="font-bold text-pink-400">{prod.price}$</p>
+                <p className="font-bold text-pink-400">${prod.price}</p>
               </div>
               <p className=" flex gap-5 ml-4 justify-between mb-2 text-sm text-custom-gray">
                 {prod.description.length > 10
@@ -207,10 +214,21 @@ function Shop() {
               </p>
             </div>
 
-            <div className="flex flex-col justify-between py-6  gap-1 items-center">
+            <div className="flex flex-col justify-between pb-6 pt-4  gap-1 items-center">
+              <div className="w-5 flex items-center justify-center h-5">
+                {path === "admin" || prod.username === user.username ? (
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      reqDelete(prod._id);
+                    }}
+                    className="cursor-pointer text-red-500   flex justify-center hover:text-red-700 font-bold text-xl px-2"
+                  >
+                    X
+                  </button>
+                ) : null}
+              </div>
               <p className="w-20 flex text-sm justify-center ">20 Persons</p>
-              {/* if product was any of categories */}
-
               {prod.category === "Face" ? (
                 <img src={womanface} className="w-9 my-2" />
               ) : prod.category === "Hands" ? (

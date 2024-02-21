@@ -2,53 +2,70 @@ import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 
 const initialState = {
-  cart: [],
-  products: [],
+  items: [],
 };
 
-const cartSlice = createSlice({
+export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    updateProducts(state, action) {
-      // payload = newItem
-      state.products.push(action.payload);
+    addItem: (state, action) => {
+      const newItem = action.payload;
+      const existingItemIndex = state.items.findIndex(
+        (item) => item.productId === newItem.productId
+      );
+
+      if (existingItemIndex !== -1) {
+        state.items[existingItemIndex].quantity += newItem.quantity;
+      } else {
+        state.items.push(newItem);
+      }
     },
-    addItem(state, action) {
-      // payload = newItem
-      state.cart.push(action.payload);
-    },
-    deleteItem(state, action) {
-      // payload = productId
-      state.cart = state.cart.filter(
-        (item) => item.productId !== action.payload
+    removeItem: (state, action) => {
+      state.items = state.items.filter(
+        (item) => item.productId !== action.payload.productId
       );
     },
-    increaseItemQuantity(state, action) {
-      // payload = productId
-      const item = state.cart.find((item) => item.productId === action.payload);
-      item.quantity++;
-      item.totalPrice = item.quantity * item.unitPrice;
+    increaseItemQuantity: (state, action) => {
+      const { productId } = action.payload;
+      const existingItem = state.items.find(
+        (item) => item.productId === productId
+      );
+      if (existingItem) {
+        existingItem.quantity++;
+        existingItem.totalPrice = existingItem.price * existingItem.quantity;
+      }
     },
-    decreaseItemQuantity(state, action) {
-      // payload = productId
-      const item = state.cart.find((item) => item.productId === action.payload);
-
-      item.quantity--;
-      item.totalPrice = item.quantity * item.unitPrice;
-
-      if (item.quantity === 0) cartSlice.caseReducers.deleteItem(state, action);
+    decreaseItemQuantity: (state, action) => {
+      const { productId } = action.payload;
+      const existingItem = state.items.find(
+        (item) => item.productId === productId
+      );
+      if (existingItem && existingItem.quantity > 1) {
+        existingItem.quantity--;
+        existingItem.totalPrice = existingItem.price * existingItem.quantity;
+      }
     },
-    clearCart(state) {
-      state.cart = [];
+    clearCart: (state) => {
+      state.items = [];
     },
   },
 });
 
+export const getCurrentQuantityById = (productId) => (state) => {
+  const item = state.cart.items.find((item) => item.productId === productId);
+  return item ? item.quantity : 0;
+};
+
+export const getTotalCartPrice = (state) =>
+  state.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+export const getTotalCartQuantity = (state) =>
+  state.cart.items.reduce((total, item) => total + item.quantity, 0);
+
 export const {
-  updateProducts,
   addItem,
-  deleteItem,
+  removeItem,
   increaseItemQuantity,
   decreaseItemQuantity,
   clearCart,
@@ -56,19 +73,4 @@ export const {
 
 export default cartSlice.reducer;
 
-export const getCart = (state) => state.cart.cart;
-export const useCart = () => useSelector((state) => state.cart?.products[1]);
-
-export const getTotalCartQuantity = (state) =>
-  state.cart.cart.reduce((sum, item) => sum + item.quantity, 0);
-
-export const getTotalCartPrice = (state) =>
-  state.cart.cart.reduce(
-    (sum, item) => sum + item.unitPrice * item.quantity,
-    0
-  );
-
-export const getCurrentQuantityById = (id) => (state) =>
-  state.cart.cart.find((item) => item.productId === id)?.quantity ?? 0;
-
-// 'reselect'
+export const useCart = () => useSelector((state) => state.cart.items);

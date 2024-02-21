@@ -5,9 +5,12 @@ import iconCart from "../images/iconCart.png";
 import { useUser } from "../Slicers/userSlice";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../App";
+import { useSelector } from "react-redux";
+import { getTotalCartQuantity } from "../Slicers/cartSlice";
 
 function DashNavbar() {
   const user = useUser();
+  const totalCartQuantity = useSelector(getTotalCartQuantity);
   const [nameInNavbar, setNameInNavbar] = useState();
   const { path } = useContext(UserContext);
 
@@ -30,7 +33,7 @@ function DashNavbar() {
         {path === "user" && (
           <div className="indicator">
             <span className="indicator-item badge badge-secondary w-1 font-bold text-white">
-              0
+              {totalCartQuantity}
             </span>
             <button
               onClick={() => {

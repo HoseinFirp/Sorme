@@ -17,7 +17,7 @@ import {
 import userReducer from "./Slicers/userSlice.js";
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
-
+import cartReducer from './Slicers/cartSlice.js';
 // import { getDefaultMiddleware } from "@reduxjs/toolkit";
 // import logger from "redux-logger";
 
@@ -31,6 +31,7 @@ const persistedUserReducer = persistReducer(persistConfig, userReducer);
 const store = configureStore({
   reducer: {
     user: persistedUserReducer,
+    cart: cartReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
