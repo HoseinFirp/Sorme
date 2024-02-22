@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateToken } from "../Slicers/userSlice";
-import PropTypes from "prop-types";
 
 const CountdownTimer = ({ initialSeconds }) => {
   const [seconds, setSeconds] = useState(initialSeconds);
@@ -61,7 +60,5 @@ const CountdownTimer = ({ initialSeconds }) => {
     </span>
   );
 };
-CountdownTimer.propTypes = {
-  initialSeconds: PropTypes.number.isRequired,
-};
+
 export default CountdownTimer;

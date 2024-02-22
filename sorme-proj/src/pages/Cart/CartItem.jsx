@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 
 function CartItem({ data }) {
   const { name, quantity, totalPrice, price } = data;
@@ -16,8 +15,5 @@ function CartItem({ data }) {
   );
 }
 
-CartItem.propTypes = {
-  data: PropTypes.any.isRequired,
-};
 
 export default CartItem;

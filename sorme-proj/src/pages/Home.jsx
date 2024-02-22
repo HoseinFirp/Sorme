@@ -23,12 +23,13 @@ import supportPic from "../images/supportPic.png";
 import MiniSlider from "../Tools/MiniSlider";
 import FormOpinions from "../Tools/FormOpinions";
 import CountdownTimer from "../Tools/CountDown";
+import SliderOne from "../Tools/SliderNew";
 
 function Home() {
   return (
     <div className="bg-white pt-20 lg:pt-5 pl-16 pr-16 pb-20">
-      <Slider />
-
+      {/* <Slider /> */}
+      <SliderOne />
       <div className="grid sm:grid-cols-2 gap-y-10 md:grid-cols-2 lg:grid-cols-4 pt-10  justify-items-center">
         <img src={rimmel1} className="w-72 sm:w-56 lg:w-52" />
         <img src={rimmel2} className="w-72 sm:w-56 lg:w-52" />

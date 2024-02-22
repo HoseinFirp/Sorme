@@ -1,4 +1,4 @@
-import userWhitenew from "../../images/userWhitenew.png";
+import userWhitenew from "../../images/userwhitenew.png";
 import sormenew from "../../images/sormenew.png";
 import sellerWhite from "../../images/sellerWhite.png";
 import { useNavigate } from "react-router-dom";

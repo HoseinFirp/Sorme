@@ -3,7 +3,7 @@ import callPic from "../images/callPic.png";
 import enamad from "../images/enamad.png";
 import etehadieh from "../images/etehadieh.png";
 import enamad2 from "../images/enamad2.png";
-import sormeLogoFooter from "../images/sormeLogoFooter.png";
+import sormeLogoFooter from "../images/SormeLogoFooter.png";
 
 function Footer() {
   return (

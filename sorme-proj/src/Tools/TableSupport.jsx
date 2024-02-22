@@ -7,7 +7,6 @@ import { LoaderDots1 } from "./Loaders/LoaderDots";
 function TableSupport() {
   const [supports, setSupports] = useState([]);
   const [mergedArray, setMergedArray] = useState([]);
-  const [supportsUsers, setSupportsUsers] = useState([]);
   const [supportsUserProfile, setSupportsUserProfile] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -16,7 +15,6 @@ function TableSupport() {
 
   useEffect(() => {
     setSupportsUserProfile(user.data.Support);
-
   }, [supportsUserProfile, user.data.Support]);
 
   useEffect(() => {
@@ -40,11 +38,10 @@ function TableSupport() {
             },
           }
         );
-        setSupportsUsers(dataUsers.data);
         setSupports(data);
         setSupport(data);
         setLoading(false);
-        let mergedArray1 = supports.concat(supportsUsers);
+        let mergedArray1 = supports.concat(dataUsers.data);
         setMergedArray(mergedArray1);
         setActiveTickets(mergedArray1.length);
       } catch (error) {
@@ -84,10 +81,7 @@ function TableSupport() {
                   new Date(a.createdAt.slice(0, 10))
               )
               .map((data) => (
-                <tr
-                  className="cursor-pointer active:bg-pink-500 border-b-2"
-                  key={data._id}
-                >
+                <tr className="cursor-pointer" key={data._id}>
                   <td className="text-gray-500 flex gap-2 justify-between font-bold py-4">
                     {data.Support.map((data) => (
                       <p key={data._id}>{data.name}</p>

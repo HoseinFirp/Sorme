@@ -10,7 +10,7 @@ import pinkObj from "../../images/pinkObj.png";
 import sellerIcon from "../../images/sellerIcon.png";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../App";
-import userPic from "../../images/userPic.png";
+import userPic from "../../images/userpic.png"
 import { useUser } from "../../Slicers/userSlice";
 
 function DashSidebar() {

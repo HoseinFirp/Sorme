@@ -1,5 +1,5 @@
 import sormenew from "../../images/sormenew.png";
-import userWhitenew from "../../images/userWhitenew.png";
+import userWhitenew from "../../images/userwhitenew.png";
 import hidenew from "../../images/hidenew.png";
 import viewnew from "../../images/viewnew.png";
 import sellerWhite from "../../images/sellerWhite.png";
@@ -73,7 +73,6 @@ function SignInComp() {
       );
 
       setShowAlert(true);
-
       dispatch(updateToken(data.token));
       dispatch(updateSupport(data?.Support));
       dispatch(updateData(data));

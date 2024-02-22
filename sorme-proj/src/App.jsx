@@ -138,9 +138,12 @@ function App() {
               element={<DashFavorites />}
               />
             <Route path="/dashboard-panel/wallet" element={<DashWallet />} />
-            <Route path="/dashboard-panel/support" element={<DashSupport />} />
               </>:<Route path="*" element={<PageNotFound />} />
             }
+            {path==="user" || path==="admin"?
+
+              <Route path="/dashboard-panel/support" element={<DashSupport />} />
+            :<Route path="*" element={<PageNotFound />} />}
             <Route
               path="/dashboard-panel/settings"
               element={<DashSettings />}

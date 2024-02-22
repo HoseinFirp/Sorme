@@ -50,7 +50,7 @@ function DashSettings() {
   function handleLogout(e) {
     setLoadingLogout(true);
     e.preventDefault();
-    dispatch(updateToken(""));
+   
     dispatch(updateName(""));
     dispatch(updateFullname(""));
     dispatch(updateEmail(""));
@@ -60,6 +60,7 @@ function DashSettings() {
     dispatch(updateBirth(""));
     setPath("");
     setTimeout(() => {
+      dispatch(updateToken(""));
       navigate("/");
       setLoadingLogout(false);
     }, 1500);
@@ -70,7 +71,7 @@ function DashSettings() {
     if (storedValue) {
       setAddress(storedValue);
     }
-  }, []);
+  }, [user.username]);
 
   const req = async () => {
     setShowAlert1(false);
