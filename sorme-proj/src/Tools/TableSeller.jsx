@@ -8,7 +8,6 @@ function TableSeller() {
   const [sellers, setSellers] = useState([]);
   const [flag, setFlag] = useState(false);
 
-  console.log(sellers);
 
   const reqDelete = async (_id) => {
     try {
@@ -38,7 +37,6 @@ function TableSeller() {
             },
           }
         );
-        console.log(data);
         setSellers(data);
         setFlag(false);
       } catch (error) {

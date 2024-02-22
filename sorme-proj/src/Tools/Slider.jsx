@@ -5,7 +5,6 @@ import rArrow from "../images/rArrow.png";
 import lArrow from "../images/lArrow.png";
 
 function Slider() {
-  // const[slide,setSlide] = useState("1")
   return (
     <div className="overflow-x-auto">
       <div className="carousel w-full h-full mt-36">

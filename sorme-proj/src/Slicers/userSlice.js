@@ -52,9 +52,6 @@ const userSlice = createSlice({
     updateAddress(state, action) {
       state.address = action.payload;
     },
-    // deleteItem(state, action) {
-    //   state.data = state.data.filter((item) => item._id !== action.payload);
-    // },
   },
 });
 
@@ -75,5 +72,3 @@ export const {
 export const useUser = () => useSelector((state) => state.user);
 
 export default userSlice.reducer;
-
-// export { fetchDeleteItem };

@@ -1,9 +1,11 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useUser } from "../Slicers/userSlice";
+import { UserContext } from "../App";
 
 function Table() {
-  const user = useUser()
+  const user = useUser();
+  const { path } = useContext(UserContext);
 
   useEffect(() => {
     const req = async () => {
@@ -21,9 +23,30 @@ function Table() {
         console.log(error.response.data);
       }
     };
-    req();
-  }, [user.token]);
-  
+    if (path === "admin") {
+      req();
+    }
+  }, [user.token, path]);
+
+
+// useEffect(()=>{
+//   const reqUser = async () => {
+//     try {
+//       const data = await axios.get(
+//         `https://keykavoos-sorme.liara.run/Order/All-Order`,
+//         {
+//           headers: {
+//             Authorization: `Bearer ${user.token}`,
+//           },
+//         }
+//       );
+//       console.log(data);
+//     } catch (error) {
+//       console.log(error.response.data);
+//     }
+//   };
+// },[])
+
   return (
     <div className="overflow-x-auto lg:scale-110 md:scale-75 scale-50 bg-pink-300 bg-opacity-20  p-5 rounded-lg">
       <table className="table">

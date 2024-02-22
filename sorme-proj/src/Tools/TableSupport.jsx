@@ -17,7 +17,6 @@ function TableSupport() {
   useEffect(() => {
     setSupportsUserProfile(user.data.Support);
 
-    console.log(supportsUserProfile);
   }, [supportsUserProfile, user.data.Support]);
 
   useEffect(() => {
@@ -42,14 +41,12 @@ function TableSupport() {
           }
         );
         setSupportsUsers(dataUsers.data);
-        console.log(dataUsers.data);
         setSupports(data);
         setSupport(data);
         setLoading(false);
         let mergedArray1 = supports.concat(supportsUsers);
         setMergedArray(mergedArray1);
         setActiveTickets(mergedArray1.length);
-        console.log(mergedArray1);
       } catch (error) {
         setLoading(false);
 

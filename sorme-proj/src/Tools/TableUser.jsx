@@ -37,7 +37,6 @@ function TableUser() {
             },
           }
         );
-        console.log(data);
         setUsers(data);
         setFlag(false)
       } catch (error) {

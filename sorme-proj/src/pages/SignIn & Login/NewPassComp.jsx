@@ -38,7 +38,6 @@ function NewPassComp() {
   const req = async () => {
     setShowAlert(false);
     setLoading(true);
-    console.log(username.username);
     try {
       const { data } = await axios.put(
         `https://keykavoos-sorme.liara.run/${
@@ -64,7 +63,6 @@ function NewPassComp() {
     } catch (error) {
       setLoading(false);
       setShowError(error.response.data.message);
-      console.log(error);
     }
   };
 

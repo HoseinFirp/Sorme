@@ -12,7 +12,10 @@ function PageNotFound() {
         Page not found!
       </p>
       <form className="absolute top-1/2 mt-24 scale-50 sm:mt-20 sm:scale-75 md:scale-100 md:mt-28   left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center">
-        <button className="bg-custom-bg-pink w-7 h-7 items-center text-black rounded-md scale-125 justify-center flex">
+        <button
+          onClick={(e) => e.preventDefault()}
+          className=" bg-custom-bg-pink hover:bg-pink-500 transition duration-300 active:bg-pink-600  w-7 h-7 items-center text-black rounded-md scale-125 justify-center flex"
+        >
           <HiMiniMagnifyingGlass />
         </button>
         <input

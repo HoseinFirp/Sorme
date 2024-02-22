@@ -63,7 +63,6 @@ function EnterCode() {
     setShowAlert(false);
     setLoading(true);
 
-    console.log(code);
     try {
       const { data } = await axios.post(
         `https://keykavoos-sorme.liara.run/${
@@ -71,10 +70,9 @@ function EnterCode() {
         }/Signup_OTP`,
         {
           email: `${email.email}`,
-          OTP: `2024`,
+          OTP: `${code}`,
         }
       );
-      console.log(data);
       setLoading(false);
 
       setShowAlert(true);
@@ -85,7 +83,6 @@ function EnterCode() {
     } catch (error) {
       setLoading(false);
 
-      console.log(error);
       setShowError(error.response.data.message);
     }
   };

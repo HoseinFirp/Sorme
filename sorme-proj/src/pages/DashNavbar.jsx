@@ -27,9 +27,6 @@ function DashNavbar() {
       />
       <div className="flex gap-5 items-center">
         <p>Welcome {nameInNavbar}</p>
-        {/* <button className="scale-150 flex gap-1 text-md active:bg-gray-300 bg-custom-bg-1 transition duration-200 hover:bg-gray-200 rounded-full border-black p-1  font-bold items-center">
-          <HiUser />
-        </button> */}
         {path === "user" && (
           <div className="indicator">
             <span className="indicator-item badge badge-secondary w-1 font-bold text-white">

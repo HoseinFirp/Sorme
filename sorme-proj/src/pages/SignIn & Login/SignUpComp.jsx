@@ -7,8 +7,6 @@ import sellerWhite from "../../images/sellerWhite.png";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-// import SuccessAlert from "../../Tools/alerts/SuccessAlert";
 import ErrorAlert from "../../Tools/alerts/ErrorAlert";
 import { UserContext } from "../../App";
 import LoaderDots from "../../Tools/Loaders/LoaderDots";
@@ -18,7 +16,6 @@ function SignInComp() {
   const [email, setEmail] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [isValid, setIsValid] = useState(true);
-  // const [showAlert, setShowAlert] = useState(false);
   const [showError, setShowError] = useState(false);
   const [loading, setLoading] = useState(false);
   const { setPathForgot } = useContext(UserContext);
@@ -52,11 +49,9 @@ function SignInComp() {
       navigate("/login-seller");
     }
   }
-  // const dispatch =useDispatch()
 
   const req = async () => {
     setShowError(false);
-    // setShowAlert(false);
     setLoading(true);
     try {
       const { data } = await axios.post(
@@ -70,13 +65,11 @@ function SignInComp() {
         }
       );
       console.log(data);
-      // setShowAlert(true);
       const newEmail = { email: `${email}` };
       localStorage.setItem("userEmail", JSON.stringify(newEmail));
       setLoading(false);
       navigate("/entercode");
     } catch (error) {
-      console.log(error);
       setLoading(false);
       setShowError(error.response.data.messages);
     }

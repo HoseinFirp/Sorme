@@ -72,7 +72,6 @@ function SignInComp() {
         }
       );
 
-      console.log(data);
       setShowAlert(true);
 
       dispatch(updateToken(data.token));
@@ -84,17 +83,11 @@ function SignInComp() {
       if (username === "admin") {
         setPath("admin");
       }
-      // dispatch(updateName(data.username));
-      // dispatch(updateEmail(data.email));
-      // dispatch(updatePosition(data.position));
-      // dispatch(updateId(data._id));
-
       setLoading(false);
       setTimeout(() => {
         navigate("/dashboard-panel");
       }, 1500);
     } catch (error) {
-      console.log(error);
       setLoading(false);
       setShowError(error.response.data.message);
     }

@@ -18,7 +18,7 @@ function FormOpinions() {
   const [message, setMessage] = useState("");
   const user = useUser();
   const location = useLocation();
-  const { path, support } = useContext(UserContext);
+  const { path } = useContext(UserContext);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -37,8 +37,6 @@ function FormOpinions() {
     setShowError(false);
     setShowAlert(false);
     setLoading(true);
-
-    // console.log(path);
     try {
       const { data } = await axios.post(
         `https://keykavoos-sorme.liara.run/user/support`,
@@ -56,7 +54,6 @@ function FormOpinions() {
       setEmail("");
       setMessage("");
     } catch (error) {
-      console.log(error);
       setLoading(false);
       setShowError(error.response.data.message);
     }
@@ -86,7 +83,6 @@ function FormOpinions() {
       setMessage("");
       console.log(data);
     } catch (error) {
-      console.log(error);
       setLoading(false);
       setShowError(error.response.data.messages);
     }

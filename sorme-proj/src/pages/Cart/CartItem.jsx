@@ -1,5 +1,4 @@
-// import DeleteItem from "./DeleteItem";
-// import UpdateItemQuantity from "./UpdateItemQuantity";
+import PropTypes from "prop-types";
 
 function CartItem({ data }) {
   const { name, quantity, totalPrice, price } = data;
@@ -16,5 +15,9 @@ function CartItem({ data }) {
     </li>
   );
 }
+
+CartItem.propTypes = {
+  data: PropTypes.any.isRequired,
+};
 
 export default CartItem;

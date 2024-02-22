@@ -42,7 +42,6 @@ function DashSidebar() {
       setPanel("settingsPanel");
     }
   }, [location.pathname, user.panel]);
-  console.log(user);
   const { path } = useContext(UserContext);
   return (
     <div className="drawer shadow-slate-300 shadow-inner bg-white lg:drawer-open">

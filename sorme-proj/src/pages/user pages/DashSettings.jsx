@@ -23,7 +23,6 @@ import {
 
 function DashSettings() {
   const user = useUser();
-  // const [username, setUsername] = useState(`${user.username}`);
   const [fullName, setFullName] = useState(user.fullname);
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState();
@@ -102,16 +101,12 @@ function DashSettings() {
       );
 
       dispatch(updateFullname(fullName));
-      console.log(data);
       setLoadingConfirm(false);
       localStorage.setItem(`input${user.username}Address`, address);
       setShowAlert1(data.message);
     } catch (error) {
       setLoadingConfirm(false);
-
       setShowError1(error.response.data.message);
-      console.log(user.token);
-      console.log(error);
     }
     if (newPassword && confirmPassword) {
       try {
@@ -128,14 +123,11 @@ function DashSettings() {
             },
           }
         );
-        console.log(data);
         setShowAlert2(data.message);
         setLoadingConfirm(false);
       } catch (error) {
         setLoadingConfirm(false);
-
         setShowError2(error.response.data.message);
-        console.log(error);
       }
     }
     if (avatar) {
@@ -153,7 +145,6 @@ function DashSettings() {
             },
           }
         );
-        console.log(data);
         setLoadingConfirm(false);
         setShowAlert3(data.message);
         dispatch(updateAvatar(avatar))
@@ -161,7 +152,6 @@ function DashSettings() {
         setLoadingConfirm(false);
 
         setShowError3(error.response.data.message);
-        console.log(error);
       }
     }
   };

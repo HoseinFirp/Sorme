@@ -28,8 +28,6 @@ function ForgotComp() {
     setShowError(false);
     setLoading(true);
 
-    console.log(username);
-    console.log(path);
     try {
       const { data } = await axios.put(
         `https://keykavoos-sorme.liara.run/user/get-otp${
@@ -37,7 +35,6 @@ function ForgotComp() {
         }`,
         { username: `${username}` }
       );
-      console.log(data);
       setLoading(false);
 
       setShowAlert(data.message);
@@ -56,7 +53,6 @@ function ForgotComp() {
       setLoading(false);
 
       setShowError(error.response.data.message);
-      console.log(error);
     }
   };
 

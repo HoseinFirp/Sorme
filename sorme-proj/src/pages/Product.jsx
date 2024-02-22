@@ -14,7 +14,6 @@ import {
   decreaseItemQuantity,
   getCurrentQuantityById,
   increaseItemQuantity,
-  useCart,
 } from "../Slicers/cartSlice";
 
 function Product() {
@@ -24,17 +23,10 @@ function Product() {
   const [showError, setShowError] = useState(false);
   const [product, setProduct] = useState([]);
   const [id, setId] = useState("");
-
   const currentQuantity = useSelector(getCurrentQuantityById(product[0]?._id));
-  console.log(currentQuantity);
-
-  const cart = useCart();
-  console.log("cart : ", cart);
-
   useEffect(() => {
     setId(loaction.pathname.slice(14));
   }, [loaction.pathname]);
-  console.log(product);
 
   function handleAdd(e) {
     e.preventDefault();
@@ -46,22 +38,18 @@ function Product() {
       quantity: 1,
       totalPrice: currentQuantity * product[0].price,
     };
-
-    console.log(newItem);
     dispatch(addItem(newItem));
   }
 
   useEffect(() => {
     const req = async () => {
       setShowError(false);
-      // setShowAlert(false);
       try {
         const { data } = await axios.get(
           `https://keykavoos-sorme.liara.run/Product/One_Product/${id}`
         );
         setProduct(data);
       } catch (error) {
-        console.log(error);
         setShowError(error.response.data.messages);
       }
     };

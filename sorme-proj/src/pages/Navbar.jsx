@@ -1,7 +1,6 @@
 import NavbarPic from "../images/NavbarPic.png";
 import SormeLogo from "../images/SormeLogo.png";
 import seller from "../images/seller.png";
-// import locImg from "../images/locImg.png";
 import weblog from "../images/weblog.png";
 import chatIcon from "../images/chatIcon.png";
 import organization from "../images/organization.png";
@@ -234,7 +233,6 @@ function Navbar() {
             >
               Sorme&apos;s branches
             </Link>
-            {/* <img src={locImg} className="w-5 " /> */}
             <LocationLoader />
           </button>
         </div>

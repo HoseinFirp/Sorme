@@ -128,27 +128,34 @@ function App() {
             <Route path="/shop/product/:_id" element={<Product />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
+          {user.token?
           <Route element={<DashboardLayout />}>
             <Route path="/dashboard-panel" element={<DashPanel />} />
+            {path==="user"?<>
             <Route path="/dashboard-panel/orders" element={<DashOrders />} />
             <Route
               path="/dashboard-panel/favorites"
               element={<DashFavorites />}
-            />
+              />
             <Route path="/dashboard-panel/wallet" element={<DashWallet />} />
             <Route path="/dashboard-panel/support" element={<DashSupport />} />
+              </>:<Route path="*" element={<PageNotFound />} />
+            }
             <Route
               path="/dashboard-panel/settings"
               element={<DashSettings />}
             />
+            {path==="admin"?<>
             <Route path="/dashboard-panel/users" element={<DashUser />} />
             <Route path="/dashboard-panel/sellers" element={<DashSeller />} />
             <Route
               path="/dashboard-panel/financial"
               element={<DashFinancial />}
-            />
-            <Route path="/dashboard-panel/product" element={<DashProduct />} />
-          </Route>
+              />
+              </>:<Route path="*" element={<PageNotFound />} />
+            }{path==="seller"?
+            <Route path="/dashboard-panel/product" element={<DashProduct />} />:<Route path="*" element={<PageNotFound />} />}
+          </Route>:<Route path="*" element={<PageNotFound />} />}
           <Route path="/login" element={<SignInComp />} />
           <Route path="/login-seller" element={<SignInComp />} />
           <Route path="/signup" element={<SignUpComp />} />

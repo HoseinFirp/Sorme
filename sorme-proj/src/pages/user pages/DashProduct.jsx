@@ -70,7 +70,6 @@ function DashProduct() {
             },
           }
         );
-        console.log(data);
         setLoadingConfirm(false);
         setShowAlert(data.message);
         setProductName("");
@@ -84,7 +83,6 @@ function DashProduct() {
         setLoadingConfirm(false);
 
         setShowError(error.response.data.message);
-        console.log(error);
       }
     } else {
       setShowError("Please upload your product photo");
@@ -109,7 +107,6 @@ function DashProduct() {
               },
             }
           );
-          console.log(data);
           setLoadingConfirm(false);
           setShowAlert("Product picture added");
           setLoadingConfirm(false);
@@ -117,7 +114,6 @@ function DashProduct() {
         } catch (error) {
           setLoadingConfirm(false);
           setShowError(error.response.data.message);
-          console.log(error);
         }
       };
       req();

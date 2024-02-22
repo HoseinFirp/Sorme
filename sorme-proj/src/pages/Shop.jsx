@@ -25,12 +25,6 @@ function Shop() {
   const [panel, setPanel] = useState("Best");
   const [flag, setFlag] = useState(false);
 
-  // for delete product  .:: delete ::.
-  // https://keykavoos-sorme.liara.run/Admin/deleteProduct/:_id
-  // https://keykavoos-sorme.liara.run/seller/deleteProduct/:_id
-
-  // id + token
-
   const reqDelete = async (_id) => {
     setShowError(false);
 
@@ -50,7 +44,6 @@ function Shop() {
       setShowAlert(data.message);
       setFlag(true);
     } catch (error) {
-      console.log(error);
       setShowError(error.response.data.messages);
     }
   };
@@ -58,7 +51,6 @@ function Shop() {
   useEffect(() => {
     const req = async () => {
       setShowError(false);
-      // setShowAlert(false);
       try {
         const { data } = await axios.get(
           `https://keykavoos-sorme.liara.run/Product/all_Product`
@@ -66,7 +58,6 @@ function Shop() {
         setProducts(data);
         setFlag(false);
       } catch (error) {
-        console.log(error);
         setShowError(error.response.data.messages);
       }
     };

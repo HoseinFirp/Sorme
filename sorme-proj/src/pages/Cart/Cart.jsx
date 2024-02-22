@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-// import { clearCart, useCart } from "../../Slicers/cartSlice";
 import { useUser } from "../../Slicers/userSlice";
 import CartItem from "./CartItem";
 import { useDispatch } from "react-redux";
@@ -59,7 +58,6 @@ function Cart() {
           },
         }
       );
-      console.log(data);
       setShowAlert(data)
       setLoading(false);
       dispatch(clearCart())
