@@ -64,19 +64,7 @@ function Shop() {
     req();
   }, [flag]);
 
-  const handleSortAZ = () => {
-    const sortedData = [...products].sort((a, b) =>
-      a.name.localeCompare(b.name)
-    );
-    setSortModel(sortedData);
-  };
 
-  const handleSortZA = () => {
-    const sortedData = [...products].sort((a, b) =>
-      b.name.localeCompare(a.name)
-    );
-    setSortModel(sortedData);
-  };
   return (
     <div className="bg-white">
       <div className="text-sm ml-16 pt-52 breadcrumbs bg-white text-gray-600">
@@ -147,7 +135,7 @@ function Shop() {
         <button
           onClick={() => {
             setPanel("A - Z");
-            handleSortAZ();
+            setSortModel(products.sort((a, b) => a.name.localeCompare(b.name)));
           }}
           className={`${
             panel === "A - Z"
@@ -160,7 +148,7 @@ function Shop() {
         <button
           onClick={() => {
             setPanel("Z - A");
-            handleSortZA();
+            setSortModel(products.sort((a, b) => b.name.localeCompare(a.name)));
           }}
           className={`${
             panel === "Z - A"
@@ -207,7 +195,8 @@ function Shop() {
 
             <div className="flex flex-col justify-between pb-6 pt-4  gap-1 items-center">
               <div className="w-5 flex items-center justify-center h-5">
-                {path === "admin" || prod.username === user.username ? (
+                {(user.token && path === "admin") ||
+                prod.username === user.username ? (
                   <button
                     onClick={(e) => {
                       e.preventDefault();

@@ -1,8 +1,8 @@
 import emailPic from "../images/emailPic.png";
 import callPic from "../images/callPic.png";
-import enamad from "../images/enamad.png";
-import etehadieh from "../images/etehadieh.png";
-import enamad2 from "../images/enamad2.png";
+// import enamad from "../images/enamad.png";
+// import etehadieh from "../images/etehadieh.png";
+// import enamad2 from "../images/enamad2.png";
 import sormeLogoFooter from "../images/SormeLogoFooter.png";
 
 function Footer() {
@@ -25,9 +25,9 @@ function Footer() {
             <p className="text-custom-gray  text-lg lg:text-2xl">Phone Call</p>
           </div>
           <div className="flex mt-5 lg:mt-0 justify-center lg:justify-start gap-5 order-6 lg:order-4">
-            <img src={enamad} className="h-20" />
+            {/* <img src={enamad} className="h-20" />
             <img src={etehadieh} className="h-20" />
-            <img src={enamad2} className="h-20" />
+            <img src={enamad2} className="h-20" /> */}
           </div>
           <p className=" lg:text-lg order-3 lg:order-5">info@sorme.com</p>
           <p className=" lg:text-lg lg:order-6 order-5">021-77111258</p>

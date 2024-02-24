@@ -7,6 +7,8 @@ import slider1 from "../images/slider1.png";
 import slider2 from "../images/slider2.png";
 import slider3 from "../images/slider3.png";
 
+
+
 const SliderOne = () => {
   return (
     <div className="mt-44">
